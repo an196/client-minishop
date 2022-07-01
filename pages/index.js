@@ -1,6 +1,6 @@
 import React from 'react';
-import { client } from '../lib/client';
-import { Product, FooterBanner, HeroBanner } from '../components';
+import { client } from '~/lib/client';
+import { Product, FooterBanner, HeroBanner, Layout } from '~/components';
 
 function Home({products , bannerData}) {
     return (
@@ -33,5 +33,13 @@ export const getServerSideProps = async () => {
       }
     }
 };
+
+Home.getLayout = function getLayout(page) {
+  return (
+    <Layout>
+      {page}
+    </Layout>
+  )
+}
 
 export default Home;

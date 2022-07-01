@@ -1,14 +1,15 @@
 import React from 'react';
 import Head from 'next/head';
-
 import Navbar from './Navbar';
 import Footer from './Footer';
 
 function Layout({ children }) {
-    return (
+   
+
+    return  (
         <div className='layout'>
             <Head>
-                <title>JS Mastery Store</title>
+                <title></title>
             </Head>
             <header>
                 <Navbar />
@@ -20,5 +21,6 @@ function Layout({ children }) {
         </div>
     );
 }
+
 
 export default Layout;
