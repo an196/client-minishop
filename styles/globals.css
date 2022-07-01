@@ -31,4 +31,5 @@ body,
 		@apply py-2 px-2 rounded-sm border-[#f02d34] border mt-10 text-xl font-medium bg-white
 		text-[#f02d34] cursor-pointer w-[200px] scale-100 duration-500  ease-in hover:scale-110 md:w-[150px];
 	}
+
 }
