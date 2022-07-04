@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { urlFor } from '../lib/client';
 import fallbackImage from '~/assets/default-image.png';
 
 function FooterBanner({ footerBanner }) {

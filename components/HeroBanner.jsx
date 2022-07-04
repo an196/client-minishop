@@ -1,7 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { urlFor } from '~/lib/client';
 import fallbackImage from '~/assets/default-image.png';
 
 function HeroBanner({ heroBanner }) {
@@ -21,7 +20,7 @@ function HeroBanner({ heroBanner }) {
                             className='rounded-[15px] py-[10px] px-[16px] bg-[#f02d34] text-white border-none mt-[40px] 
                             text-[18px] font-medium cursor-pointer z-[1000] '
                         >
-                            BUTTON TEXT
+                           {heroBanner?.buttonText}
                         </button>
 					</Link>
 					<div className='absolute right-[10%] bottom-[5%] width-[300px] leading-[1.3] flex flex-col text-[#324d67]'>
