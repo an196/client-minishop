@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/Link';
 import Image from 'next/image';
 import fallbackImage from '~/assets/default-image.png';
+
 function Product({ product }) {
 	return (
 		<>

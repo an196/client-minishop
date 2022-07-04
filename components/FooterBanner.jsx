@@ -1,8 +1,10 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import fallbackImage from '~/assets/default-image.png';
+import { localeTime } from '../helper/formatTime';
 
 function FooterBanner({ footerBanner }) {
+
 	return (
 		<div className='py-[100px] px-[40px] bg-[#f02d34] rounded-[15px] relative h-400 leading-none text-white w-full mt-[120px]'>
 			<div className='flex justify-between'>
@@ -10,7 +12,7 @@ function FooterBanner({ footerBanner }) {
 					<p className='m-[18px]'>{footerBanner?.discount}</p>
 					<h3 className='text-[80px] font-black ml-[25px]'>{footerBanner?.largeText1}</h3>
 					<h3 className='text-[80px] font-black ml-[25px]'>{footerBanner?.largeText2}</h3>
-					<p className='m-[18px]'>{footerBanner?.saleTime}</p>
+					<p className='m-[18px] font-bold'>{footerBanner?.saleTime? localeTime(footerBanner?.saleTime, 'dd/MM/yyyy'): ''}</p>
 				</div>
 				<div className=''>
 					<p className='text-[18px]'>{footerBanner?.smallText}</p>

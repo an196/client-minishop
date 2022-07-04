@@ -3,6 +3,7 @@ import { Product, FooterBanner, HeroBanner, Layout } from '~/components';
 import { useGetBannerQuery } from '~/features/banner/bannerApiSlice';
 import { useGetProductsQuery } from '~/features/product/productApiSlice';
 
+
 function Home() {
 	const { data , isLoading, isSuccess, isError, error } = useGetBannerQuery();
 	const {data: products ,  } = useGetProductsQuery();
@@ -10,6 +11,7 @@ function Home() {
   let bannerData;
   if(isSuccess){
     bannerData = [...data];
+	console.log(bannerData)
   }
 
   if(isError){
