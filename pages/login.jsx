@@ -2,6 +2,7 @@ import React from 'react';
 import backgroundImg from '~/assets/headphone.jpg';
 import { useForm } from 'react-hook-form';
 import { SiShopware } from 'react-icons/si';
+import { IoMdArrowRoundBack } from 'react-icons/io';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { setCredentials } from '~/features/auth/authSlice';
@@ -10,7 +11,7 @@ import Image from 'next/image';
 import toast from 'react-hot-toast';
 
 function Login() {
-	const navigate = useRouter();
+	const router = useRouter();
 	const [login, { isLoading }] = useLoginMutation();
 	const dispatch = useDispatch();
 
@@ -24,10 +25,7 @@ function Login() {
 	const onSubmit = async ({ email, password }) => {
 		try {
 			const userData = await login({ email, password }).unwrap();
-			console.log('logining');
 			dispatch(setCredentials({ ...userData, email }));
-
-			console.log('login successfully');
 			toast.success('login successfully');
 			// navigate('/dashboard');
 		} catch (err) {
@@ -49,7 +47,7 @@ function Login() {
 		<div className='flex justify-start item-center flex-col h-screen'>
 			<div className='relative md:w-full h-full justify-items-center flex '>
 				<div className='absolute overflow-hidden object-cover w-screen h-screen opacity-90 -z-10'>
-					<Image src={backgroundImg} layout='intrinsic'/>
+					<Image blurDataURL={backgroundImg} width={500} height={500} layout='intrinsic' />
 				</div>
 				<form
 					className='relative space-y-8 rounded bg-white/75 py-10 px-6 md:mt-0 md:max-w-md w-[400px]  md:px-14 flex flex-col items-center'
@@ -88,9 +86,18 @@ function Login() {
 							</label>
 						</div>
 
-						<button type='submit' className='w-full rounded bg-[#e50914] py-3 font-semibold'>
+						<button type='submit' className='w-full rounded bg-[#e50914] py-3 font-semibold text-medium text-black'>
 							Sign In
 						</button>
+					</div>
+					<div
+						className='flex text-sm float-left text-blue-900 items-center cursor-pointer'
+						onClick={() => router.push('/')}
+					>
+						<div>
+							<IoMdArrowRoundBack />
+						</div>
+						<p>Back to home page</p>
 					</div>
 				</form>
 			</div>

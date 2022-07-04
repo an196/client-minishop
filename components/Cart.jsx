@@ -55,7 +55,7 @@ function Cart() {
 					</div>
 				)}
 
-				<div className='mt-[15px] overflow-auto max-h-[70vh] py-5 px-3'>
+				<div className='mt-[15px] overflow-auto  py-5 px-3'>
 					{cartItems.length >= 1 &&
 						cartItems.map((item, index) => (
 							<div className='flex gap-7 p-5' key={item._id}>
@@ -65,7 +65,7 @@ function Cart() {
 										<h5 className='text-[24px] text-[#324d67]'>{item.name}</h5>
 										<h4 className='text-[20px] text-black'>${item.price}</h4>
 									</div>
-									<div className='flex mb-0 mt-[40px]'>
+									<div className='flex mb-0 mt-[40px] items-center'>
 										<p className='border-1 rounded-xl border-gray-700 flex flex-row mt-1 '>
 											<span
 												className='text-base py-1 px-3 border-r-1 border-gray-700 text-[#f02d34] cursor-pointer hover:bg-black/10'
@@ -81,10 +81,10 @@ function Cart() {
 												<AiOutlinePlus />
 											</span>
 										</p>
-
+										
 										<button
 											type='button'
-											className='text-[24px] text-[#f02d34] cursor-pointer bg-transparent border-none'
+											className='text-[24px] text-[#f02d34] cursor-pointer bg-transparent border-none mt-1'
 											onClick={() => onRemove(item)}
 										>
 											<TiDelete />

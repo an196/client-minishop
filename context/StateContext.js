@@ -3,13 +3,20 @@ import { toast } from 'react-hot-toast';
 
 const Context = createContext();
 
+const initialState = {
+	chat: false,
+	userBar: false,
+	notification: false,
+	logout: false,
+};
+
 export const StateContext = ({ children }) => {
 	const [showCart, setShowCart] = useState(false);
-
 	const [cartItems, setCartItems] = useState([]);
 	const [totalPrice, setTotalPrice] = useState(0);
 	const [totalQuantities, setTotalQuantities] = useState(0);
 	const [qty, setQty] = useState(1);
+	const [isClicked, setIsClicked] = useState(initialState);
 
 	let foundProduct;
 	let index;
@@ -83,6 +90,8 @@ export const StateContext = ({ children }) => {
 		});
 	};
 
+	const handleClick  = (clicked, value) =>{ setIsClicked({...initialState, [clicked]: value })};
+
 	return (
 		<Context.Provider
 			value={{
@@ -99,7 +108,11 @@ export const StateContext = ({ children }) => {
 				onRemove,
 				setCartItems,
 				setTotalPrice,
-				setTotalQuantities
+				setTotalQuantities,
+				setIsClicked,
+				initialState,
+				handleClick,
+				isClicked
 			}}
 		>
 			{children}

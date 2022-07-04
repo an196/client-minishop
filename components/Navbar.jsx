@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { AiOutlineShopping } from 'react-icons/ai';
-import Cart from './Cart';
-import UserBar from './UserBar';
 import { useStateContext } from '~/context/StateContext';
 import { SiShopware } from 'react-icons/si';
-import { MdKeyboardArrowDown,MdKeyboardArrowUp } from 'react-icons/md';
-import avatar from '../assets/default-user.png';
+import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
+import avatar from '~/assets/default-user.png';
 import Image from 'next/image';
+import {NavButton, Cart, UserBar} from '../components';
+import { icons } from 'react-icons/lib';
 
 function Navbar() {
 	const [userBarActive, setUserBarActive] = useState(true);
 
-	const { showCart, setShowCart, totalQuantities } = useStateContext();
+	const { showCart, setShowCart, totalQuantities, isClicked, handleClick } = useStateContext();
 
 	return (
 		<>
@@ -45,13 +45,16 @@ function Navbar() {
 							<span className='text-gray-400 text-14'>Hi,</span>{' '}
 							<span className='text-gray-400 font-bold ml-1 text-14'>Michael</span>
 						</div>
-						<button onClick={()=>setUserBarActive(!userBarActive)}>
-							{userBarActive
-							?<MdKeyboardArrowUp className='text-gray-400 text-14' />
-							:<MdKeyboardArrowDown className='text-gray-400 text-14' />
-							}
-						</button>
-						{userBarActive && <UserBar />}
+						<NavButton
+							customFunc={()=> handleClick('userBar', !isClicked.userBar)}
+							icon={isClicked.userBar ? (
+								<MdKeyboardArrowUp className='text-gray-400 text-14' />
+							) : (
+								<MdKeyboardArrowDown className='text-gray-400 text-14' />
+							)}
+						>
+						</NavButton>
+						{isClicked.userBar && <UserBar />}
 					</div>
 				</div>
 			</div>

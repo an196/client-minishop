@@ -1,20 +1,23 @@
 /** @type {import('next').NextConfig} */
-const path = require("path");
+const path = require('path');
 
 const nextConfig = {
-  reactStrictMode: true,
-  webpack: (config) => {
-    config.plugins = config.plugins || [];
+	reactStrictMode: true,
+	webpack: (config) => {
+		config.plugins = config.plugins || [];
 
-    config.optimization.providedExports = true;
+		config.optimization.providedExports = true;
 
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      "~": path.resolve(__dirname, "./"),
-    };
+		config.resolve.alias = {
+			...config.resolve.alias,
+			'~': path.resolve(__dirname, './'),
+		};
 
-    return config;
-  },
-}
+		return config;
+	},
+	images: {
+		domains: ['firebasestorage.googleapis.com'],
+	},
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
