@@ -18,7 +18,7 @@ function Navbar() {
 		<>
 			{isClicked.userBar && <UserBar />}
 			{showCart && <Cart />}
-			<div className='navbar-container border-b-1 drop-shadow-lg mb-5 px-10 p-3'>
+			<div className='navbar-container border-b-1 drop-shadow-lg mb-5 px-10 p-3 cursor-pointer'>
 				<div className='logo'>
 					<Link href={'/'}>
 						<div className='flex space-x-2 items-center text-xl font-semibold'>
