@@ -6,7 +6,7 @@ import { SiShopware } from 'react-icons/si';
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
 import avatar from '~/assets/default-user.png';
 import Image from 'next/image';
-import {NavButton, Cart, UserBar} from '../components';
+import { NavButton, Cart, UserBar } from '../components';
 import { icons } from 'react-icons/lib';
 
 function Navbar() {
@@ -16,6 +16,7 @@ function Navbar() {
 
 	return (
 		<>
+			{isClicked.userBar && <UserBar />}
 			{showCart && <Cart />}
 			<div className='navbar-container border-b-1 drop-shadow-lg mb-5 px-10 p-3'>
 				<div className='logo'>
@@ -37,7 +38,7 @@ function Navbar() {
 							<span className='cart-item-qty'>{totalQuantities}</span>
 						</button>
 					</div>
-					<div className='flex flex-row space-x-2 items-center'>
+					<div className='flex flex-row space-x-2 items-center md:hidden'>
 						<div className='text-gray-700 rounded-full border-1 overflow-hidden w-[25px] h-[25px]'>
 							<Image src={avatar} layout='intrinsic' alt='user-profile' />
 						</div>
@@ -46,15 +47,15 @@ function Navbar() {
 							<span className='text-gray-400 font-bold ml-1 text-14'>Michael</span>
 						</div>
 						<NavButton
-							customFunc={()=> handleClick('userBar', !isClicked.userBar)}
-							icon={isClicked.userBar ? (
-								<MdKeyboardArrowUp className='text-gray-400 text-14' />
-							) : (
-								<MdKeyboardArrowDown className='text-gray-400 text-14' />
-							)}
-						>
-						</NavButton>
-						{isClicked.userBar && <UserBar />}
+							customFunc={() => handleClick('userBar', !isClicked.userBar)}
+							icon={
+								isClicked.userBar ? (
+									<MdKeyboardArrowUp className='text-gray-400 text-14' />
+								) : (
+									<MdKeyboardArrowDown className='text-gray-400 text-14' />
+								)
+							}
+						></NavButton>
 					</div>
 				</div>
 			</div>

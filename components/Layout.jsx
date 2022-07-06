@@ -7,14 +7,14 @@ function Layout({ children }) {
    
 
     return  (
-        <div className='layout'>
+        <div className='p-[10px] md:p-0'>
             <Head>
                 <title></title>
             </Head>
             <header>
                 <Navbar />
             </header>
-            <main className='main-container'>{children}</main>
+            <main className='m-auto w-full max-w-[1400px]'>{children}</main>
             <footer>
                 <Footer />
             </footer>

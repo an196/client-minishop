@@ -5,20 +5,24 @@ import fallbackImage from '~/assets/default-image.png';
 
 function HeroBanner({ heroBanner }) {
 	return (
-		<div className='py-[100px] px-[40px] bg-[#dcdcdc] rounded-[15px] relative h-[500px] leading-[0.9] w-full'>
+		<div className='py-[100px] px-[40px] bg-[#dcdcdc] rounded-[15px] z-0 relative h-[500px] leading-[0.9] w-full
+			md:h-[400px] md:rounded-none sm:py-[40px] sm:px-[20px] sm:h-[320px] '
+		>
 			<div>
 				<p className='text-[20px]'>{heroBanner?.smallText}</p>
-				<h3 className='text-[4rem] mt-[4px]'>{heroBanner?.midText}</h3>
-				<h1 className='text-white text-[10em] ml-[-20px] uppercase'>{heroBanner?.largeText1}</h1>
-				<div className='absolute top-[0%] right-[20%] w-[500px] h-[450px] '>
+				<h3 className='text-[4rem] mt-[4px] md:font-extrabold md:text-[40px] sm:text-[24px] md:ml-1 '>{heroBanner?.midText}</h3>
+				<h1 className='text-white text-[10em] lg:text-[140px] sm:text-[80px] uppercase'>{heroBanner?.largeText1}</h1>
+				<div className='absolute top-[0%] right-[20%] w-[500px] h-[450px] md:w-[50%] md:h-[80%] sm:w-[65%] sm:h-[65%] lg:right-[0%]
+					ssm:h-[55%]'
+				>
 					<Image src={heroBanner?.image || fallbackImage} alt='headphones' layout='fill' />
 				</div>
 
 				<div>
 					<Link href={`/product/${heroBanner?.product}`}>
 						<button type='button'
-                            className='rounded-[15px] py-[10px] px-[16px] bg-[#f02d34] text-white border-none mt-[40px] 
-                            text-[18px] font-medium cursor-pointer z-[1000] '
+                            className='rounded-[5px] py-[10px] px-[16px] bg-[#f02d34] text-white border-none mt-[40px] 
+                            text-[18px] font-medium cursor-pointer  sm:text-[14px]'
                         >
                            {heroBanner?.buttonText}
                         </button>
