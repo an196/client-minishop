@@ -12,10 +12,7 @@ function ProductDetails({ product }) {
 	const [index, setIndex] = useState(0);
 
 	const { decQty, incQty, qty, onAdd, setShowCart } = useStateContext();
-
-	console.log('product');
-	console.log(product);
-
+	
 	const handleBuyNow = () => {
 		onAdd(product, qty);
 		setShowCart(true);

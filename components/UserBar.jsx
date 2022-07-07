@@ -8,7 +8,8 @@ function UserBar() {
 	const {isClicked, handleClick} = useStateContext();
 
 	return (
-		<div className='bg-white absolute top-[53px] w-[129px] right-[59px] rounded font-medium z-[100]'>
+		<div className={`bg-white absolute top-[53px] w-[135px] right-[50px] rounded border font-medium z-[100] md:hidden}`
+		}>
 			<div className='flex flex-row items-center justify-between mx-3 my-2 cursor-pointer'
                 onClick={()=> {
 					router.replace('/login');

@@ -16,7 +16,7 @@ function Navbar() {
 
 	return (
 		<>
-			{isClicked.userBar && <UserBar />}
+			{isClicked.userBar && !showCart && <UserBar />}
 			{showCart && <Cart />}
 			<div className='navbar-container border-b-1 drop-shadow-lg mb-5 px-10 p-3 cursor-pointer'>
 				<div className='logo'>
@@ -38,7 +38,7 @@ function Navbar() {
 							<span className='cart-item-qty'>{totalQuantities}</span>
 						</button>
 					</div>
-					<div className='flex flex-row space-x-2 items-center md:hidden'>
+					<div className='flex flex-row space-x-2 items-center md:hidden max-w-[135px]'>
 						<div className='text-gray-700 rounded-full border-1 overflow-hidden w-[25px] h-[25px]'>
 							<Image src={avatar} layout='intrinsic' alt='user-profile' />
 						</div>

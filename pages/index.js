@@ -10,7 +10,7 @@ function Home() {
 	let bannerData;
 	if (isSuccess) {
 		bannerData = [...data];
-		console.log(bannerData);
+		// console.log(bannerData);
 	}
 
 	if (isError) {
