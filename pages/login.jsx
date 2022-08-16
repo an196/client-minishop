@@ -83,7 +83,7 @@ function Login() {
 						</label>
 					</div>
 
-					<button type='submit' className='w-full rounded bg-[#e50914] py-3 font-semibold text-medium text-black'>
+					<button type='submit' className='w-full rounded bg-[#e50914] py-3 font-semibold text-medium text-white'>
 						Sign In
 					</button>
 				</div>

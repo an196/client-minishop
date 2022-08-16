@@ -37,7 +37,7 @@ function Cart() {
 			<div className='h-screen w-[500px] bg-white float-right py-10 px-2 sm:w-full sm:px-8 sm:py-3 hsm:px-3'>
 				<button
 					type='button'
-					className='flex items-center text-[18px] font-medium cursor-pointer gap-[2px] ml-[10px] border-none bg-transparent md:mt-[35px]'
+					className='flex items-center text-[18px] font-medium cursor-pointer gap-[2px] ml-[10px] border-none bg-transparent md:mt-[25px] sm:mt-[15px]'
 					onClick={() => setShowCart(false)}
 				>
 					<AiOutlineLeft />
@@ -49,7 +49,7 @@ function Cart() {
 						<AiOutlineShopping size={150} />
 						<h3>Your shopping bag is empty</h3>
 						<Link href={'/'}>
-							<button type='button' onClick={() => setShowCart(false)} className='w-400 m-auto'>
+							<button type='button' onClick={() => setShowCart(false)} className='m-auto bg-[#f02d34] mt-4 flex py-2 px-5 rounded text-white'>
 								Continue Shopping
 							</button>
 						</Link>
@@ -103,7 +103,7 @@ function Cart() {
 					<div className='absolute bottom-3 w-[500px] py-[30px] p-7 right-0 sm:w-full sm:px-12 hsm:px-5'>
 						<div className='flex justify-between font-medium mb-2 items-center'>
 							<h3 className='text-[24px] text-[#324d67] font-semibold sm:text-[18px]'>Subtotal:</h3>
-							<h3 className='text-[22px] text-black font-extrabold sm:text-[16px]'>${totalPrice}</h3>
+							<h3 className='text-[22px] text-black font-bold sm:text-[18px]'>${totalPrice}</h3>
 						</div>
 						<div className='flex w-full'>
 							<button

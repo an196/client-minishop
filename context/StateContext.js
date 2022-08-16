@@ -17,6 +17,7 @@ export const StateContext = ({ children }) => {
 	const [totalQuantities, setTotalQuantities] = useState(0);
 	const [qty, setQty] = useState(1);
 	const [isClicked, setIsClicked] = useState(initialState);
+	const [screenSize, setScreenSize] = useState(undefined);
 
 	let foundProduct;
 	let index;
@@ -54,7 +55,7 @@ export const StateContext = ({ children }) => {
 		if (value === 'inc') {
 			updateProduct = { ...foundProduct, quantity: foundProduct.quantity + 1 };
 
-			setTotalPrice((prevTotalPrice) => prevTotalPrice + foundProduct.price);
+			setTotalPrice((prevTotalPrice) => Number(prevTotalPrice) + Number(foundProduct.price));
 			setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + 1);
 			cartItems.splice(index, 1, updateProduct);
 		} else if (value === 'dec') {
@@ -112,7 +113,9 @@ export const StateContext = ({ children }) => {
 				setIsClicked,
 				initialState,
 				handleClick,
-				isClicked
+				isClicked,
+				screenSize,
+				setScreenSize
 			}}
 		>
 			{children}

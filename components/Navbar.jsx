@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { AiOutlineShopping } from 'react-icons/ai';
 import { useStateContext } from '~/context/StateContext';
@@ -12,7 +12,23 @@ import { icons } from 'react-icons/lib';
 function Navbar() {
 	const [userBarActive, setUserBarActive] = useState(true);
 
-	const { showCart, setShowCart, totalQuantities, isClicked, handleClick } = useStateContext();
+	const { showCart, setShowCart, totalQuantities, isClicked, handleClick, screenSize, setScreenSize } = useStateContext();
+
+	useEffect(() => {
+		const handleResize = () => setScreenSize(window.innerWidth);
+	
+		window.addEventListener('resize', handleResize);
+	
+		handleResize();
+	
+		return () => window.removeEventListener('resize', handleResize);
+	  }, []);
+
+	  useEffect(() => {
+		if (screenSize <= 767) {
+		  handleClick('userBar',false);
+		} 
+	  }, [screenSize]);
 
 	return (
 		<>
