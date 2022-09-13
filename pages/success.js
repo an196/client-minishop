@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { BsBagCheckFill } from 'react-icons/bs';
 import { useRouter } from 'next/router';
-import { useStateContext } from '../context/StateContext';
-import { runFireworks } from '../lib/utils';
+import { useStateContext } from '~/context/StateContext';
+import { runFireworks } from '~/lib/utils';
 
 function Success() {
 	const { setCartItems, setTotalPrice, setTotalQuantities } = useStateContext();

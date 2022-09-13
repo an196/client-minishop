@@ -3,13 +3,21 @@ import { toast } from 'react-hot-toast';
 
 const Context = createContext();
 
+const initialState = {
+	chat: false,
+	userBar: false,
+	notification: false,
+	logout: false,
+};
+
 export const StateContext = ({ children }) => {
 	const [showCart, setShowCart] = useState(false);
-
 	const [cartItems, setCartItems] = useState([]);
 	const [totalPrice, setTotalPrice] = useState(0);
 	const [totalQuantities, setTotalQuantities] = useState(0);
 	const [qty, setQty] = useState(1);
+	const [isClicked, setIsClicked] = useState(initialState);
+	const [screenSize, setScreenSize] = useState(undefined);
 
 	let foundProduct;
 	let index;
@@ -47,7 +55,7 @@ export const StateContext = ({ children }) => {
 		if (value === 'inc') {
 			updateProduct = { ...foundProduct, quantity: foundProduct.quantity + 1 };
 
-			setTotalPrice((prevTotalPrice) => prevTotalPrice + foundProduct.price);
+			setTotalPrice((prevTotalPrice) => Number(prevTotalPrice) + Number(foundProduct.price));
 			setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + 1);
 			cartItems.splice(index, 1, updateProduct);
 		} else if (value === 'dec') {
@@ -83,6 +91,8 @@ export const StateContext = ({ children }) => {
 		});
 	};
 
+	const handleClick  = (clicked, value) =>{ setIsClicked({...initialState, [clicked]: value })};
+
 	return (
 		<Context.Provider
 			value={{
@@ -99,7 +109,13 @@ export const StateContext = ({ children }) => {
 				onRemove,
 				setCartItems,
 				setTotalPrice,
-				setTotalQuantities
+				setTotalQuantities,
+				setIsClicked,
+				initialState,
+				handleClick,
+				isClicked,
+				screenSize,
+				setScreenSize
 			}}
 		>
 			{children}
