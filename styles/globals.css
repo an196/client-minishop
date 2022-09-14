@@ -12,25 +12,57 @@ body,
 	width: 0px;
 }
 
+.nav-bar-item {
+	display: inline-block;
+	position: relative;
+	color: #0087ca;
+	cursor: pointer;
+}
+
+.nav-bar-item:after {
+	content: '';
+	position: absolute;
+	width: 100%;
+	transform: scaleX(0);
+	height: 2px;
+	bottom: 0;
+	left: 0;
+	background-color: #0087ca;
+	transform-origin: bottom right;
+	transition: transform 0.25s ease-out;
+}
+
+.nav-bar-item:hover:after {
+	transform: scaleX(1);
+	transform-origin: bottom left;
+}
+
+.nav-bar-item-active{
+	color: #0087ca;
+	border-bottom:  2px solid #0087ca;
+	cursor: pointer;
+}
+
+
 @tailwind base;
 @import './base.css';
 @tailwind components;
 @tailwind utilities;
 
 /* custome class name */
-@layer components{
-    .small-image{
+@layer components {
+	.small-image {
 		@apply rounded-lg bg-[#ebebeb] w-16 h-16 cursor-pointer ssm:w-[40px] ssm:h-[40px];
 	}
 
-	.selected-image{
+	.selected-image {
 		@apply bg-[#f02d34];
 	}
 
-	.add-to-cart, .buy-now{
+	.add-to-cart,
+	.buy-now {
 		@apply py-2 px-2 rounded-sm border-[#f02d34] border mt-10 text-xl font-medium bg-white
 		text-[#f02d34] cursor-pointer w-[200px] scale-100 duration-500  ease-in hover:scale-110 md:w-[150px]
 		sm:w-[140px] sm:text-[18px] sm:py-1 sm:px-1 ssm:text-[14px] hsm:w-[50%];
 	}
-
 }
