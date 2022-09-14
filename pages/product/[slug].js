@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { AiOutlineMinus, AiOutlinePlus, AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import { Product, Layout } from '~/components';
-import { useStateContext } from '~/context/StateContext';
-import ReactHtmlParser from 'react-html-parser';
+import { useStateContext } from '~/context/StateContext';	
+import parse from 'html-react-parser';
 import { useGetProductQuery } from '~/features/product/productApiSlice';
 import Image from 'next/image';
 import fallbackImage from '~/assets/default-image.png';
@@ -57,7 +57,7 @@ function ProductDetails({ product }) {
 
 					<h4 className='mt-5 text-[24px] sm:text-[20px] '>Details:</h4>
 					<p className='mt-5 text-[20px] sm:text-[16px] sm:flex sm:flex-wrap text-justify sm:w-full'>
-						{ReactHtmlParser(product?.details)}
+						{parse(product?.details)}
 					</p>
 					<p className='font-bold text-2xl mt-7 text-[#f02d34] sm:text-xl'>${product?.price}</p>
 					<div className='flex gap-5 mt-5 items-center hsm:gap-2 hsm:flex-wrap'>

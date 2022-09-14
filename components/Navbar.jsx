@@ -8,39 +8,78 @@ import avatar from '~/assets/default-user.png';
 import Image from 'next/image';
 import { NavButton, Cart, UserBar } from '../components';
 import { icons } from 'react-icons/lib';
+import { useRouter } from 'next/router';
 
 function Navbar() {
 	const [userBarActive, setUserBarActive] = useState(true);
 
-	const { showCart, setShowCart, totalQuantities, isClicked, handleClick, screenSize, setScreenSize } = useStateContext();
+	const { showCart, setShowCart, totalQuantities, isClicked, handleClick, screenSize, setScreenSize } =
+		useStateContext();
 
+	const router = useRouter();
+	
 	useEffect(() => {
 		const handleResize = () => setScreenSize(window.innerWidth);
-	
+
 		window.addEventListener('resize', handleResize);
-	
+
 		handleResize();
-	
+
 		return () => window.removeEventListener('resize', handleResize);
-	  }, []);
+	}, []);
 
-	  useEffect(() => {
+	useEffect(() => {
 		if (screenSize <= 767) {
-		  handleClick('userBar',false);
-		} 
-	  }, [screenSize]);
-
+			handleClick('userBar', false);
+		}
+	}, [screenSize]);
 	return (
 		<>
 			{isClicked.userBar && !showCart && <UserBar />}
 			{showCart && <Cart />}
-			<div className='navbar-container border-b-1 drop-shadow-lg mb-5 px-10 p-3 cursor-pointer'>
-				<div className='logo'>
+			<div className='navbar-container border-b-1 drop-shadow-lg mb-5 px-10 p-3 '>
+				<div className='logo cursor-pointer'>
 					<Link href={'/'}>
 						<div className='flex space-x-2 items-center text-xl font-semibold'>
 							<SiShopware />
 							<p>MiniShop</p>
 						</div>
+					</Link>
+				</div>
+
+				<div className='flex space-x-6 items-center font-extrabold'>
+					<Link href={`/`}>
+						<span
+							className={
+								router.pathname === '/'
+									? `text-2xl nav-bar-item-active`
+									: 'cursor-pointer nav-bar-item text-gray-700 text-2xl'
+							}
+						>
+							Home
+						</span>
+					</Link>
+					<Link href={`/category/1`}>
+						<span
+							className={
+								router.query?.slug === '1'
+									? `text-2xl nav-bar-item-active`
+									: 'nav-bar-item text-gray-700 text-2xl'
+							}
+						>
+							Earphone
+						</span>
+					</Link>
+					<Link href={`/category/2`}>
+						<span
+							className={
+								router.query?.slug === '2'
+									? `text-2xl nav-bar-item-active`
+									: 'nav-bar-item text-gray-700 text-2xl'
+							}
+						>
+							Home
+						</span>
 					</Link>
 				</div>
 				<div className='flex flex-row space-x-4 items-center'>
