@@ -6,7 +6,7 @@ import { SiShopware } from 'react-icons/si';
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
 import avatar from '~/assets/default-user.png';
 import Image from 'next/image';
-import { NavButton, Cart, UserBar } from '../components';
+import { NavButton, Cart, UserBar, SearchBox } from '../components';
 import { icons } from 'react-icons/lib';
 import { useRouter } from 'next/router';
 
@@ -38,7 +38,7 @@ function Navbar() {
 			{isClicked.userBar && !showCart && <UserBar />}
 			{showCart && <Cart />}
 			<div className='navbar-container border-b-1 drop-shadow-lg mb-5 px-10 p-3 '>
-				<div className='logo cursor-pointer'>
+				<div className='logo cursor-pointer flex justify-center'>
 					<Link href={'/'}>
 						<div className='flex space-x-2 items-center text-xl font-semibold'>
 							<SiShopware />
@@ -81,7 +81,9 @@ function Navbar() {
 							Home
 						</span>
 					</Link>
+					<SearchBox/>
 				</div>
+				
 				<div className='flex flex-row space-x-4 items-center'>
 					<div className='flex items-center'>
 						<button
