@@ -2,6 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import SubNavbar from './SubNavbar';
 
 function Layout({ children }) {
    
@@ -13,6 +14,7 @@ function Layout({ children }) {
             </Head>
             <header>
                 <Navbar />
+                <SubNavbar/>
             </header>
             <main className='m-auto w-full max-w-[1400px]'>{children}</main>
             <footer>

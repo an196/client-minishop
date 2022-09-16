@@ -1,13 +1,11 @@
 import { Layout, Product } from '~/components';
 import { products } from '../../assets/dummy.data';
+import { HeadTitile } from '../../components';
 
 function Category() {
 	return (
 		<>
-			<div className='text-center mt-[32px] mb-[20px] mx-0 text-[#324d67]'>
-				<h2 className='text-[40px] font-extrabold md:text-[32px] sm:text-[24px] ssm:text-[18px]'>Earphone</h2>
-				<p className='text-[16px] font-extralight'>Speakers of many variations</p>
-			</div>
+			<HeadTitile title={'Earphone'} subtitle={'Speakers of many variations'}/>
 			<div className='px-20 flex justify-center '>
 				<div className='rounded-full  ring overflow-hidden flex font-normal cursor-pointer'>
 					<div className='bg-black text-white py-2 px-4 '>Increase</div>
