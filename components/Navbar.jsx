@@ -33,11 +33,12 @@ function Navbar() {
 			handleClick('userBar', false);
 		}
 	}, [screenSize]);
+
 	return (
 		<>
 			{isClicked.userBar && !showCart && <UserBar />}
 			{showCart && <Cart />}
-			<div className='navbar-container border-b-1 drop-shadow-lg mb-5 px-10 p-3 '>
+			<div className='navbar-container border-b-1 drop-shadow-lg mb-5 px-10 p-3 hlg:px-3 hlg:mx-1'>
 				<div className='logo cursor-pointer flex justify-center'>
 					<Link href={'/'}>
 						<div className='flex space-x-2 items-center text-xl font-semibold'>
@@ -52,8 +53,8 @@ function Navbar() {
 						<span
 							className={
 								router.pathname === '/'
-									? `text-2xl nav-bar-item-active`
-									: 'cursor-pointer nav-bar-item text-gray-700 text-2xl'
+									? `text-2xl nav-bar-item-active xl:hidden`
+									: 'cursor-pointer nav-bar-item text-gray-700 text-2xl xl:hidden'
 							}
 						>
 							Home
@@ -63,8 +64,8 @@ function Navbar() {
 						<span
 							className={
 								router.query?.slug === '1'
-									? `text-2xl nav-bar-item-active`
-									: 'nav-bar-item text-gray-700 text-2xl'
+									? `text-2xl nav-bar-item-active xl:hidden`
+									: 'nav-bar-item text-gray-700 text-2xl xl:hidden'
 							}
 						>
 							Earphone
@@ -74,8 +75,8 @@ function Navbar() {
 						<span
 							className={
 								router.query?.slug === '2'
-									? `text-2xl nav-bar-item-active`
-									: 'nav-bar-item text-gray-700 text-2xl'
+									? `text-2xl nav-bar-item-active xl:hidden`
+									: 'nav-bar-item text-gray-700 text-2xl xl:hidden'
 							}
 						>
 							Home

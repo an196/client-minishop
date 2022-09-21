@@ -9,3 +9,6 @@ export { default as UserBar} from "./UserBar";
 export { default as NavButton} from "./NavButton";
 export { default as SearchBox} from "./SearchBox";
 export { default as OrtherCategory} from "./OrtherCategory";
+export { default as HeadTitile} from "./HeadTitile";
+export { default as RowItem} from "./RowItem";
+export { default as SubNavbar} from "./SubNavbar";
