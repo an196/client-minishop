@@ -1,16 +1,21 @@
-import { Layout } from '~/components';
-import {products} from '../../assets/dummy.data';
-import { Product } from '../../components';
+import { Layout, Product } from '~/components';
+import { products } from '../../assets/dummy.data';
+import { HeadTitile } from '../../components';
+
 function Category() {
 	return (
 		<>
-			<div className='text-center my-[40px] mx-0 text-[#324d67]'>
-				<h2 className='text-[40px] font-extrabold md:text-[32px] sm:text-[24px] ssm:text-[18px]'>Earphone</h2>
-				<p className='text-[16px] font-extralight'>Speakers of many variations</p>
+			<HeadTitile title={'Earphone'} subtitle={'Speakers of many variations'}/>
+			<div className='px-20 flex justify-center '>
+				<div className='rounded-full  ring overflow-hidden flex font-normal cursor-pointer'>
+					<div className='bg-black text-white py-2 px-4 '>Increase</div>
+					<div className=' py-2 px-3'>Decrease</div>
+					<div className=' py-2 px-3'>Newest</div>
+					<div className=' py-2 px-3'>Oldest</div>
+				</div>
 			</div>
-
-			<div className='grid grid-cols-5 gap-[15px] mt-[20px] w-full px-20 md:px-14 sm:px-[18px] items-center ssm:flex-nowrap ssm:flex-col'>
-				{products?.slice(0, 5).map((product) => (
+			<div className='grid grid-cols-5 mt-[20px] w-full px-20 md:px-14 sm:px-[18px] items-center ssm:flex-nowrap ssm:flex-col'>
+				{products?.map((product) => (
 					<Product key={product._id} product={product} />
 				))}
 			</div>

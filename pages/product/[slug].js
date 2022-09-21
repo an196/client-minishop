@@ -7,6 +7,7 @@ import { useGetProductQuery } from '~/features/product/productApiSlice';
 import Image from 'next/image';
 import fallbackImage from '~/assets/default-image.png';
 import request from '../../helper/request';
+import { products } from '../../assets/dummy.data';
 
 function ProductDetails({ product }) {
 	const [index, setIndex] = useState(0);
@@ -88,7 +89,7 @@ function ProductDetails({ product }) {
 					</div>
 				</div>
 			</div>
-			{/* <div className='mt-[120px]'>
+			<div className='mt-[120px]'>
 				<h2 className='text-center m-12 text-[#324d67] text-3xl'>You may also like</h2>
 				<div className='marquee'>
 					<div className='maylike-products-container track'>
@@ -97,7 +98,7 @@ function ProductDetails({ product }) {
 						))}
 					</div>
 				</div>
-			</div> */}
+			</div>
 		</div>
 	);
 }
