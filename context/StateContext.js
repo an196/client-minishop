@@ -12,6 +12,9 @@ const initialState = {
 
 export const StateContext = ({ children }) => {
 	const [showCart, setShowCart] = useState(false);
+	const [showHamburgerButton, setShowHamburgerButton] = useState(false);
+	const [showSubSearchbar, setShowSubSearchbar] = useState(false);
+	const [showSliderNavbar, setShowSliderNavbar] = useState(true);
 	const [cartItems, setCartItems] = useState([]);
 	const [totalPrice, setTotalPrice] = useState(0);
 	const [totalQuantities, setTotalQuantities] = useState(0);
@@ -67,7 +70,7 @@ export const StateContext = ({ children }) => {
 				cartItems.splice(index, 1, updateProduct);
 			}
 		}
-		
+
 		setCartItems(cartItems);
 	};
 
@@ -91,7 +94,9 @@ export const StateContext = ({ children }) => {
 		});
 	};
 
-	const handleClick  = (clicked, value) =>{ setIsClicked({...initialState, [clicked]: value })};
+	const handleClick = (clicked, value) => {
+		setIsClicked({ ...initialState, [clicked]: value });
+	};
 
 	return (
 		<Context.Provider
@@ -115,7 +120,13 @@ export const StateContext = ({ children }) => {
 				handleClick,
 				isClicked,
 				screenSize,
-				setScreenSize
+				setScreenSize,
+				showHamburgerButton,
+				setShowHamburgerButton,
+				showSliderNavbar,
+				setShowSliderNavbar,
+				showSubSearchbar, 
+				setShowSubSearchbar
 			}}
 		>
 			{children}
