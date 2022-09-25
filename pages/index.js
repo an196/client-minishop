@@ -2,7 +2,8 @@ import React from 'react';
 import { Product, FooterBanner, HeroBanner, Layout } from '~/components';
 import { useGetBannerQuery } from '~/features/banner/bannerApiSlice';
 import { useGetProductsQuery } from '~/features/product/productApiSlice';
-import { HeadTitile,OrtherCategory, RowItem } from '../components';
+import { HeadTitile, OrtherCategory, RowItem } from '~/components';
+import { SearchBox } from '../components';
 
 
 function Home() {
@@ -18,6 +19,8 @@ function Home() {
 	if (isError) {
 		return <p>Error...</p>;
 	}
+
+	
 	return (
 		<>
 			<HeroBanner heroBanner={bannerData?.length && bannerData[0]} />

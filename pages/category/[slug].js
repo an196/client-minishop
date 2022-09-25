@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { Layout, Product } from '~/components';
+import { Layout, Product, HeadTitile } from '~/components';
 import { products } from '../../assets/dummy.data';
-import { HeadTitile } from '../../components';
 
 const activeFilterStyle = 'bg-black text-white py-2 px-4 capitalize';
 const normalFilterStyle = 'py-2 px-3 capitalize';

@@ -36,8 +36,7 @@ function FooterBanner({ footerBanner }) {
 						</button>
 					</Link>
 				</div>
-				<div className='absolute top-[-20%] left-[40%] w-[500px] h-[450px] lg:w-[60%] sm:w-[60%] md:w-[60%] md:h-[65%] lg:left-[40%] 
-					sm:h-[70%] ssm:h-[55%]'
+				<div className='absolute top-[-20%] left-[30vw] w-[500px] h-[450px] lg:w-[60%] md:w-[45vw] md:h-[40vw] 2xl:left-[40vw]'
 				>
 					<Image src={footerBanner?.image || fallbackImage} layout='fill' />
 				</div>

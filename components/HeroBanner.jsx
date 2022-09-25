@@ -12,8 +12,8 @@ function HeroBanner({ heroBanner }) {
 				<p className='text-[20px]'>{heroBanner?.smallText}</p>
 				<h3 className='text-[4rem] mt-[4px] md:font-extrabold md:text-[40px] sm:text-[24px] md:ml-1 '>{heroBanner?.midText}</h3>
 				<h1 className='text-white text-[10em] lg:text-[140px] sm:text-[80px] uppercase'>{heroBanner?.largeText1}</h1>
-				<div className='absolute top-[0%] right-[20%] w-[500px] h-[450px] md:w-[50%] md:h-[80%] sm:w-[65%] sm:h-[65%] lg:right-[0%]
-					ssm:h-[55%]'
+				<div className='absolute top-[0%] right-[20%] w-[500px] h-[450px] md:w-[45vw] md:h-[40vw]  lg:right-[0%]
+					'
 				>
 					<Image src={heroBanner?.image || fallbackImage} alt='headphones' layout='fill' />
 				</div>
