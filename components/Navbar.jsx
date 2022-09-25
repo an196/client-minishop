@@ -1,23 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { AiOutlineShopping } from 'react-icons/ai';
+import { FiLogIn } from 'react-icons/fi';
 import { useStateContext } from '~/context/StateContext';
 import { SiShopware } from 'react-icons/si';
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
 import avatar from '~/assets/default-user.png';
 import Image from 'next/image';
-import { NavButton, Cart, UserBar, SearchBox } from '../components';
+import { NavButton, Cart, UserBar, SearchBox, HamburgerButton } from '../components';
 import { icons } from 'react-icons/lib';
 import { useRouter } from 'next/router';
 
 function Navbar() {
 	const [userBarActive, setUserBarActive] = useState(true);
 
-	const { showCart, setShowCart, totalQuantities, isClicked, handleClick, screenSize, setScreenSize } =
-		useStateContext();
+	const {
+		showCart,
+		setShowCart,
+		totalQuantities,
+		isClicked,
+		handleClick,
+		screenSize,
+		setScreenSize,
+		showHamburgerButton,
+		setShowHamburgerButton,
+		showSubSearchbar,
+		setShowSubSearchbar,
+	} = useStateContext();
 
 	const router = useRouter();
-	
+
 	useEffect(() => {
 		const handleResize = () => setScreenSize(window.innerWidth);
 
@@ -31,6 +43,11 @@ function Navbar() {
 	useEffect(() => {
 		if (screenSize <= 767) {
 			handleClick('userBar', false);
+			setShowHamburgerButton(true);
+			setShowSubSearchbar(true);
+		} else {
+			setShowHamburgerButton(false);
+			setShowSubSearchbar(false);
 		}
 	}, [screenSize]);
 
@@ -38,8 +55,13 @@ function Navbar() {
 		<>
 			{isClicked.userBar && !showCart && <UserBar />}
 			{showCart && <Cart />}
-			<div className='navbar-container border-b-1 drop-shadow-lg mb-5 px-10 p-3 hlg:px-3 hlg:mx-1'>
-				<div className='logo cursor-pointer flex justify-center'>
+			<div className='navbar-container border-b-1 drop-shadow-lg mb-5 px-10 p-3 hlg:px-3 hlg:mx-1 md:mb-0'>
+				<div className='logo cursor-pointer flex justify-center space-x-3'>
+					{showHamburgerButton && (
+						<div className='cursor-pointer flex justify-center items-center text-[1.55rem] text-gray-500'>
+							<HamburgerButton />
+						</div>
+					)}
 					<Link href={'/'}>
 						<div className='flex space-x-2 items-center text-xl font-semibold'>
 							<SiShopware />
@@ -47,7 +69,6 @@ function Navbar() {
 						</div>
 					</Link>
 				</div>
-
 				<div className='flex space-x-6 items-center font-extrabold'>
 					<Link href={`/`}>
 						<span
@@ -82,9 +103,10 @@ function Navbar() {
 							Home
 						</span>
 					</Link>
-					<SearchBox/>
+					<div className='md:hidden'>
+						<SearchBox />
+					</div>
 				</div>
-				
 				<div className='flex flex-row space-x-4 items-center'>
 					<div className='flex items-center'>
 						<button
@@ -96,27 +118,19 @@ function Navbar() {
 							<span className='cart-item-qty'>{totalQuantities}</span>
 						</button>
 					</div>
-					<div className='flex flex-row space-x-2 items-center md:hidden max-w-[135px]'>
-						<div className='text-gray-700 rounded-full border-1 overflow-hidden w-[25px] h-[25px]'>
+					<div className='flex flex-row space-x-2 items-center max-w-[135px]'>
+						<div className='text-gray-700 rounded-full border-1 overflow-hidden w-[25px] h-[25px] cursor-pointer'>
 							<Image src={avatar} layout='intrinsic' alt='user-profile' />
 						</div>
-						<div>
-							<span className='text-gray-400 text-14'>Hi,</span>{' '}
-							<span className='text-gray-400 font-bold ml-1 text-14'>Michael</span>
-						</div>
-						<NavButton
-							customFunc={() => handleClick('userBar', !isClicked.userBar)}
-							icon={
-								isClicked.userBar ? (
-									<MdKeyboardArrowUp className='text-gray-400 text-14' />
-								) : (
-									<MdKeyboardArrowDown className='text-gray-400 text-14' />
-								)
-							}
-						></NavButton>
+						<FiLogIn />
 					</div>
 				</div>
 			</div>
+			{showSubSearchbar && (
+				<div className=''>
+					<SearchBox />
+				</div>
+			)}
 		</>
 	);
 }
