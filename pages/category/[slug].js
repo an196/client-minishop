@@ -14,6 +14,24 @@ function Category() {
 		{ name: 'oldest', stats: false },
 	]);
 
+	const [currentFilter, setCurrentFilter] = useState(filters[0].name);
+
+	const sortIncrease = () => {
+		const newdata = products.sort((a, b) => a.price - b.price);
+	};
+
+	const sortDecrease = () => {
+		const newdata = products.sort((a, b) => b.price - a.price);
+	};
+
+	const sortNewest = () => {
+		const newdata = products.sort((a, b) => a.goodsReceipts - b.goodsReceipts);
+	};
+
+	const sortOldest = () => {
+		const newdata = products.sort((a, b) => b.goodsReceipts - a.goodsReceipts);
+	};
+
 	const handleFilter = (e) => {
 		let newFilters = [...filters];
 		newFilters.forEach((filter) => {
@@ -23,8 +41,25 @@ function Category() {
 				filter.stats = false;
 			}
 		});
-		console.log(newFilters);
+		
 		setFilters(newFilters);
+
+		switch (e.target.id) {
+			case 'increase':
+				sortIncrease();
+				break;
+			case 'decrease':
+				sortDecrease();
+				break;
+			case 'newest':
+				sortNewest();
+				break;
+			case 'oldest':
+				sortOldest();
+				break;
+			default:
+				break;
+		}
 	};
 
 	return (
@@ -43,8 +78,10 @@ function Category() {
 					))}
 				</div>
 			</div>
-			<div className='grid grid-cols-5 gap-[15px] mt-[20px] w-full px-20 md:px-14 sm:px-[18px] xl:grid-cols-4 lg:px-0 lg:gap-0 
-				place-items-center ssm:flex-nowrap ssm:flex-col hlg:grid-cols-3 hsm:grid-cols-2'>
+			<div
+				className='grid grid-cols-5 gap-[15px] mt-[20px] w-full px-20 md:px-14 sm:px-[18px] xl:grid-cols-4 lg:px-0 lg:gap-0 
+				place-items-center ssm:flex-nowrap ssm:flex-col hlg:grid-cols-3 hsm:grid-cols-2'
+			>
 				{products?.map((product) => (
 					<Product key={product._id} product={product} />
 				))}
@@ -54,7 +91,7 @@ function Category() {
 }
 
 export const getStaticPaths = async () => {
-	const categories = await fetch(request.fetchCategories).then(res => res.json());
+	const categories = await fetch(request.fetchCategories).then((res) => res.json());
 
 	const paths = categories.map((category) => ({
 		params: {
@@ -69,10 +106,8 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params: { slug } }) => {
-	
-
 	return {
-		props: { },
+		props: {},
 	};
 };
 
