@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/Link';
 import Image from 'next/image';
 import fallbackImage from '~/assets/default-image.png';
+import {formatName} from '~/helper/formatProduct';
 
 function Product({ product }) {
 	return (
@@ -13,7 +14,7 @@ function Product({ product }) {
 					>
 						<Image src={ product.image[0] ||  fallbackImage}  layout='fill' />
 					</div>
-					<p className='font-semibold mt-1 sm:text-[16px] sm:w-[30vw] '>{product?.name}</p>
+					<p className='font-semibold mt-1 sm:text-[16px] sm:w-[30vw] '>{formatName(product?.name)}</p>
 					<p className='font-extrabold mt-[2px] mb-3 sm:mt-1 text-black'>${product?.price}</p>
 				</div>
 			</Link>

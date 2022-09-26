@@ -13,4 +13,4 @@ export { default as HeadTitile} from "./HeadTitile";
 export { default as RowItem} from "./RowItem";
 export { default as SubNavbar} from "./SubNavbar";
 export { default as HamburgerButton} from "./HamburgerButton";
-export { default as SilderNavBar} from "./SilderNavBar";
+export { default as SliderNavBar} from "./SliderNavBar";

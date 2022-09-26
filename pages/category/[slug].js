@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { Layout, Product, HeadTitile } from '~/components';
 import { products } from '../../assets/dummy.data';
+import request from '../../helper/request';
 
-const activeFilterStyle = 'bg-black text-white py-2 px-4 capitalize';
-const normalFilterStyle = 'py-2 px-3 capitalize';
+const activeFilterStyle = 'bg-black text-white py-2 px-4 capitalize sm:text-[10px]';
+const normalFilterStyle = 'py-2 px-3 capitalize sm:text-[12px]';
 
 function Category() {
 	const [filters, setFilters] = useState([
@@ -42,7 +43,8 @@ function Category() {
 					))}
 				</div>
 			</div>
-			<div className='grid grid-cols-5 mt-[20px] w-full px-20 md:px-14 sm:px-[18px] items-center ssm:flex-nowrap ssm:flex-col'>
+			<div className='grid grid-cols-5 gap-[15px] mt-[20px] w-full px-20 md:px-14 sm:px-[18px] xl:grid-cols-4 lg:px-0 lg:gap-0 
+				place-items-center ssm:flex-nowrap ssm:flex-col hlg:grid-cols-3 hsm:grid-cols-2'>
 				{products?.map((product) => (
 					<Product key={product._id} product={product} />
 				))}
@@ -51,8 +53,8 @@ function Category() {
 	);
 }
 
-export const getStaticPaths = () => {
-	const categories = [{ _id: '1' }, { _id: '2' }];
+export const getStaticPaths = async () => {
+	const categories = await fetch(request.fetchCategories).then(res => res.json());
 
 	const paths = categories.map((category) => ({
 		params: {
@@ -67,10 +69,10 @@ export const getStaticPaths = () => {
 };
 
 export const getStaticProps = async ({ params: { slug } }) => {
-	const product = {};
+	
 
 	return {
-		props: { product },
+		props: { },
 	};
 };
 

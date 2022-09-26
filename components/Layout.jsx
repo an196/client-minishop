@@ -10,11 +10,10 @@ function Layout({ children }) {
 			<Head>
 				<title></title>
 			</Head>
-			
 				<div className='sticky top-0 !z-10000 bg-white '>
 					<Navbar />
 				</div>
-
+			<SubNavbar/>
 			<main className='m-auto w-full max-w-[1400px]'>{children}</main>
 			<footer>
 				<Footer />

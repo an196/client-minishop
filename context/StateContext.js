@@ -14,13 +14,14 @@ export const StateContext = ({ children }) => {
 	const [showCart, setShowCart] = useState(false);
 	const [showHamburgerButton, setShowHamburgerButton] = useState(false);
 	const [showSubSearchbar, setShowSubSearchbar] = useState(false);
-	const [showSliderNavbar, setShowSliderNavbar] = useState(true);
+	const [showSliderNavbar, setShowSliderNavbar] = useState(false);
 	const [cartItems, setCartItems] = useState([]);
 	const [totalPrice, setTotalPrice] = useState(0);
 	const [totalQuantities, setTotalQuantities] = useState(0);
 	const [qty, setQty] = useState(1);
 	const [isClicked, setIsClicked] = useState(initialState);
 	const [screenSize, setScreenSize] = useState(undefined);
+	const [categories, setCategories] = useState([]);
 
 	let foundProduct;
 	let index;
@@ -126,7 +127,9 @@ export const StateContext = ({ children }) => {
 				showSliderNavbar,
 				setShowSliderNavbar,
 				showSubSearchbar, 
-				setShowSubSearchbar
+				setShowSubSearchbar,
+				categories, 
+				setCategories,
 			}}
 		>
 			{children}

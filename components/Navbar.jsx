@@ -4,15 +4,14 @@ import { AiOutlineShopping } from 'react-icons/ai';
 import { FiLogIn } from 'react-icons/fi';
 import { useStateContext } from '~/context/StateContext';
 import { SiShopware } from 'react-icons/si';
-import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
 import avatar from '~/assets/default-user.png';
 import Image from 'next/image';
-import { NavButton, Cart, UserBar, SearchBox, HamburgerButton } from '../components';
-import { icons } from 'react-icons/lib';
+import {  Cart, UserBar, SearchBox, HamburgerButton, SliderNavBar } from '../components';
 import { useRouter } from 'next/router';
+import request from '../helper/request';
 
 function Navbar() {
-	const [userBarActive, setUserBarActive] = useState(true);
+	const {categories, setCategories} = useStateContext();
 
 	const {
 		showCart,
@@ -26,9 +25,20 @@ function Navbar() {
 		setShowHamburgerButton,
 		showSubSearchbar,
 		setShowSubSearchbar,
+		showSliderNavbar,
+		setShowSliderNavbar,
 	} = useStateContext();
 
 	const router = useRouter();
+
+	const handleHamburgerButtonClick = () => {
+		setShowSliderNavbar(true);
+	};
+
+	const getCategories = async () => {
+		const data = await fetch(request.fetchCategories).then( res => res.json()) ;
+		setCategories(data);
+	}
 
 	useEffect(() => {
 		const handleResize = () => setScreenSize(window.innerWidth);
@@ -36,6 +46,8 @@ function Navbar() {
 		window.addEventListener('resize', handleResize);
 
 		handleResize();
+
+		getCategories();
 
 		return () => window.removeEventListener('resize', handleResize);
 	}, []);
@@ -51,14 +63,19 @@ function Navbar() {
 		}
 	}, [screenSize]);
 
+	
 	return (
 		<>
 			{isClicked.userBar && !showCart && <UserBar />}
 			{showCart && <Cart />}
+			{showSliderNavbar && <SliderNavBar setShowSliderNavbar={setShowSliderNavbar} />}
 			<div className='navbar-container border-b-1 drop-shadow-lg mb-5 px-10 p-3 hlg:px-3 hlg:mx-1 md:mb-0'>
 				<div className='logo cursor-pointer flex justify-center space-x-3'>
 					{showHamburgerButton && (
-						<div className='cursor-pointer flex justify-center items-center text-[1.55rem] text-gray-500'>
+						<div
+							className='cursor-pointer flex justify-center items-center text-[1.55rem] text-gray-500'
+							onClick={handleHamburgerButtonClick}
+						>
 							<HamburgerButton />
 						</div>
 					)}
@@ -70,39 +87,6 @@ function Navbar() {
 					</Link>
 				</div>
 				<div className='flex space-x-6 items-center font-extrabold'>
-					<Link href={`/`}>
-						<span
-							className={
-								router.pathname === '/'
-									? `text-2xl nav-bar-item-active xl:hidden`
-									: 'cursor-pointer nav-bar-item text-gray-700 text-2xl xl:hidden'
-							}
-						>
-							Home
-						</span>
-					</Link>
-					<Link href={`/category/1`}>
-						<span
-							className={
-								router.query?.slug === '1'
-									? `text-2xl nav-bar-item-active xl:hidden`
-									: 'nav-bar-item text-gray-700 text-2xl xl:hidden'
-							}
-						>
-							Earphone
-						</span>
-					</Link>
-					<Link href={`/category/2`}>
-						<span
-							className={
-								router.query?.slug === '2'
-									? `text-2xl nav-bar-item-active xl:hidden`
-									: 'nav-bar-item text-gray-700 text-2xl xl:hidden'
-							}
-						>
-							Home
-						</span>
-					</Link>
 					<div className='md:hidden'>
 						<SearchBox />
 					</div>
@@ -122,7 +106,11 @@ function Navbar() {
 						<div className='text-gray-700 rounded-full border-1 overflow-hidden w-[25px] h-[25px] cursor-pointer'>
 							<Image src={avatar} layout='intrinsic' alt='user-profile' />
 						</div>
-						<FiLogIn />
+						<Link href={`/login`}>
+							<div className='cursor-pointer'>
+								<FiLogIn />
+							</div>
+						</Link>
 					</div>
 				</div>
 			</div>

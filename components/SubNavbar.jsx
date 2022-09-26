@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useStateContext } from '~/context/StateContext';
 
 function SubNavbar() {
 	const [screenSize, setScreenSize] = useState();
-	const [activeSubNavbar, setActiveSubNavbar] = useState(false);
+	const [activeSubNavbar, setActiveSubNavbar] = useState(true);
 	const router = useRouter();
+	const {categories, setCategories} = useStateContext();
+
 	useEffect(() => {
 		const handleResize = () => setScreenSize(window.innerWidth);
 
@@ -26,45 +29,23 @@ function SubNavbar() {
 
 	return (
 		<div>
-			{activeSubNavbar ? (
-				<div className='flex space-x-6 -mt-3 mb-3 items-center justify-center font-extrabold sm:hidden'>
-					<Link href={`/`}>
+			
+				<div className='flex space-x-6 -mt-3 mb-3 items-center justify-center font-extrabold md:hidden'>
+					{categories?.map(category => (
+						<Link href={`/category/${category._id}`}>
 						<span
 							className={
-								router.pathname === '/'
-									? `text-2xl nav-bar-item-active`
+								router.query?.slug === category._id
+									? `text-2xl nav-bar-item-active xl:hidden`
 									: 'cursor-pointer nav-bar-item text-gray-700 text-2xl'
 							}
 						>
-							Home
+							{category.name}
 						</span>
 					</Link>
-					<Link href={`/category/1`}>
-						<span
-							className={
-								router.query?.slug === '1'
-									? `text-2xl nav-bar-item-active`
-									: 'nav-bar-item text-gray-700 text-2xl'
-							}
-						>
-							Earphone
-						</span>
-					</Link>
-					<Link href={`/category/2`}>
-						<span
-							className={
-								router.query?.slug === '2'
-									? `text-2xl nav-bar-item-active`
-									: 'nav-bar-item text-gray-700 text-2xl'
-							}
-						>
-							Home
-						</span>
-					</Link>
+					))}
 				</div>
-			) : (
-				<></>
-			)}
+			
 		</div>
 	);
 }
