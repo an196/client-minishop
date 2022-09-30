@@ -32,9 +32,9 @@ function SliderNavBar({ setShowSliderNavbar }) {
 				</div>
 			</div>
 			<div className='p-5 space-y-3 font-medium text-[1.12rem] text-gray-500'>
-				{categories?.map((category) => (
+				{categories?.map((category, _index) => (
 					
-					<div onClick={() => handleClick(category._id)}>{category.name}</div>
+					<div key={_index} onClick={() => handleClick(category._id)}>{category.name}</div>
 				
 				))}
 			</div>

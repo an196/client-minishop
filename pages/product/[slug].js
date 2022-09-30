@@ -3,7 +3,6 @@ import { AiOutlineMinus, AiOutlinePlus, AiFillStar, AiOutlineStar } from 'react-
 import { Product, Layout } from '~/components';
 import { useStateContext } from '~/context/StateContext';	
 import parse from 'html-react-parser';
-import { useGetProductQuery } from '~/features/product/productApiSlice';
 import Image from 'next/image';
 import fallbackImage from '~/assets/default-image.png';
 import request from '../../helper/request';

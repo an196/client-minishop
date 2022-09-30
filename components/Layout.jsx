@@ -1,4 +1,3 @@
-import React from 'react';
 import Head from 'next/head';
 import Navbar from './Navbar';
 import Footer from './Footer';
@@ -8,7 +7,7 @@ function Layout({ children }) {
 	return (
 		<div className='p-[10px] md:p-0'>
 			<Head>
-				<title></title>
+				<title>MiniShop</title>
 			</Head>
 				<div className='sticky top-0 !z-10000 bg-white '>
 					<Navbar />

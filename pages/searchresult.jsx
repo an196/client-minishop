@@ -1,12 +1,20 @@
-import { useState } from 'react';
-import { Layout, Product, HeadTitile } from '~/components';
-//import { products } from '../../assets/dummy.data';
-import request from '../../helper/request';
+import React, { useState, useEffect } from 'react';
+import { Layout, Product } from '~/components';
+import { useRouter } from 'next/router';
+import request from '../helper/request';
 
 const activeFilterStyle = 'bg-black text-white py-2 px-4 capitalize sm:text-[10px]';
 const normalFilterStyle = 'py-2 px-3 capitalize sm:text-[12px]';
 
-function Category({  products}) {
+function searchResult({ data }) {
+	const router = useRouter();
+	const [result, setResult] = useState([]);
+
+	const getSearch = async () => {
+		const data = await fetch(request.fetchSearchResult(router.query.p)).then((res) => res.json());
+		setResult(data);
+	};
+
 	const [filters, setFilters] = useState([
 		{ name: 'increase', stats: true },
 		{ name: 'decrease', stats: false },
@@ -17,19 +25,19 @@ function Category({  products}) {
 	const [currentFilter, setCurrentFilter] = useState(filters[0].name);
 
 	const sortIncrease = () => {
-		const newdata = products.sort((a, b) => a.price - b.price);
+		const newdata = result.sort((a, b) => a.price - b.price);
 	};
 
 	const sortDecrease = () => {
-		const newdata = products.sort((a, b) => b.price - a.price);
+		const newdata = result.sort((a, b) => b.price - a.price);
 	};
 
 	const sortNewest = () => {
-		const newdata = products.sort((a, b) => a.goodsReceipts - b.goodsReceipts);
+		const newdata = result.sort((a, b) => a.goodsReceipts - b.goodsReceipts);
 	};
 
 	const sortOldest = () => {
-		const newdata = products.sort((a, b) => b.goodsReceipts - a.goodsReceipts);
+		const newdata = result.sort((a, b) => b.goodsReceipts - a.goodsReceipts);
 	};
 
 	const handleFilter = (e) => {
@@ -62,12 +70,19 @@ function Category({  products}) {
 		}
 	};
 
+	useEffect(() => {
+		getSearch();
+	}, [router.query.p]);
+
 	return (
-		<>
-			<HeadTitile title={'Earphone'} subtitle={'Speakers of many variations'} />
+		<div>
+			<div className='flex px-20 flex-wrap gap-[15px]'>
+				<div className='font-medium'>Result:</div>
+				<div className='font-normal text-blue-400'>{router.query.p}</div>
+			</div>
 			<div className='px-20 flex justify-center '>
 				<div className='rounded-full  ring overflow-hidden flex font-normal cursor-pointer'>
-					{filters.map((filter,_index) => (
+					{filters.map((filter, _index) => (
 						<div
 							onClick={handleFilter}
 							id={filter.name}
@@ -83,39 +98,14 @@ function Category({  products}) {
 				className='grid grid-cols-5 gap-[15px] mt-[20px] w-full px-20 md:px-14 sm:px-[18px] xl:grid-cols-4 lg:px-0 lg:gap-0 
 				place-items-center ssm:flex-nowrap ssm:flex-col hlg:grid-cols-3 hsm:grid-cols-2'
 			>
-				{products?.map((product) => (
-					<Product key={product._id} product={product} />
-				))}
+				{result && result?.map((product) => <Product key={product._id} product={product} />)}
 			</div>
-		</>
+		</div>
 	);
 }
 
-export const getStaticPaths = async () => {
-	const categories = await fetch(request.fetchCategories).then((res) => res?.json());
-
-	const paths = categories.map((category) => ({
-		params: {
-			slug: category.code.toString(),
-		},
-	}));
-
-	return {
-		paths,
-		fallback: 'blocking',
-	};
-};
-
-export const getStaticProps = async ({ params: { slug } }) => {
-	const products = await fetch(`http://localhost:8080/products/category/${slug}`).then((res) => res?.json());
-	//const products = [];
-	return {
-		props: { products },
-	};
-};
-
-Category.getLayout = function getLayout(page) {
+searchResult.getLayout = function getLayout(page) {
 	return <Layout>{page}</Layout>;
 };
 
-export default Category;
+export default searchResult;

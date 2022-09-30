@@ -7,7 +7,7 @@ function SubNavbar() {
 	const [screenSize, setScreenSize] = useState();
 	const [activeSubNavbar, setActiveSubNavbar] = useState(true);
 	const router = useRouter();
-	const {categories, setCategories} = useStateContext();
+	const { categories, setCategories } = useStateContext();
 
 	useEffect(() => {
 		const handleResize = () => setScreenSize(window.innerWidth);
@@ -27,15 +27,15 @@ function SubNavbar() {
 		}
 	}, [screenSize]);
 
+	console.log(categories)
 	return (
 		<div>
-			
-				<div className='flex space-x-6 -mt-3 mb-3 items-center justify-center font-extrabold md:hidden'>
-					{categories?.map(category => (
-						<Link href={`/category/${category._id}`}>
+			<div className='flex space-x-6 -mt-3 mb-3 items-center justify-center font-extrabold md:hidden'>
+				{categories?.map((category, _index) => (
+					<Link href={`/category/${category.code}`} key={_index}>
 						<span
 							className={
-								router.query?.slug === category._id
+								router.query?.slug === category.code
 									? `text-2xl nav-bar-item-active xl:hidden`
 									: 'cursor-pointer nav-bar-item text-gray-700 text-2xl'
 							}
@@ -43,9 +43,8 @@ function SubNavbar() {
 							{category.name}
 						</span>
 					</Link>
-					))}
-				</div>
-			
+				))}
+			</div>
 		</div>
 	);
 }
