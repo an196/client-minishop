@@ -96,6 +96,15 @@ function Login() {
 					</div>
 					<p>Back to home page</p>
 				</div>
+				<div
+					className='flex text-sm float-left text-blue-900 items-center cursor-pointer'
+					onClick={() => router.replace('/register')}
+				>
+					<div>
+						
+					</div>
+					<p className='underline'>Signup</p>
+				</div>
 			</form>
 			<div className='absolute w-full h-full opacity-90 -z-20'>
 				<Image src={backgroundImg}  layout='fill' />

@@ -76,7 +76,7 @@ function searchResult({ data }) {
 
 	return (
 		<div>
-			<div className='flex px-20 flex-wrap gap-[15px]'>
+			<div className='flex px-20 flex-wrap gap-[10px] mb-2'>
 				<div className='font-medium'>Result:</div>
 				<div className='font-normal text-blue-400'>{router.query.p}</div>
 			</div>

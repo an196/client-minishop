@@ -31,11 +31,9 @@ function SliderNavBar({ setShowSliderNavbar }) {
 					<MdCancel />
 				</div>
 			</div>
-			<div className='p-5 space-y-3 font-medium text-[1.12rem] text-gray-500'>
+			<div className='p-5 space-y-3 font-medium text-[1.12rem] text-gray-500' >
 				{categories?.map((category, _index) => (
-					
-					<div key={_index} onClick={() => handleClick(category._id)}>{category.name}</div>
-				
+					<div key={_index} onClick={() => handleClick(category.code)}>{category.name}</div>
 				))}
 			</div>
 		</div>

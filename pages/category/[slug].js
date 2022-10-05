@@ -3,10 +3,10 @@ import { Layout, Product, HeadTitile } from '~/components';
 //import { products } from '../../assets/dummy.data';
 import request from '../../helper/request';
 
-const activeFilterStyle = 'bg-black text-white py-2 px-4 capitalize sm:text-[10px]';
-const normalFilterStyle = 'py-2 px-3 capitalize sm:text-[12px]';
+const activeFilterStyle = 'bg-black text-white py-2 px-4 capitalize sm:text-[10px] sm:px-2';
+const normalFilterStyle = 'py-2 px-3 capitalize sm:text-[12px] sm:px-2';
 
-function Category({  products}) {
+function Category({ products }) {
 	const [filters, setFilters] = useState([
 		{ name: 'increase', stats: true },
 		{ name: 'decrease', stats: false },
@@ -64,10 +64,10 @@ function Category({  products}) {
 
 	return (
 		<>
-			<HeadTitile title={'Earphone'} subtitle={'Speakers of many variations'} />
-			<div className='px-20 flex justify-center '>
+			<HeadTitile title={''} subtitle={'Speakers of many variations'} />
+			<div className='px-20 flex flex-wrap  justify-center sm:px-4'>
 				<div className='rounded-full  ring overflow-hidden flex font-normal cursor-pointer'>
-					{filters.map((filter,_index) => (
+					{filters.map((filter, _index) => (
 						<div
 							onClick={handleFilter}
 							id={filter.name}
@@ -79,14 +79,18 @@ function Category({  products}) {
 					))}
 				</div>
 			</div>
-			<div
-				className='grid grid-cols-5 gap-[15px] mt-[20px] w-full px-20 md:px-14 sm:px-[18px] xl:grid-cols-4 lg:px-0 lg:gap-0 
+			{products.length !== 0 ? (
+				<div
+					className='grid grid-cols-5 gap-[15px] mt-[20px] w-full px-20 md:px-14 sm:px-[18px] xl:grid-cols-4 lg:px-0 lg:gap-0 
 				place-items-center ssm:flex-nowrap ssm:flex-col hlg:grid-cols-3 hsm:grid-cols-2'
-			>
-				{products?.map((product) => (
-					<Product key={product._id} product={product} />
-				))}
-			</div>
+				>
+					{products?.map((product) => (
+						<Product key={product._id} product={product} />
+					))}
+				</div>
+			) : (
+				<div className='px-20 flex flex-wrap  justify-center sm:px-4 mt-3 text-red-600'>Not record</div>
+			)}
 		</>
 	);
 }
