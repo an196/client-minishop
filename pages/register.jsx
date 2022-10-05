@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { SiShopware } from 'react-icons/si';
@@ -6,18 +6,81 @@ import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import backgroundImg from '~/assets/headphone.jpg';
 import Image from 'next/image';
+import { WarningText } from '~/components';
+import { useDispatch } from 'react-redux';
+import { useRegisterAccountMutation } from '~/features/register/registerSlice';
+import toast from 'react-hot-toast';
 
 function register() {
 	const router = useRouter();
+	const [showPassword, setShowPassword] = useState(false);
+	const [registerAccount, { isLoading }] = useRegisterAccountMutation();
+	const dispatch = useDispatch();
 
 	const {
 		register,
 		handleSubmit,
 		watch,
+		setError,
 		formState: { errors },
-	} = useForm();
+	} = useForm({
+		defaultValues: {
+			username: '',
+			password: '',
+			email: '',
+		},
+	});
 
-	const onSubmit = () => {};
+	const validateInfomation = (username, password, email) => {
+		let validate = true;
+		if (username.length < 6) {
+			validate = false;
+			setError('username', {
+				types: {
+					minLength: 'Username at least 6 characters!',
+				},
+			});
+		}
+		if (password.length < 8) {
+			validate = false;
+			setError('password', {
+				types: {
+					minLength: 'Passowrd at least 8 characters!',
+				},
+			});
+		}
+		if (
+			!email.match(
+				/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+			)
+		) {
+			validate = false;
+			setError('email', {
+				types: {
+					type: 'Email not validate! Example is "email@gmail.com"',
+				},
+			});
+		}
+
+		return validate;
+	};
+
+	const onSubmit = ({ username, password, email }) => {
+		if (validateInfomation(username, password, email)) {
+			const registerInfo = {
+				username,
+				password,
+				email,
+			};
+    
+			registerAccount(registerInfo)
+				.then((res) => {
+                    if(res?.error?.originalStatus === 409 )
+                        toast.error('Username or email has existed!')
+                })
+				.catch((errors) => toast.error('Username or email has existed!'));
+		}
+	};
 
 	return (
 		<div className='flex relative justify-start item-center flex-row w-screen h-screen duration-300 ease-linear'>
@@ -39,12 +102,11 @@ function register() {
 								<input
 									type='text'
 									placeholder='User name'
-									className='w-[320px] h-10 p-3 border-2 text-md rounded-sm'
+									className='w-[320px] h-10 p-3 border-2 text-md rounded-sm outline-none'
 									{...register('username', { required: true })}
 								/>
-								{errors.username && (
-									<p className='p-1 text-[13px] font-light  text-orange-500'>Please enter a username.</p>
-								)}
+								{errors.username && <WarningText message={'Please enter a username.'} />}
+								{errors.username?.types && <WarningText message={errors.username?.types?.minLength} />}
 							</label>
 						</div>
 						<div>
@@ -53,28 +115,28 @@ function register() {
 								<input
 									type='text'
 									placeholder='Email'
-									className='w-[320px] h-10 p-3 border-2 text-md rounded-sm'
+									className='w-[320px] h-10 p-3 border-2 text-md rounded-sm outline-none'
 									{...register('email', { required: true })}
 								/>
-								{errors.email && (
-									<p className='p-1 text-[13px] font-light  text-orange-500'>Please enter a valid email.</p>
-								)}
+								{errors.email && <WarningText message={errors?.email?.types?.type} />}
 							</label>
 						</div>
 						<div>
 							<h4 className='font-normal'>Password</h4>
 							<label className='inline-block w-full'>
-								<input
-									type='password'
-									placeholder='Password'
-									className='w-full h-10 p-3 text-md border-2 rounded-sm'
-									{...register('password', { required: true })}
-								/>
-								{errors.password && (
-									<p className='p-1 text-[13px] font-light  text-orange-500'>
-										Your password must contain between 4 and 60 characters.
-									</p>
-								)}
+								<div className='flex justify-center items-center border-2 rounded-sm '>
+									<input
+										type={!showPassword ? `password` : 'text'}
+										placeholder='Password'
+										className='w-full h-10 p-3 text-md border-none outline-none'
+										{...register('password', { required: true })}
+									/>
+
+									<div className='p-2 cursor-pointer' onClick={() => setShowPassword(!showPassword)}>
+										{!showPassword ? <AiFillEye /> : <AiFillEyeInvisible />}
+									</div>
+								</div>
+								{errors.password && <WarningText message={'Your password must at least 8 characters'} />}
 							</label>
 						</div>
 					</div>

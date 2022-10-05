@@ -14,3 +14,4 @@ export { default as RowItem} from "./RowItem";
 export { default as SubNavbar} from "./SubNavbar";
 export { default as HamburgerButton} from "./HamburgerButton";
 export { default as SliderNavBar} from "./SliderNavBar";
+export { default as WarningText} from "./WarningText";

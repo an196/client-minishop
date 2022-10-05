@@ -9,6 +9,7 @@ import { setCredentials } from '~/features/auth/authSlice';
 import { useLoginMutation } from '~/features/auth/authApiSlice';
 import Image from 'next/image';
 import toast from 'react-hot-toast';
+import { WarningText } from '~/components';
 
 function Login() {
 	const router = useRouter();
@@ -64,9 +65,7 @@ function Login() {
 								className=' w-full h-10 p-3 border-2 text-md rounded-sm'
 								{...register('email', { required: true })}
 							/>
-							{errors.email && (
-								<p className='p-1 text-[13px] font-light  text-orange-500'>Please enter a valid email.</p>
-							)}
+							{errors.email && <WarningText message={'Please enter a valid email.'} />}
 						</label>
 						<label className='inline-block w-full'>
 							<input
@@ -75,11 +74,7 @@ function Login() {
 								className='w-full h-10 p-3 text-md border-2 rounded-sm'
 								{...register('password', { required: true })}
 							/>
-							{errors.password && (
-								<p className='p-1 text-[13px] font-light  text-orange-500'>
-									Your password must contain between 4 and 60 characters.
-								</p>
-							)}
+							{errors.password && <WarningText message={'Your password must contain between 4 and 60 characters.'} />}
 						</label>
 					</div>
 
@@ -100,14 +95,12 @@ function Login() {
 					className='flex text-sm float-left text-blue-900 items-center cursor-pointer'
 					onClick={() => router.replace('/register')}
 				>
-					<div>
-						
-					</div>
+					<div></div>
 					<p className='underline'>Signup</p>
 				</div>
 			</form>
 			<div className='absolute w-full h-full opacity-90 -z-20'>
-				<Image src={backgroundImg}  layout='fill' />
+				<Image src={backgroundImg} layout='fill' />
 			</div>
 		</div>
 	);
