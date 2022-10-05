@@ -32,7 +32,7 @@ function Success() {
 					</a>
 				</p>
 				<Link href={'/'}>
-					<button type='button' className='btn' width='300px'>
+					<button type='button' className='btn bg-red-600/90' width='300px'>
 						Continue Shopping
 					</button>
 				</Link>
