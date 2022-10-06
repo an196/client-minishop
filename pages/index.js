@@ -13,7 +13,6 @@ function Home() {
 	let bannerData;
 	if (isSuccess) {
 		bannerData = [...data];
-		console.log(products);
 	}
 
 	if (isError) {

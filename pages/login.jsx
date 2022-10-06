@@ -21,14 +21,19 @@ function Login() {
 		handleSubmit,
 		watch,
 		formState: { errors },
-	} = useForm();
+	} = useForm({
+		defaultValues:{
+			email: 'test1234@gmail.com',
+			password: '11111111'
+		}
+	});
 
 	const onSubmit = async ({ email, password }) => {
 		try {
 			const userData = await login({ email, password }).unwrap();
 			dispatch(setCredentials({ ...userData, email }));
 			toast.success('login successfully');
-			// navigate('/dashboard');
+			router.replace('/');
 		} catch (err) {
 			if (!err?.originalStatus) {
 				// isLoading: true until timeout occurs
@@ -47,7 +52,7 @@ function Login() {
 	return (
 		<div className='flex relative justify-start item-center flex-row w-screen h-screen'>
 			<form
-				className='w-[400px] relative space-y-8 rounded bg-white py-10 px-6 md:mt-0 md:px-14 flex flex-col items-center
+				className='w-[600px] relative space-y-8 rounded bg-white py-10 px-6 md:mt-0 md:px-14 flex flex-col items-center
 				md:w-screen duration-100 ease-out ssm:px-4 ssm:py-8'
 				onSubmit={handleSubmit(onSubmit)}
 			>
@@ -58,15 +63,20 @@ function Login() {
 				<div className='p-5 flex flex-col items-center space-y-10'>
 					<h1 className='text-4xl font-semibold'>Sign in</h1>
 					<div className='space-y-4'>
-						<label className='inline-block w-full'>
-							<input
-								type='text'
-								placeholder='Email'
-								className=' w-full h-10 p-3 border-2 text-md rounded-sm'
-								{...register('email', { required: true })}
-							/>
-							{errors.email && <WarningText message={'Please enter a valid email.'} />}
-						</label>
+						<div>
+							<h4 className='font-normal'>Email</h4>
+							<label className='inline-block w-full'>
+								<input
+									type='text'
+									placeholder='Email'
+									className=' w-[320px] h-10 p-3 border-2 text-md rounded-sm'
+									{...register('email', { required: true })}
+								/>
+								{errors.email && <WarningText message={'Please enter a valid email.'} />}
+							</label>
+						</div>
+						<div>
+						<h4 className='font-normal'>Password</h4>
 						<label className='inline-block w-full'>
 							<input
 								type='password'
@@ -76,6 +86,7 @@ function Login() {
 							/>
 							{errors.password && <WarningText message={'Your password must contain between 4 and 60 characters.'} />}
 						</label>
+						</div>
 					</div>
 
 					<button type='submit' className='w-full rounded bg-[#e50914] py-3 font-semibold text-medium text-white'>

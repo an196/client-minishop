@@ -6,12 +6,16 @@ import { useStateContext } from '~/context/StateContext';
 import { SiShopware } from 'react-icons/si';
 import avatar from '~/assets/default-user.png';
 import Image from 'next/image';
-import {  Cart, UserBar, SearchBox, HamburgerButton, SliderNavBar } from '../components';
+import { Cart, UserBar, SearchBox, HamburgerButton, SliderNavBar } from '../components';
 import { useRouter } from 'next/router';
 import request from '../helper/request';
+import { useSelector } from 'react-redux';
+import { selectCurrentToken, selectCurrentUser } from '~/features/auth/authSlice';
 
 function Navbar() {
-	const {categories, setCategories} = useStateContext();
+	const { categories, setCategories } = useStateContext();
+	const token = useSelector(selectCurrentToken);
+	const userInfo = useSelector(selectCurrentUser);
 
 	const {
 		showCart,
@@ -36,9 +40,9 @@ function Navbar() {
 	};
 
 	const getCategories = async () => {
-		const data = await fetch(request.fetchCategories).then( res => res.json()) ;
+		const data = await fetch(request.fetchCategories).then((res) => res.json());
 		setCategories(data);
-	}
+	};
 
 	useEffect(() => {
 		const handleResize = () => setScreenSize(window.innerWidth);
@@ -63,7 +67,6 @@ function Navbar() {
 		}
 	}, [screenSize]);
 
-	
 	return (
 		<>
 			{isClicked.userBar && !showCart && <UserBar />}
@@ -104,13 +107,16 @@ function Navbar() {
 					</div>
 					<div className='flex flex-row space-x-2 items-center max-w-[135px]'>
 						<div className='text-gray-700 rounded-full border-1 overflow-hidden w-[25px] h-[25px] cursor-pointer'>
-							<Image src={avatar} layout='intrinsic' alt='user-profile' />
+							<Image src={!userInfo ? avatar : userInfo.imgProfile} layout='responsive' width={25} height={25} alt='user-profile' />
 						</div>
+						{ !token &&  
 						<Link href={`/login`}>
-							<div className='cursor-pointer'>
-								<FiLogIn />
-							</div>
-						</Link>
+						<div className='cursor-pointer'>
+							<FiLogIn />
+						</div>
+					</Link>
+					}
+						
 					</div>
 				</div>
 			</div>

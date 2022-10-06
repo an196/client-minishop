@@ -25,9 +25,9 @@ function register() {
 		formState: { errors },
 	} = useForm({
 		defaultValues: {
-			username: '',
-			password: '',
-			email: '',
+			username: 'Nirav Joshi 8',
+			password: 'nirav8@gmail.com',
+			email: 'nirav8@gmail.com',
 		},
 	});
 
@@ -72,13 +72,21 @@ function register() {
 				password,
 				email,
 			};
-    
+			
 			registerAccount(registerInfo)
 				.then((res) => {
                     if(res?.error?.originalStatus === 409 )
-                        toast.error('Username or email has existed!')
+                        toast.error('Username or email has been existed!')
+					else{
+						if(res?.data?.success){
+							router.replace('/registerSuccessful');
+						}
+					}
                 })
-				.catch((errors) => toast.error('Username or email has existed!'));
+				.catch((errors) => {
+					toast.error('Error! Cant register account')
+					console.log(errors);
+				});
 		}
 	};
 

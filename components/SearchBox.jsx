@@ -10,7 +10,6 @@ function SearchBox() {
 
 	const handleSearch = async () => {
 		router.replace(`/searchresult?p=${searchTerm}`)
-		console.log(searchTerm)
 	}
 
 	const hanldeChange = (e) => {
