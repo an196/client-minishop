@@ -12,7 +12,7 @@ function registerSuccessful() {
 	return (
 		<div className='flex min-h-[100vh] text-center justify-center items-center flex-col'>
 			<div>
-				<h1 className='text-[#324d67] text-[40px] font-extrabold'>Congratulations!</h1>
+				<h1 className='text-[#324d67] text-[40px] font-extrabold md:text-[28px]'>Congratulations!</h1>
 				<p className='text-[16px] font-extralight'>You have successfully registered an account</p>
                 <Link href='/login'>
 				    <button className='bg-[#e50914] mt-2 mb-2 text-white rounded-sm p-2'>Back to sign in</button>

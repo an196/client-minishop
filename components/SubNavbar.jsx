@@ -27,7 +27,6 @@ function SubNavbar() {
 		}
 	}, [screenSize]);
 
-	console.log(`categories:: ${router.query?.slug}`)
 	return (
 		<div>
 			<div className='flex space-x-6 -mt-3 mb-3 items-center justify-center font-extrabold md:hidden'>

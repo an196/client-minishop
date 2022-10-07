@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { AiOutlineShopping } from 'react-icons/ai';
-import { FiLogIn } from 'react-icons/fi';
+import { FiLogIn, FiLogOut } from 'react-icons/fi';
 import { useStateContext } from '~/context/StateContext';
 import { SiShopware } from 'react-icons/si';
 import avatar from '~/assets/default-user.png';
@@ -9,13 +9,14 @@ import Image from 'next/image';
 import { Cart, UserBar, SearchBox, HamburgerButton, SliderNavBar } from '../components';
 import { useRouter } from 'next/router';
 import request from '../helper/request';
-import { useSelector } from 'react-redux';
-import { selectCurrentToken, selectCurrentUser } from '~/features/auth/authSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectCurrentToken, selectCurrentUser, logOut } from '~/features/auth/authSlice';
 
 function Navbar() {
 	const { categories, setCategories } = useStateContext();
 	const token = useSelector(selectCurrentToken);
 	const userInfo = useSelector(selectCurrentUser);
+	const dispatch = useDispatch();
 
 	const {
 		showCart,
@@ -38,6 +39,11 @@ function Navbar() {
 	const handleHamburgerButtonClick = () => {
 		setShowSliderNavbar(true);
 	};
+
+	const handleLogOut = () => {
+		dispatch(logOut());
+		router.replace('/');
+	}
 
 	const getCategories = async () => {
 		const data = await fetch(request.fetchCategories).then((res) => res.json());
@@ -107,16 +113,25 @@ function Navbar() {
 					</div>
 					<div className='flex flex-row space-x-2 items-center max-w-[135px]'>
 						<div className='text-gray-700 rounded-full border-1 overflow-hidden w-[25px] h-[25px] cursor-pointer'>
-							<Image src={!userInfo ? avatar : userInfo.imgProfile} layout='responsive' width={25} height={25} alt='user-profile' />
+							<Image
+								src={!userInfo ? avatar : userInfo.imgProfile}
+								layout='responsive'
+								width={25}
+								height={25}
+								alt='user-profile'
+							/>
 						</div>
-						{ !token &&  
-						<Link href={`/login`}>
-						<div className='cursor-pointer'>
-							<FiLogIn />
-						</div>
-					</Link>
-					}
-						
+						{!token ? (
+							<Link href={`/login`}>
+								<div className='cursor-pointer'>
+									<FiLogIn />
+								</div>
+							</Link>
+						) : (
+							<div className='cursor-pointer' onClick={handleLogOut}>
+								<FiLogOut />
+							</div>
+						)}
 					</div>
 				</div>
 			</div>
