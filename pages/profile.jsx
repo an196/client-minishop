@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useMemo } from 'react';
 import { Layout, RowLinkAndSecurity } from '~/components';
 import Image from 'next/image';
 import { BsFillTelephoneFill } from 'react-icons/bs';
@@ -8,14 +8,21 @@ import avatar from '~/assets/default-user.png';
 import Select from 'react-select';
 import { countries } from '~/data/countries';
 import { day, month, year } from '~/data/date';
+import { selectCurrentUser } from '~/features/auth/authSlice';
+import { useSelector } from 'react-redux';
 
 const evenMonth = [4, 6, 9, 11];
 const oddMonth = [1, 3, 5, 7, 8, 10, 12];
 const DAY_EVEN = 30;
 const DAY_LEAP = 29;
 const DAY_NOT_LEAP = 28;
+const genderRadio = [
+	{ id: 'men', label: 'men' },
+	{ id: 'woman', label: 'woman' },
+];
 
 function profile() {
+	const userInfo = useSelector(selectCurrentUser);
 	const [selectCountry, setSelectCountry] = useState(null);
 	const [selectDay, setSelectDay] = useState(null);
 	const [selectMonth, setSelectMonth] = useState(null);
@@ -40,12 +47,8 @@ function profile() {
 	};
 
 	const selectedMonth = (selectedMonth) => {
-		console.log(selectDay);
-		console.log(selectedMonth);
 		//check when days of month are 31
-		if (Number(selectDay?.value) <= 31 && oddMonth.includes(Number(selectedMonth))) {
-			return true;
-		}
+		if (Number(selectDay?.value) <= 31 && oddMonth.includes(Number(selectedMonth))) return true;
 
 		//check when days of month are 30
 		if (Number(selectDay?.value) <= 30 && evenMonth.includes(Number(selectedMonth))) return true;
@@ -91,17 +94,36 @@ function profile() {
 		return Number(year) % 400 === 0 || (Number(year) % 4 === 0 && Number(year) % 100 !== 0);
 	};
 
+	const initCountry = useMemo(() => {
+		if (userInfo) {
+			const country = countries.find((country) => country.label === userInfo.country);
+			setSelectCountry((currentCountry) => (currentCountry = country));
+
+			const date = new Date(userInfo?.birthday);
+			setSelectDay({ label: date.getDay(), value: date.getDay() });
+			setSelectMonth({ label: date.getMonth(), value: date.getMonth() });
+			setSelectYear({ label: date.getFullYear(), value: date.getFullYear() });
+		}
+	}, []);
+
+	console.log(userInfo);
 	return (
-		<div className='flex min-h-[100vh] w-[800px] justify-center m-auto  bg-slate-200 rounded-md'>
+		<div className='flex min-h-[100vh] w-[800px] justify-center m-auto  bg-slate-200 rounded-md md:w-[100vw]'>
 			<div className='flex flex-col items-center'>
 				<h1 className='text-[#324d67] text-[28px] font-extrabold mt-4'>User Profile</h1>
 
-				<div className='flex items-center justify-center w-[100px] h-[100px] mt-4 bg-white rounded-full  '>
-					<Image src={avatar} width={50} height={50} />
+				<div className='text-gray-700 rounded-full border-2 overflow-hidden w-[100px] h-[100px] border-gray-400'>
+					<Image
+						src={!userInfo ? avatar : userInfo.imgProfile}
+						layout='responsive'
+						width={100}
+						height={100}
+						alt='user-profile'
+					/>
 				</div>
-				<h4 className='font-medium text-[18px] mt-1'>User name</h4>
+				<h4 className='font-medium text-[18px] text-[#0b74e5]  mt-1'>{userInfo?.username || 'User name'}</h4>
 				<div className='bg-slate-100 w-[600px] mt-4 md:w-[100vw]'>
-					<div className='grid grid-cols-2 place-content-center gap-4 divide-x divide-blue-200'>
+					<div className='grid grid-cols-2 place-content-center gap-4 divide-x divide-blue-200 md:grid-cols-1'>
 						<div className='p-4 space-y-3'>
 							<h4 className='font-medium text-[18px] mt-1 '>Infomation</h4>
 							<div className='flex flex-col space-y-1'>
@@ -116,7 +138,7 @@ function profile() {
 							</div>
 							<div className='flex flex-col space-y-1 text-[14px] '>
 								<h4 className='float-left '>Birthday</h4>
-								<div className='flex flex-row justify-between'>
+								<div className='flex flex-row space-x-2'>
 									<Select
 										key={selectDay}
 										instanceId='selectDay'
@@ -126,6 +148,7 @@ function profile() {
 										placeholder='day'
 									/>
 									<Select
+										key={selectMonth}
 										instanceId='selectMonth'
 										defaultValue={selectMonth}
 										onChange={handleMonthChange}
@@ -133,6 +156,7 @@ function profile() {
 										placeholder='month'
 									/>
 									<Select
+										key={selectYear}
 										instanceId='selectYear'
 										defaultValue={selectYear}
 										onChange={handleYearChange}
@@ -143,20 +167,18 @@ function profile() {
 							</div>
 							<div className='flex flex-col space-y-1  text-[14px]'>
 								<h4 className='float-left'>Gender</h4>
-								<div className='flex flex-row justify-between'>
-									<div className='space-x-2 flex justify-center items-center'>
-										<input type='radio' name='gender' id='men' value='men' />
-										<label for='men'>Men</label>
-									</div>
-									<div className='space-x-2 flex justify-center items-center'>
-										<input type='radio' name='gender' id='men' value='men' />
-										<label for='men'>Woman</label>
-									</div>
+								<div className='flex flex-row md:justify-start space-x-2'>
+									{genderRadio.map((gender) => (
+										<div className='space-x-1 flex justify-center items-center'>
+											<input type='radio' name='gender' id={gender.id} value={gender.label} checked={userInfo?.gender === gender?.label}/>
+											<label htmlFor={gender.label} className='capitalize'>{gender.label}</label>
+										</div>
+									))}
 								</div>
 							</div>
 							<div className='flex flex-row space-x-1 text-[14px]'>
 								<h4 className='float-left'>Total bill:</h4>
-								<span className='font-bold'>300$</span>
+								<span className='font-bold'>{userInfo?.totalBill || '0'}$</span>
 							</div>
 							<div className='flex items-center justify-center'>
 								<button className='bg-[#0b74e5] text-white font-[14px] rounded-[4px] py-1 px-2'>Update</button>
@@ -164,9 +186,13 @@ function profile() {
 						</div>
 
 						<div className='p-4 space-y-3'>
-							<h4 className='font-medium text-[18px] mt-1 '>Link and Security</h4>
-							<RowLinkAndSecurity icon={<BsFillTelephoneFill />} title={'Phone'} desc={'0901234567'} />
-							<RowLinkAndSecurity icon={<MdEmail />} title={'Email'} desc={'abc@gmail.com'} />
+							<h4 className='font-medium text-[18px] mt-1  '>Link and Security</h4>
+							<RowLinkAndSecurity
+								icon={<BsFillTelephoneFill />}
+								title={'Phone'}
+								desc={userInfo?.phone || '0901234567'}
+							/>
+							<RowLinkAndSecurity icon={<MdEmail />} title={'Email'} desc={userInfo?.email || 'abc@gmail.com'} />
 							<RowLinkAndSecurity icon={<RiLockPasswordFill />} title={'Password'} />
 						</div>
 					</div>

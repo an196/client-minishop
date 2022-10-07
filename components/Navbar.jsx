@@ -43,7 +43,7 @@ function Navbar() {
 	const handleLogOut = () => {
 		dispatch(logOut());
 		router.replace('/');
-	}
+	};
 
 	const getCategories = async () => {
 		const data = await fetch(request.fetchCategories).then((res) => res.json());
@@ -112,15 +112,17 @@ function Navbar() {
 						</button>
 					</div>
 					<div className='flex flex-row space-x-2 items-center max-w-[135px]'>
-						<div className='text-gray-700 rounded-full border-1 overflow-hidden w-[25px] h-[25px] cursor-pointer'>
-							<Image
-								src={!userInfo ? avatar : userInfo.imgProfile}
-								layout='responsive'
-								width={25}
-								height={25}
-								alt='user-profile'
-							/>
-						</div>
+						<Link href={'/profile'}>
+							<div className='text-gray-700 rounded-full border-1 overflow-hidden w-[25px] h-[25px] cursor-pointer'>
+								<Image
+									src={!userInfo ? avatar : userInfo.imgProfile}
+									layout='responsive'
+									width={25}
+									height={25}
+									alt='user-profile'
+								/>
+							</div>
+						</Link>
 						{!token ? (
 							<Link href={`/login`}>
 								<div className='cursor-pointer'>
