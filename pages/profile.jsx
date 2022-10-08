@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { BsFillTelephoneFill } from 'react-icons/bs';
 import { MdEmail } from 'react-icons/md';
 import { RiLockPasswordFill } from 'react-icons/ri';
+import { FaPen } from 'react-icons/fa';
 import avatar from '~/assets/default-user.png';
 import Select from 'react-select';
 import { countries } from '~/data/countries';
@@ -66,8 +67,6 @@ function profile() {
 	};
 
 	const onSubmitInfo = (e) => {
-		
-
 		if (selectDay) {
 			const newBirthday = new Date(selectYear.value, selectMonth.value, selectDay.value).toISOString();
 			const newInfo = {
@@ -79,18 +78,15 @@ function profile() {
 				gender: selectGender,
 			};
 
-			if(isUserInfoChange(userInfo, newInfo)){
+			if (isUserInfoChange(userInfo, newInfo)) {
 				updateCustomer(newInfo)
-				.unwrap()
-				.then((res) => toast.success('Update successful'))
-				.catch((error) => toast.error('Update failed'));
-			}
-			else{
+					.unwrap()
+					.then((res) => toast.success('Update successful'))
+					.catch((error) => toast.error('Update failed'));
+			} else {
 				toast.error('Nothing changed');
-				console.log( userInfo, newInfo)
+				console.log(userInfo, newInfo);
 			}
-
-			
 		} else {
 			toast.error('Please select right date');
 		}
@@ -169,20 +165,35 @@ function profile() {
 	}, []);
 
 	return (
-		<div className='flex min-h-[100vh] w-[800px] justify-center m-auto  bg-slate-200 rounded-md md:w-[100vw]'>
+		<div className='flex w-[800px] justify-center m-auto pb-20 md:pb-0 bg-slate-200 rounded-md md:w-[100vw]'>
 			<div className='flex flex-col items-center'>
 				<h1 className='text-[#324d67] text-[28px] font-extrabold mt-4'>User Profile</h1>
-
-				<div className='text-gray-700 rounded-full border-2 overflow-hidden w-[100px] h-[100px] border-gray-400'>
-					<Image
-						src={!userInfo ? avatar : userInfo.imgProfile}
-						layout='responsive'
-						width={100}
-						height={100}
-						alt='user-profile'
-					/>
+				<div className='relative'>
+					<div className=' text-gray-700 rounded-full border-2 overflow-hidden w-[100px] h-[100px] border-gray-400'>
+						<Image
+							src={!userInfo ? avatar : userInfo.imgProfile}
+							layout='responsive'
+							width={100}
+							height={100}
+							alt='user-profile'
+						/>
+					</div>
+					<div
+						className='absolute bottom-2 right-1 w-5 h-5 rounded-full bg-[#0b74e5] z-10 overflow-hidden text-[10px] flex justify-center items-center p-1
+						cursor-pointer'
+					>
+						<FaPen />
+					</div>
 				</div>
-				<h4 className='font-medium text-[18px] text-[#0b74e5]  mt-1'>{userInfo?.username || 'User name'}</h4>
+				<div className='flex flex-row justify-center items-center space-x-2'>
+					<h4 className='font-medium text-[18px] text-[#0b74e5]  mt-1'>{userInfo?.username || 'User name'}</h4>
+					<div
+						className='w-5 h-5 rounded-full bg-[#0b74e5] z-10 overflow-hidden text-[10px] flex justify-center items-center p-1
+						cursor-pointer'
+					>
+						<FaPen />
+					</div>
+				</div>
 				<div className='bg-slate-100 w-[600px] mt-4 md:w-[100vw]'>
 					<form onSubmit={handleSubmit(onSubmitInfo)}>
 						<div className='grid grid-cols-2 place-content-center gap-4 divide-x divide-blue-200 md:grid-cols-1'>
@@ -262,9 +273,10 @@ function profile() {
 									icon={<BsFillTelephoneFill />}
 									title={'Phone'}
 									desc={userInfo?.phone || '0901234567'}
+									link={'/changePhone'}
 								/>
-								<RowLinkAndSecurity icon={<MdEmail />} title={'Email'} desc={userInfo?.email || 'abc@gmail.com'} />
-								<RowLinkAndSecurity icon={<RiLockPasswordFill />} title={'Password'} />
+								<RowLinkAndSecurity icon={<MdEmail />} title={'Email'} desc={userInfo?.email || 'abc@gmail.com'} link={'/changeEmail'} />
+								<RowLinkAndSecurity icon={<RiLockPasswordFill />} title={'Password'} link={'/changePassword'}/>
 							</div>
 						</div>
 					</form>

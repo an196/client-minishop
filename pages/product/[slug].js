@@ -5,8 +5,8 @@ import { useStateContext } from '~/context/StateContext';
 import parse from 'html-react-parser';
 import Image from 'next/image';
 import fallbackImage from '~/assets/default-image.png';
-import request from '../../helper/request';
-import { products } from '../../assets/dummy.data';
+import request from '~/helper/request';
+import { products } from '~/data/dummy.data';
 
 function ProductDetails({ product }) {
 	const [index, setIndex] = useState(0);

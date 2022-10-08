@@ -1,6 +1,7 @@
 import React from 'react';
+import Link from 'next/link';
 
-function RowLinkAndSecurity({ icon, title, desc, handleUpdate }) {
+function RowLinkAndSecurity({ icon, title, desc, link = '' }) {
 	return (
 		<div className='flex flex-row items-center space-x-3'>
 			<div className='flex-none flex items-center justify-center'>
@@ -12,9 +13,11 @@ function RowLinkAndSecurity({ icon, title, desc, handleUpdate }) {
 				<h4 className='font-medium'>{title}</h4>
 				{desc && <span className=''>{desc}</span>}
 			</div>
+			<Link href={link}>
 			<button className='flex-none border-1 border-[#0b74e5] rounded-[4px] text-[14px] px-1 text-[#0b74e5] font-extralight'>
 				update
 			</button>
+			</Link>
 		</div>
 	);
 }
