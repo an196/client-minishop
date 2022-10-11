@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Layout, Product } from '~/components';
+import { Layout, Product, HeadTitile, NoRecord } from '~/components';
 import { useRouter } from 'next/router';
 import request from '../helper/request';
 
@@ -76,30 +76,40 @@ function searchResult({ data }) {
 
 	return (
 		<div>
-			<div className='flex px-20 flex-wrap gap-[10px] mb-2'>
+			{/* <div className='flex px-20 flex-wrap gap-[10px] mb-2'>
 				<div className='font-medium'>Result:</div>
 				<div className='font-normal text-blue-400'>{router.query.p}</div>
-			</div>
-			<div className='px-20 flex justify-center '>
-				<div className='rounded-full  ring overflow-hidden flex font-normal cursor-pointer'>
-					{filters.map((filter, _index) => (
-						<div
-							onClick={handleFilter}
-							id={filter.name}
-							className={`${filter.stats ? activeFilterStyle : normalFilterStyle}`}
-							key={_index}
-						>
-							{filter.name}
-						</div>
-					))}
-				</div>
-			</div>
-			<div
-				className='grid grid-cols-5 gap-[15px] mt-[20px] w-full px-20 md:px-14 sm:px-[18px] xl:grid-cols-4 lg:px-0 lg:gap-0 
+			</div> */}
+			<HeadTitile title={''} subtitle={'Speakers of many variations'} />
+			{result.length > 0 ? (
+				<div className='px-20 flex justify-center '>
+					<div className='rounded-full  ring overflow-hidden flex font-normal cursor-pointer'>
+						{filters.map((filter, _index) => (
+							<div
+								onClick={handleFilter}
+								id={filter.name}
+								className={`${filter.stats ? activeFilterStyle : normalFilterStyle}`}
+								key={_index}
+							>
+								{filter.name}
+							</div>
+						))}
+					</div>
+
+					<div
+						className='grid grid-cols-5 gap-[15px] mt-[20px] w-full px-20 md:px-14 sm:px-[18px] xl:grid-cols-4 lg:px-0 lg:gap-0 
 				place-items-center ssm:flex-nowrap ssm:flex-col hlg:grid-cols-3 hsm:grid-cols-2'
-			>
-				{result && result?.map((product) => <Product key={product._id} product={product} />)}
-			</div>
+					>
+						{result?.map((product) => (
+							<Product key={product._id} product={product} />
+						))}
+					</div>
+				</div>
+			) : (
+				<div className='flex flex-col items-center justify-center'>
+					<NoRecord width={200} height={200} />
+				</div>
+			)}
 		</div>
 	);
 }

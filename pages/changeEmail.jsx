@@ -5,7 +5,7 @@ import { selectCurrentUser } from '~/features/auth/authSlice';
 import { setEmail, setAction } from '~/features/otp/otpSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
-import {toast} from 'react-toastify';
+import { toast } from 'react-toastify';
 
 function changeEmail() {
 	const [currentEmail, setCurrentEmail] = useState();
@@ -15,7 +15,6 @@ function changeEmail() {
 	const router = useRouter();
 
 	const handleOnClick = () => {
-		console.log(currentEmail, userInfo?.email)
 		if (currentEmail === userInfo?.email) {
 			toast.error('Email not change!');
 		} else {
@@ -50,9 +49,12 @@ function changeEmail() {
 					</div>
 
 					<div className='flex items-center justify-center w-full'>
-						<div onClick={handleOnClick}>
-							<button className='bg-[#0b74e5] text-white font-[14px] rounded-[4px] py-1 px-2 w-full'>Update</button>
-						</div>
+						<button
+							className='bg-[#0b74e5] text-white font-[14px] rounded-[4px] py-1 px-2 w-full'
+							onClick={handleOnClick}
+						>
+							Update
+						</button>
 					</div>
 				</div>
 			</div>

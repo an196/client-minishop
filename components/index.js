@@ -16,3 +16,4 @@ export { default as HamburgerButton} from "./HamburgerButton";
 export { default as SliderNavBar} from "./SliderNavBar";
 export { default as WarningText} from "./WarningText";
 export { default as RowLinkAndSecurity} from "./profile/RowLinkAndSecurity";
+export { default as NoRecord} from "./NoRecord";

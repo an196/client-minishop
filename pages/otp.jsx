@@ -1,14 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Layout } from '~/components';
 import OtpInput from 'react-otp-input';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
-import { useSendOTPtoEmailMutation, useCompareOTPbyEmailMutation } from '~/features/otp/otpApiSlice';
-import { selectCurrentEmail, selectCurrentAction } from '~/features/otp/otpSlice';
-import { setCredentials } from '~/features/auth/authSlice';
-import { selectCurrentUser } from '../features/auth/authSlice';
-import { useSelector, useDispatch } from 'react-redux';
-import { useMemo } from 'react';
+import {
+	useSendOTPtoEmailMutation,
+	useCompareOTPbyEmailMutation,
+	useSendOTPtoChangePasswordMutation,
+	useSendAcceptToChangePasswordMutation,
+} from '~/features/otp/otpApiSlice';
+import { selectCurrentEmail, selectCurrentAction, selectPasswordRechange } from '~/features/otp/otpSlice';
+import { setCredentials,selectCurrentUser , logOut } from '~/features/auth/authSlice';
+
+
 
 const MAX_DIGITS_OTP = 6;
 const COUNT_DOWN = 60;
@@ -16,12 +21,17 @@ const COUNT_DOWN = 60;
 function otp() {
 	const [state, setState] = useState({ otp: '' });
 	const [countdown, setCountdown] = useState(COUNT_DOWN);
+	const [otpOrigin, setOtpOrigin] = useState();
 
 	const [sendOTPtoEmail] = useSendOTPtoEmailMutation();
 	const [compareOTPbyEmail] = useCompareOTPbyEmailMutation();
+	const [sendOTPtoChangePassword] = useSendOTPtoChangePasswordMutation();
+	const [sendAcceptToChangePassword] = useSendAcceptToChangePasswordMutation();
 
 	const currentEmail = useSelector(selectCurrentEmail);
 	const currentAction = useSelector(selectCurrentAction);
+	const passwordRechange = useSelector(selectPasswordRechange);
+
 	const userInfo = useSelector(selectCurrentUser);
 
 	//router
@@ -34,33 +44,34 @@ function otp() {
 			setState({ otp });
 		}
 		if (countdown > 0 && otp.length === MAX_DIGITS_OTP) {
-			const data = {
-				_id: userInfo?._id,
-				email: currentEmail,
-				otp,
-			};
-			compareOTPbyEmail(data)
-				.unwrap()
-				.then((res) => {
-					toast(res);
-					const newUserInfo = {
-						...userInfo,
-						email: currentEmail,
-					};
-					dispatch(setCredentials(newUserInfo));
-					router.replace('/');
-				})
-				.catch((error) => toast.error(error));
+			doCompareOTP(otp);
+			// const data = {
+			// 	_id: userInfo?._id,
+			// 	email: currentEmail,
+			// 	otp,
+			// };
+			// compareOTPbyEmail(data)
+			// 	.unwrap()
+			// 	.then((res) => {
+			// 		toast(res);
+			// 		const newUserInfo = {
+			// 			...userInfo,
+			// 			email: currentEmail,
+			// 		};
+			// 		dispatch(setCredentials(newUserInfo));
+			// 		router.replace('/');
+			// 	})
+			// 	.catch((error) => toast.error(error));
 		}
 	};
 
 	const doActionOTP = () => {
 		switch (currentAction) {
 			case 'changePassword':
-				console.log('changePassword');
+				doSendOTPtoChangePassword();
 				return;
 			case 'changeEmail':
-				doSendOTPtoEmail();
+				doSendOTPtoChangeEmail();
 				return;
 			default:
 				console.log('not action suitable');
@@ -68,11 +79,68 @@ function otp() {
 		}
 	};
 
-	const doSendOTPtoEmail = () => {
+	const doCompareOTP = (otp) => {
+		switch (currentAction) {
+			case 'changePassword':
+				doCompareToChangePassword(otp);
+				return;
+			case 'changeEmail':
+				doCompareToChangeEmail(otp);
+				return;
+			default:
+				console.log('not action suitable');
+				return;
+		}
+	};
+
+	const doCompareToChangeEmail = (otp) => {
+		const data = {
+			_id: userInfo?._id,
+			email: currentEmail,
+			otp,
+		};
+		compareOTPbyEmail(data)
+			.unwrap()
+			.then((res) => {
+				toast(res);
+				const newUserInfo = {
+					...userInfo,
+					email: currentEmail,
+				};
+				dispatch(setCredentials(newUserInfo));
+				router.replace('/');
+			})
+			.catch((error) => toast.error(error));
+	};
+
+	const doCompareToChangePassword = (otp) => {
+		if (otpOrigin === otp) {
+			console.log('otp true')
+			sendAcceptToChangePassword({_id: userInfo?._id, status: 'OTP_TRUE'}).unwrap()
+				.then(res => {
+					toast.success('New password is changed!');
+					dispatch(logOut());
+					router.replace('/');
+				})
+				.catch(err => console.log(err))
+		}
+	};
+
+	const doSendOTPtoChangeEmail = () => {
 		sendOTPtoEmail({ _id: userInfo?._id, toEmail: currentEmail })
 			.unwrap()
 			.then((res) => {
 				console.log(res);
+			})
+			.catch((err) => console.log(err));
+	};
+
+	const doSendOTPtoChangePassword = () => {
+		sendOTPtoChangePassword({ _id: userInfo?._id, passwordRechange })
+			.unwrap()
+			.then((res) => {
+				setOtpOrigin(res);
+				console.log(res)
 			})
 			.catch((err) => console.log(err));
 	};
@@ -84,7 +152,8 @@ function otp() {
 	}, [countdown]);
 
 	const initValue = useMemo(() => {
-		if (currentAction && currentEmail) {
+		console.log(currentAction, passwordRechange);
+		if (currentAction && (currentEmail || passwordRechange)) {
 			doActionOTP();
 		}
 	}, []);
