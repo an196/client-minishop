@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 import { setCredentials } from '~/features/auth/authSlice';
 import { useLoginMutation } from '~/features/auth/authApiSlice';
 import Image from 'next/image';
-import toast from 'react-hot-toast';
+import { toast, ToastContainer } from 'react-toastify';
 import { WarningText } from '~/components';
 
 function Login() {
@@ -22,19 +22,19 @@ function Login() {
 		watch,
 		formState: { errors },
 	} = useForm({
-		defaultValues:{
-			email: 'test1234@gmail.com',
-			password: '11111111'
-		}
+		defaultValues: {
+			email: 'lngocan1996@gmail.com',
+			password: '11111111',
+		},
 	});
 
 	const onSubmit = async ({ email, password }) => {
 		try {
 			const userData = await login({ email, password }).unwrap();
 			dispatch(setCredentials({ ...userData, email }));
-			toast.success('login successfully');
 			router.replace('/');
 		} catch (err) {
+			
 			if (!err?.originalStatus) {
 				// isLoading: true until timeout occurs
 				toast.error('No Server Response');
@@ -51,6 +51,7 @@ function Login() {
 
 	return (
 		<div className='flex relative justify-start item-center flex-row w-screen h-screen'>
+			<ToastContainer/>
 			<form
 				className='w-[600px] relative space-y-8 rounded bg-white py-10 px-6 md:mt-0 md:px-14 flex flex-col items-center
 				md:w-screen duration-100 ease-out ssm:px-4 ssm:py-8'
@@ -76,16 +77,16 @@ function Login() {
 							</label>
 						</div>
 						<div>
-						<h4 className='font-normal'>Password</h4>
-						<label className='inline-block w-full'>
-							<input
-								type='password'
-								placeholder='Password'
-								className='w-full h-10 p-3 text-md border-2 rounded-sm'
-								{...register('password', { required: true })}
-							/>
-							{errors.password && <WarningText message={'Your password must contain between 4 and 60 characters.'} />}
-						</label>
+							<h4 className='font-normal'>Password</h4>
+							<label className='inline-block w-full'>
+								<input
+									type='password'
+									placeholder='Password'
+									className='w-full h-10 p-3 text-md border-2 rounded-sm'
+									{...register('password', { required: true })}
+								/>
+								{errors.password && <WarningText message={'Your password must contain between 4 and 60 characters.'} />}
+							</label>
 						</div>
 					</div>
 

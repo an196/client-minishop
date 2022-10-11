@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import SubNavbar from './SubNavbar';
+import { ToastContainer, toast } from 'react-toastify';
 
 function Layout({ children }) {
 	return (
@@ -11,6 +12,7 @@ function Layout({ children }) {
 			</Head>
 				<div className='sticky top-0 !z-10000 bg-white '>
 					<Navbar />
+					<ToastContainer />
 				</div>
 			<SubNavbar/>
 			<main className='m-auto w-full max-w-[1400px]'>{children}</main>

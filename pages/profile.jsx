@@ -13,7 +13,8 @@ import { countries } from '~/data/countries';
 import { day, month, year } from '~/data/date';
 import { selectCurrentUser } from '~/features/auth/authSlice';
 import { useUpdateCustomerMutation } from '~/features/customer/customerApiSlice';
-import toast from 'react-hot-toast';
+//import toast from 'react-hot-toast';
+import {  toast } from 'react-toastify';
 
 const evenMonth = [4, 6, 9, 11];
 const oddMonth = [1, 3, 5, 7, 8, 10, 12];
@@ -78,6 +79,7 @@ function profile() {
 				gender: selectGender,
 			};
 
+			console.log(newBirthday, userInfo?.birthday)
 			if (isUserInfoChange(userInfo, newInfo)) {
 				updateCustomer(newInfo)
 					.unwrap()
@@ -141,14 +143,14 @@ function profile() {
 	};
 
 	const isUserInfoChange = (pre, after) => {
-		return pre.country === after.country && pre.birthday === after.birthday && pre.gender === after.gender;
+		return !(pre.country === after.country && pre.birthday === after.birthday && pre.gender === after.gender);
 	};
 
 	const initInfo = useMemo(() => {
 		if (userInfo) {
 			//init country
 			const country = countries.find((country) => country.label === userInfo.country);
-			setSelectCountry((currentCountry) => (currentCountry = country));
+			setSelectCountry((currentCountry) => currentCountry = country);
 
 			//init birthday
 			const date = new Date(userInfo?.birthday);
@@ -258,7 +260,7 @@ function profile() {
 										))}
 									</div>
 								</div>
-								<div className='flex flex-row space-x-1 text-[14px]'>
+								<div className='flex flex-row space-x-1 text-[14px]'>BsFillTelephoneFill
 									<h4 className='float-left'>Total bill:</h4>
 									<span className='font-bold'>{userInfo?.totalBill || '0'}$</span>
 								</div>

@@ -78,7 +78,7 @@ function Navbar() {
 			{isClicked.userBar && !showCart && <UserBar />}
 			{showCart && <Cart />}
 			{showSliderNavbar && <SliderNavBar setShowSliderNavbar={setShowSliderNavbar} />}
-			<div className='navbar-container border-b-1 drop-shadow-lg mb-5 px-10 p-3 hlg:px-3 hlg:mx-1 md:mb-0'>
+			<div className='navbar-container border-b-1 drop-shadow-lg mb-5 px-10 p-3 hlg:px-3 hlg:mx-1 md:mb-0 z-10'>
 				<div className='logo cursor-pointer flex justify-center space-x-3'>
 					{showHamburgerButton && (
 						<div
