@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
 import { toast } from 'react-hot-toast';
 
 const Context = createContext();
@@ -22,6 +22,7 @@ export const StateContext = ({ children }) => {
 	const [isClicked, setIsClicked] = useState(initialState);
 	const [screenSize, setScreenSize] = useState(undefined);
 	const [categories, setCategories] = useState([]);
+	const navbarRef = useRef();
 
 	let foundProduct;
 	let index;
@@ -130,6 +131,7 @@ export const StateContext = ({ children }) => {
 				setShowSubSearchbar,
 				categories, 
 				setCategories,
+				navbarRef,
 			}}
 		>
 			{children}

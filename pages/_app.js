@@ -12,7 +12,6 @@ function MyApp({ Component, pageProps }) {
 	return (
 		<StateContext>
 			<Provider store={store}>
-					
 					{getLayout(<Component {...pageProps} />)}
 			</Provider>
 		</StateContext>

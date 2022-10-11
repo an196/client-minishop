@@ -1,7 +1,7 @@
 import React, { useState, useRef, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
-import { Layout, RowLinkAndSecurity } from '~/components';
+import { Layout, RowLinkAndSecurity, UpdateImageModal } from '~/components';
 import Image from 'next/image';
 import { BsFillTelephoneFill } from 'react-icons/bs';
 import { MdEmail } from 'react-icons/md';
@@ -13,8 +13,9 @@ import { countries } from '~/data/countries';
 import { day, month, year } from '~/data/date';
 import { selectCurrentUser } from '~/features/auth/authSlice';
 import { useUpdateCustomerMutation } from '~/features/customer/customerApiSlice';
-//import toast from 'react-hot-toast';
 import {  toast } from 'react-toastify';
+import { useStateContext } from '~/context/StateContext';
+import { useEffect } from 'react';
 
 const evenMonth = [4, 6, 9, 11];
 const oddMonth = [1, 3, 5, 7, 8, 10, 12];
@@ -35,7 +36,9 @@ function profile() {
 	const [selectYear, setSelectYear] = useState(null);
 	const [dayRange, setDayRange] = useState(null);
 	const [selectGender, setSelectGender] = useState(null);
+	const [showModal, setShowModal] = useState(false);
 
+	const {navbarRef} = useStateContext();
 	//get hook from api slice
 	const [updateCustomer] = useUpdateCustomerMutation();
 
@@ -166,8 +169,18 @@ function profile() {
 		}
 	}, []);
 
+	useEffect(()=> {
+		if(showModal){
+			navbarRef.current.classList.remove('sticky');
+		}else{
+			navbarRef.current.classList.add('sticky');
+		}
+		
+	},[showModal])
+	
 	return (
-		<div className='flex w-[800px] justify-center m-auto pb-20 md:pb-0 bg-slate-200 rounded-md md:w-[100vw]'>
+	<div className='flex w-[800px] justify-center m-auto pb-20 md:pb-0 bg-slate-200 rounded-md md:w-[100vw]'>
+			{showModal ? <UpdateImageModal setShowModal={setShowModal} title={'Update image profile'}/> : null}
 			<div className='flex flex-col items-center'>
 				<h1 className='text-[#324d67] text-[28px] font-extrabold mt-4'>User Profile</h1>
 				<div className='relative'>
@@ -182,7 +195,8 @@ function profile() {
 					</div>
 					<div
 						className='absolute bottom-2 right-1 w-5 h-5 rounded-full bg-[#0b74e5] z-10 overflow-hidden text-[10px] flex justify-center items-center p-1
-						cursor-pointer'
+						cursor-pointer' 
+						onClick={() => setShowModal(true)}
 					>
 						<FaPen />
 					</div>
@@ -260,7 +274,7 @@ function profile() {
 										))}
 									</div>
 								</div>
-								<div className='flex flex-row space-x-1 text-[14px]'>BsFillTelephoneFill
+								<div className='flex flex-row space-x-1 text-[14px]'>
 									<h4 className='float-left'>Total bill:</h4>
 									<span className='font-bold'>{userInfo?.totalBill || '0'}$</span>
 								</div>
