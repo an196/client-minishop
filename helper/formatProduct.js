@@ -1,3 +1,6 @@
+/*
+    @name: name of product
+*/ 
 export const formatName = (name) => {
     const MAX_CHARACTER = 23;
     

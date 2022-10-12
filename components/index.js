@@ -19,3 +19,4 @@ export { default as NoRecord} from "./NoRecord";
 export { default as RowLinkAndSecurity} from "./profile/RowLinkAndSecurity";
 export { default as UpdateImageModal} from "./profile/UpdateImageModal";
 export { default as CropImage} from "./profile/CropImage";
+export { default as DropImageArea} from "./profile/DropImageArea";
