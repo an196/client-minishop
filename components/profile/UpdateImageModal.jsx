@@ -32,7 +32,7 @@ function UpdateImageModal({ title, setShowModal, onSave }) {
 
 			updateCustomer(infoUpdate)
 				.then((res) => {
-					dispatch(setCredentials({ user: { ...userInfo, imgProfile: result }, accessToken: selectCurrentToken }));
+					dispatch(setCredentials({ user: { ...userInfo, imgProfile: result }, accessToken: token }));
 					setShowModal(false);
 				})
 				.catch((err) => toast.error('Can not change image profile'));

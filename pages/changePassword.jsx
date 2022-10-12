@@ -38,6 +38,7 @@ function changePassword() {
 							className='w-full outline-none px-2 '
 							value={newPassword}
 							onChange={handleChange}
+							placeholder='Please enter new password'
 						/>
 						<div className='p-2 cursor-pointer' onClick={() => setShowPassword(!showPassword)}>
 							{!showPassword ? <AiFillEye /> : <AiFillEyeInvisible />}

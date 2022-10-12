@@ -45,6 +45,7 @@ function changeEmail() {
 							className='w-full outline-none px-2 '
 							value={currentEmail || ''}
 							onChange={(e) => setCurrentEmail(e.target.value)}
+							placeholder='Please enter new email'
 						/>
 					</div>
 
