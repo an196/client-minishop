@@ -1,6 +1,6 @@
 import firebase from './firebaseConfig';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import toast from 'react-toastify';
+import {toast} from 'react-toastify';
 
 const storage = getStorage(firebase);
 

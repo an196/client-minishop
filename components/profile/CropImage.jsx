@@ -23,7 +23,7 @@ function centerAspectCrop(mediaWidth, mediaHeight, aspect) {
 	);
 }
 
-function CropImage() {
+function CropImage({setSelectedImage}) {
 	const [src, setSrc] = useState(null);
 	const [crop, setCrop] = useState();
 	const [aspect, setAspect] = useState(1 / 1)
@@ -61,8 +61,9 @@ function CropImage() {
 	async function makeClientCrop(crop) {
 		if (imageRef && crop.width && crop.height) {
 			const base64Image = getCroppedImg(imageRef.current, crop, );
-			 var file = dataURLtoFile(base64Image, 'newFile.jpeg');
-    	console.log(file);
+			var file = dataURLtoFile(base64Image, 'newFile.jpeg');
+    		console.log(file);
+			setSelectedImage(file);
 		}
 	}
 

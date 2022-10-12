@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 
 function changePassword() {
 	const [showPassword, setShowPassword] = useState(false);
-	const [newPassword, setNewPassword] = useState('11111111');
+	const [newPassword, setNewPassword] = useState('');
 
 	const dispatch = useDispatch();
 	const router = useRouter();

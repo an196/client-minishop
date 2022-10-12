@@ -210,7 +210,7 @@ function profile() {
 						<FaPen />
 					</div>
 				</div>
-				<div className='bg-slate-100 w-[600px] mt-4 md:w-[100vw]'>
+				<div className='bg-slate-100 w-[700px] mt-4 md:w-[100vw]'>
 					<form onSubmit={handleSubmit(onSubmitInfo)}>
 						<div className='grid grid-cols-2 place-content-center gap-4 divide-x divide-blue-200 md:grid-cols-1'>
 							<div className='p-4 space-y-3'>
