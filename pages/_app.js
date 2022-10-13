@@ -1,6 +1,4 @@
-import { Toaster } from 'react-hot-toast';
 import '~/styles/globals.css';
-import { LayoutHome } from '~/components';
 import { StateContext } from '~/context/StateContext';
 import { Provider } from 'react-redux';
 import { store } from '~/app/store';

@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Layout } from '~/components';
+import { Layout } from '~/layouts';
 import { GrContactInfo } from 'react-icons/gr';
 import { selectCurrentUser, setCredentials, selectCurrentToken } from '~/features/auth/authSlice';
 import { useSelector, useDispatch } from 'react-redux';
@@ -8,12 +8,12 @@ import { toast } from 'react-toastify';
 import { useUpdateCustomerMutation } from '~/features/customer/customerApiSlice';
 
 function changeUserName() {
-	//init state
-	const [currentUsername, setCurrentUsername] = useState();
-
-	//get data from redux store
+    //get data from redux store
 	const userInfo = useSelector(selectCurrentUser);
 	const token = useSelector(selectCurrentToken);
+
+	//init state
+	const [currentUsername, setCurrentUsername] = useState(userInfo?.username);
 
 	//hook rtk query
 	const [updateCustomer] = useUpdateCustomerMutation();
@@ -39,12 +39,6 @@ function changeUserName() {
 				.catch((_) => toast.error('Can not change user name'));
 		}
 	};
-
-	const initValue = useMemo(() => {
-		if (userInfo) {
-			setCurrentUsername(userInfo?.username);
-		}
-	}, []);
 
 	return (
 		<div className='flex w-[500px] justify-center m-auto bg-slate-200 rounded-md md:w-[100vw]'>

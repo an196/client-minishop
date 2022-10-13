@@ -1,8 +1,15 @@
-import React from 'react';
-import { Layout } from '~/components';
+import React, {useState} from 'react';
+import { Layout } from '~/layouts';
 import { BsFillTelephoneFill } from 'react-icons/bs';
+import { selectCurrentUser } from '~/features/auth/authSlice';
+import { useSelector } from 'react-redux';
 
 function changePhone() {
+	const userInfo = useSelector(selectCurrentUser);
+	const [phone , setPhone] = useState(phone => phone = userInfo?.phone);
+	
+	console.log(userInfo)
+
 	return (
 		<div className='flex w-[500px] justify-center m-auto bg-slate-200 rounded-md md:w-[100vw]'>
 			<div className='flex flex-col items-center'>
@@ -13,7 +20,7 @@ function changePhone() {
 						<div className='p-2'>
 							<BsFillTelephoneFill />
 						</div>
-						<input type='text' className='w-full outline-none px-2 ' />
+						<input type='text' className='w-full outline-none px-2 ' value={phone} onChange={(e)=>setPhone(e.target.value)}/>
 					</div>
 
 					<div className='flex items-center justify-center w-full'>

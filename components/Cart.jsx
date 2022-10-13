@@ -33,7 +33,7 @@ function Cart() {
 	};
 
 	return (
-		<div className='w-screen h-screen bg-black/50 fixed right-0 top-0 duration-300 ease-in-out z-10' ref={cartRef}>
+		<div className='w-screen h-screen bg-black/50 fixed right-0 top-0 duration-300 ease-in-out z-10000000' ref={cartRef}>
 			<div className='h-screen w-[500px] bg-white float-right py-10 px-2 sm:w-full sm:px-8 sm:py-3 hsm:px-3'>
 				<button
 					type='button'

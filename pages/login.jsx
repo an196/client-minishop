@@ -10,7 +10,9 @@ import { useLoginMutation } from '~/features/auth/authApiSlice';
 import Image from 'next/image';
 import { toast, ToastContainer } from 'react-toastify';
 import { WarningText } from '~/components';
-
+import  Head from 'next/head'
+import TitleLayout from '~/layouts/TitleLayout';
+ 
 function Login() {
 	const router = useRouter();
 	const [login, { isLoading }] = useLoginMutation();
@@ -70,7 +72,8 @@ function Login() {
 								<input
 									type='text'
 									placeholder='Email'
-									className=' w-[320px] h-10 p-3 border-2 text-md rounded-sm'
+									// className=' w-[320px] h-10 p-3 border-2 text-md rounded-sm'
+									className='w-[320px] h-10 p-3 px-6 text-md bg-slate-200 rounded outline-none'
 									{...register('email', { required: true })}
 								/>
 								{errors.email && <WarningText message={'Please enter a valid email.'} />}
@@ -82,7 +85,8 @@ function Login() {
 								<input
 									type='password'
 									placeholder='Password'
-									className='w-full h-10 p-3 text-md border-2 rounded-sm'
+									// className='w-full h-10 p-3 text-md border-2 rounded-sm'
+									className='w-[320px] h-10 p-3 px-6 text-md bg-slate-200 rounded outline-none'
 									{...register('password', { required: true })}
 								/>
 								{errors.password && <WarningText message={'Your password must contain between 4 and 60 characters.'} />}
@@ -119,7 +123,7 @@ function Login() {
 }
 
 Login.getLayout = function getLayout(page) {
-	return <>{page}</>;
+	return <TitleLayout>{page}</TitleLayout>;
 };
 
 export default Login;

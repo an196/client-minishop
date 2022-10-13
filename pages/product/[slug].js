@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { AiOutlineMinus, AiOutlinePlus, AiFillStar, AiOutlineStar } from 'react-icons/ai';
-import { Product, Layout } from '~/components';
+import { Product } from '~/components';
+import { Layout } from '~/layouts';
 import { useStateContext } from '~/context/StateContext';	
 import parse from 'html-react-parser';
 import Image from 'next/image';

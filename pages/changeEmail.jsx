@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Layout } from '~/components';
+import { Layout } from '~/layouts';
 import { MdEmail } from 'react-icons/md';
 import { selectCurrentUser } from '~/features/auth/authSlice';
 import { setEmail, setAction } from '~/features/otp/otpSlice';
@@ -8,9 +8,9 @@ import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 
 function changeEmail() {
-	const [currentEmail, setCurrentEmail] = useState();
-
 	const userInfo = useSelector(selectCurrentUser);
+	const [currentEmail, setCurrentEmail] = useState(userInfo?.email);
+
 	const dispatch = useDispatch();
 	const router = useRouter();
 
@@ -23,12 +23,6 @@ function changeEmail() {
 			router.replace(`/otp`);
 		}
 	};
-
-	const initValue = useMemo(() => {
-		if (userInfo) {
-			setCurrentEmail(userInfo?.email);
-		}
-	}, []);
 
 	return (
 		<div className='flex w-[500px] justify-center m-auto bg-slate-200 rounded-md md:w-[100vw]'>

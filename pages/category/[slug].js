@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { Layout, Product, HeadTitile } from '~/components';
-//import { products } from '../../assets/dummy.data';
-import request from '../../helper/request';
+import {Product, HeadTitile } from '~/components';
+import { Layout } from '~/layouts';
+import request from '~/helper/request';
 
 const activeFilterStyle = 'bg-black text-white py-2 px-4 capitalize sm:text-[10px] sm:px-2';
 const normalFilterStyle = 'py-2 px-3 capitalize sm:text-[12px] sm:px-2';

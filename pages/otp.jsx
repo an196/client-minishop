@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Layout } from '~/components';
+import { Layout } from '~/layouts';
 import OtpInput from 'react-otp-input';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';

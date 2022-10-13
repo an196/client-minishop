@@ -1,7 +1,8 @@
-import React, { useState, useRef, useMemo } from 'react';
+import React, { useState, useRef, useMemo, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
-import { Layout, RowLinkAndSecurity, UpdateImageModal } from '~/components';
+import { RowLinkAndSecurity, UpdateImageModal } from '~/components';
+import { Layout } from '~/layouts';
 import Image from 'next/image';
 import { BsFillTelephoneFill } from 'react-icons/bs';
 import { MdEmail } from 'react-icons/md';
@@ -15,8 +16,8 @@ import { selectCurrentUser } from '~/features/auth/authSlice';
 import { useUpdateCustomerMutation } from '~/features/customer/customerApiSlice';
 import { toast } from 'react-toastify';
 import { useStateContext } from '~/context/StateContext';
-import { useEffect } from 'react';
 import Link from 'next/link';
+
 
 const evenMonth = [4, 6, 9, 11];
 const oddMonth = [1, 3, 5, 7, 8, 10, 12];

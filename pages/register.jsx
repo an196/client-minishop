@@ -10,6 +10,7 @@ import { WarningText } from '~/components';
 import { useDispatch } from 'react-redux';
 import { useRegisterAccountMutation } from '~/features/register/registerSlice';
 import toast from 'react-hot-toast';
+import TitleLayout from '~/layouts/TitleLayout';
 
 function register() {
 	const router = useRouter();
@@ -110,7 +111,7 @@ function register() {
 								<input
 									type='text'
 									placeholder='User name'
-									className='w-[320px] h-10 p-3 border-2 text-md rounded-sm outline-none'
+									className='w-[320px] h-10 p-3 px-6 text-md bg-slate-200 rounded outline-none'
 									{...register('username', { required: true })}
 								/>
 								{errors.username && <WarningText message={'Please enter a username.'} />}
@@ -123,7 +124,7 @@ function register() {
 								<input
 									type='text'
 									placeholder='Email'
-									className='w-[320px] h-10 p-3 border-2 text-md rounded-sm outline-none'
+									className='w-[320px] h-10 p-3 px-6 text-md bg-slate-200 rounded outline-none'
 									{...register('email', { required: true })}
 								/>
 								{errors.email && <WarningText message={errors?.email?.types?.type} />}
@@ -132,15 +133,15 @@ function register() {
 						<div>
 							<h4 className='font-normal'>Password</h4>
 							<label className='inline-block w-full'>
-								<div className='flex justify-center items-center border-2 rounded-sm '>
+								<div className='flex justify-center items-center border-2 rounded-sm bg-slate-200'>
 									<input
 										type={!showPassword ? `password` : 'text'}
 										placeholder='Password'
-										className='w-full h-10 p-3 text-md border-none outline-none'
+										className='w-full h-10 p-3 px-6 text-md bg-slate-200 rounded outline-none'
 										{...register('password', { required: true })}
 									/>
 
-									<div className='p-2 cursor-pointer' onClick={() => setShowPassword(!showPassword)}>
+									<div className='p-2 cursor-pointer bg-slate-200' onClick={() => setShowPassword(!showPassword)}>
 										{!showPassword ? <AiFillEye /> : <AiFillEyeInvisible />}
 									</div>
 								</div>
@@ -177,4 +178,7 @@ function register() {
 	);
 }
 
+register.getLayout = function getLayout(page) {
+	return <TitleLayout>{page}</TitleLayout>;
+};
 export default register;

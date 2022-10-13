@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { RiLockPasswordFill } from 'react-icons/ri';
-import { Layout } from '~/components';
+import { Layout } from '~/layouts';
 import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPasswordRechange, setAction } from '~/features/otp/otpSlice';

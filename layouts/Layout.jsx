@@ -1,23 +1,25 @@
 import Head from 'next/head';
-import Navbar from './Navbar';
-import Footer from './Footer';
-import SubNavbar from './SubNavbar';
+import { Navbar, Footer, SubNavbar } from '~/components';
 import { ToastContainer } from 'react-toastify';
 import { useStateContext } from '~/context/StateContext';
 
 function Layout({ children }) {
-	const { navbarRef} = useStateContext();
+	const { navbarRef } = useStateContext();
 	return (
 		<div className='p-[10px] md:p-0'>
 			<Head>
 				<title>MiniShop</title>
 			</Head>
-			<div className='sticky top-0 !z-10000 bg-white' ref={navbarRef}>
-				<Navbar  />
+			<div className='navbar-container' ref={navbarRef}>
+				<Navbar />
 				<ToastContainer />
 			</div>
 			<SubNavbar />
-			<main className='m-auto w-full max-w-[1400px]'>{children}</main>
+
+			<main className='main-container'>
+				{children}
+			</main>
+
 			<footer>
 				<Footer />
 			</footer>

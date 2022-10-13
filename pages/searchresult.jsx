@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Layout, Product, HeadTitile, NoRecord } from '~/components';
+import { Product, HeadTitile, NoRecord } from '~/components';
+import { Layout } from '~/layouts';
 import { useRouter } from 'next/router';
-import request from '../helper/request';
+import request from '~/helper/request';
 
 const activeFilterStyle = 'bg-black text-white py-2 px-4 capitalize sm:text-[10px]';
 const normalFilterStyle = 'py-2 px-3 capitalize sm:text-[12px]';
