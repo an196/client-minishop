@@ -111,7 +111,7 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params: { slug } }) => {
-	const products = await fetch(`http://localhost:8080/products/category/${slug}`).then((res) => res?.json());
+	const products = await fetch(request.fetchProductByCategory(slug)).then((res) => res?.json());
 	//const products = [];
 	return {
 		props: { products },

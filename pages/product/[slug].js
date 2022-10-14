@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { AiOutlineMinus, AiOutlinePlus, AiFillStar, AiOutlineStar } from 'react-icons/ai';
-import { Product } from '~/components';
+import { Product, SuggestRowItem } from '~/components';
 import { Layout } from '~/layouts';
 import { useStateContext } from '~/context/StateContext';	
 import parse from 'html-react-parser';
@@ -8,6 +8,7 @@ import Image from 'next/image';
 import fallbackImage from '~/assets/default-image.png';
 import request from '~/helper/request';
 import { products } from '~/data/dummy.data';
+
 
 function ProductDetails({ product }) {
 	const [index, setIndex] = useState(0);
@@ -20,9 +21,9 @@ function ProductDetails({ product }) {
 	};
 
 	return (
-		<div>
-			<div className='flex gap-10 m-10 mt-14 text-[#324d67]  font-semibold hlg:flex-wrap md:gap-6 sm:m-8 ssm:m-4'>
-				<div>
+		<div className='flex max-w-[1200px] md:w-full flex-col items-center justify-center'>
+			<div className='flex gap-10 m-10 mt-14 text-[#324d67] font-semibold hlg:flex-wrap md:gap-6 sm:m-8 ssm:m-4'>
+				<div className=''>
 					<div
 						className='rounded-2xl bg-[#ebebeb] w-[360px] h-[360px] cursor-pointer duration-300 ease-in-out hover:bg-[#f02d34] md:w-[300px] md:h-[300px] 
 					relative sm:w-[250px] sm:h-[250px] ssm:w-[180px] ssm:h-[180px] '
@@ -57,7 +58,7 @@ function ProductDetails({ product }) {
 					</div>
 
 					<h4 className='mt-5 text-[24px] sm:text-[20px] '>Details:</h4>
-					<p className='mt-5 text-[20px] sm:text-[16px] sm:flex sm:flex-wrap text-justify sm:w-full'>
+					<p className='mt-5 text-[16px] sm:flex md:flex-wrap text-justify sm:w-full'>
 						{product?.details ? parse(product?.details): 'No Description'}
 					</p>
 					<p className='font-bold text-2xl mt-7 text-[#f02d34] sm:text-xl'>${product?.price}</p>
@@ -89,15 +90,12 @@ function ProductDetails({ product }) {
 					</div>
 				</div>
 			</div>
-			<div className='mt-[120px]'>
-				<h2 className='text-center m-12 text-[#324d67] text-3xl'>You may also like</h2>
-				<div className='marquee'>
-					<div className='maylike-products-container track'>
-						{products.map((item) => (
-							<Product key={item._id} product={item} />
-						))}
-					</div>
-				</div>
+			<div className='w-full'>
+				<h2 className='text-center m-12 text-[#324d67] text-[24px] font-semibold'>You may also like</h2>
+				<SuggestRowItem />
+				<SuggestRowItem />
+				<SuggestRowItem />
+				<SuggestRowItem />
 			</div>
 		</div>
 	);

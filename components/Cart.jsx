@@ -7,6 +7,7 @@ import toast from 'react-hot-toast';
 import { useStateContext } from '~/context/StateContext';
 import fallbackImage from '~/assets/default-image.png';
 import getStripe from '~/lib/getStripe';
+import { formatName } from '~/helper/formatProduct';
 
 function Cart() {
 	const cartRef = useRef();
@@ -33,7 +34,10 @@ function Cart() {
 	};
 
 	return (
-		<div className='w-screen h-screen bg-black/50 fixed right-0 top-0 duration-300 ease-in-out z-10000000' ref={cartRef}>
+		<div
+			className='w-screen h-screen bg-black/50 fixed right-0 top-0 duration-300 ease-in-out z-10000000'
+			ref={cartRef}
+		>
 			<div className='h-screen w-[500px] bg-white float-right py-10 px-2 sm:w-full sm:px-8 sm:py-3 hsm:px-3'>
 				<button
 					type='button'
@@ -49,7 +53,11 @@ function Cart() {
 						<AiOutlineShopping size={150} />
 						<h3>Your shopping bag is empty</h3>
 						<Link href={'/'}>
-							<button type='button' onClick={() => setShowCart(false)} className='m-auto bg-[#f02d34] mt-4 flex py-2 px-5 rounded text-white'>
+							<button
+								type='button'
+								onClick={() => setShowCart(false)}
+								className='m-auto bg-[#f02d34] mt-4 flex py-2 px-5 rounded text-white'
+							>
 								Continue Shopping
 							</button>
 						</Link>
@@ -65,10 +73,10 @@ function Cart() {
 										<Image src={item?.image[0] || fallbackImage} alt='product image' layout='fill' />
 									</div>
 								</div>
-								<div className='w-[300px] sm:w-full'>
-									<div className='flex justify-between items-center w-full text-[#324d67] font-medium'>
-										<h5 className='text-[24px] text-[#324d67] sm:text-[18px]'>{item.name}</h5>
-										<h4 className='text-[20px] text-black font-bold sm:text-[16px]'>${item.price}</h4>
+								<div className='w-[300px] sm:w-full flex flex-col justify-between'>
+									<div className='flex flex-row justify-between w-full text-[#324d67] font-medium'>
+										<h5 className='text-[18px] text-[#324d67]'>{formatName(item.name, 50) }</h5>
+										<h4 className='text-[18px] text-black font-bold sm:text-[16px]'>${item.price}</h4>
 									</div>
 									<div className='flex mb-0 mt-[40px] sm:mt-[20px] items-center'>
 										<p className='border-1 rounded-xl border-gray-700 flex flex-row mt-1 '>
