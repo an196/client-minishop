@@ -20,3 +20,4 @@ export { default as UpdateImageModal} from "./profile/UpdateImageModal";
 export { default as CropImage} from "./profile/CropImage";
 export { default as DropImageArea} from "./profile/DropImageArea";
 export { default as SuggestRowItem} from "./product/SuggestRowItem";
+export { default as RowCartItems} from "./cart/RowCartItems";

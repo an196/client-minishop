@@ -31,6 +31,7 @@ function OrtherCategory({ categories }) {
 	const handleClick = (image) => {
 		if (imagesPath) {
 			const code = imagesPath.filter((path) => path.lable === image.lable)[0].code;
+			console.log('click',code)
 			router.replace(`/category/${code}`);
 		}
 	};
