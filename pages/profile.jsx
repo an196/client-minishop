@@ -84,7 +84,6 @@ function profile() {
 				gender: selectGender,
 			};
 
-			console.log(newBirthday, userInfo?.birthday);
 			if (isUserInfoChange(userInfo, newInfo)) {
 				updateCustomer(newInfo)
 					.unwrap()
@@ -92,7 +91,6 @@ function profile() {
 					.catch((error) => toast.error('Update failed'));
 			} else {
 				toast.error('Nothing changed');
-				console.log(userInfo, newInfo);
 			}
 		} else {
 			toast.error('Please select right date');

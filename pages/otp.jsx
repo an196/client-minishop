@@ -115,7 +115,7 @@ function otp() {
 
 	const doCompareToChangePassword = (otp) => {
 		if (otpOrigin === otp) {
-			console.log('otp true')
+			
 			sendAcceptToChangePassword({_id: userInfo?._id, status: 'OTP_TRUE'}).unwrap()
 				.then(res => {
 					toast.success('New password is changed!');
@@ -140,7 +140,6 @@ function otp() {
 			.unwrap()
 			.then((res) => {
 				setOtpOrigin(res);
-				console.log(res)
 			})
 			.catch((err) => console.log(err));
 	};
@@ -152,7 +151,6 @@ function otp() {
 	}, [countdown]);
 
 	const initValue = useMemo(() => {
-		console.log(currentAction, passwordRechange);
 		if (currentAction && (currentEmail || passwordRechange)) {
 			doActionOTP();
 		}

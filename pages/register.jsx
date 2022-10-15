@@ -86,7 +86,6 @@ function register() {
                 })
 				.catch((errors) => {
 					toast.error('Error! Cant register account')
-					console.log(errors);
 				});
 		}
 	};

@@ -17,7 +17,7 @@ function SuggestRowItem({ title, items }) {
 		}
 	};
 
-	console.log(items)
+	
 	return (
 		<>
 			{items.length > 0 && (

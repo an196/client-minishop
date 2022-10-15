@@ -62,7 +62,6 @@ function CropImage({setSelectedImage}) {
 		if (imageRef && crop.width && crop.height) {
 			const base64Image = getCroppedImg(imageRef.current, crop, );
 			var file = dataURLtoFile(base64Image, 'newFile.jpeg');
-    		console.log(file);
 			setSelectedImage(file);
 		}
 	}

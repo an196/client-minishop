@@ -7,8 +7,6 @@ import { useSelector } from 'react-redux';
 function changePhone() {
 	const userInfo = useSelector(selectCurrentUser);
 	const [phone , setPhone] = useState(phone => phone = userInfo?.phone);
-	
-	console.log(userInfo)
 
 	return (
 		<div className='flex w-[500px] justify-center m-auto bg-slate-200 rounded-md md:w-[100vw]'>
