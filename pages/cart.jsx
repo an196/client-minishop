@@ -4,6 +4,7 @@ import { Layout } from '~/layouts';
 import { useStateContext } from '~/context/StateContext';
 import getStripe from '~/lib/getStripe';
 import {toast} from 'react-toastify'
+import RequiredAuth from '~/features/auth/RequiredAuth';
 
 function cart() {
 	const { totalPrice, totalQuantities, cartItems, setShowCart, toggleCartItemQuantity, onRemove } = useStateContext();
@@ -67,4 +68,4 @@ cart.getLayout = function getLayout(page) {
 	return <Layout>{page}</Layout>;
 };
 
-export default cart;
+export default RequiredAuth(cart);

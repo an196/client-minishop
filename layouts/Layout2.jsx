@@ -3,6 +3,7 @@ import { Navbar, Footer, SubNavbar } from '~/components';
 import { ToastContainer } from 'react-toastify';
 import { useStateContext } from '~/context/StateContext';
 
+//lay out for main coponent can not corver entire page or hieght of main is small
 function Layout({ children }) {
 	const { navbarRef } = useStateContext();
 	return (
@@ -19,9 +20,8 @@ function Layout({ children }) {
 			<main className='main-container'>
 				{children}
 			</main>
-
 			<footer>
-				<Footer />
+				<Footer isBottom={true}/>
 			</footer>
 		</div>
 	);

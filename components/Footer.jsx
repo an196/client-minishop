@@ -1,10 +1,11 @@
 import React from 'react'
 import { AiFillInstagram, AiOutlineTwitter} from 'react-icons/ai';
 
-function Footer() {
+function Footer({isBottom}) {
+  const fixedBottom = 'absolute left-0 bottom-0 right-0';
   return (
-    <div className='flex items-center justify-center flex-col text-[#324d67] bg-slate-200 text-[20px] sm:text-[12px] mt-[20px] font-bold gap-[10px] px-[30px] 
-      py-[10px] flex-wrap text-center'>
+    <div className={`flex items-center justify-center flex-col text-[#324d67] bg-slate-200 text-[20px] sm:text-[12px] mt-[20px] font-bold gap-[10px] px-[30px] 
+      py-[10px] flex-wrap text-center ${isBottom && fixedBottom}`}>
       <p>2022 Headphone ALL right resered</p>
       <div className='flex flex-row gap-[10px] text-[30px] sm:text-[18px]'>
         <AiFillInstagram/>
