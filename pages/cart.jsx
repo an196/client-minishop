@@ -28,7 +28,6 @@ function cart() {
 		stripe.redirectToCheckout({ sessionId: data.id });
 	};
 
-	console.log(cartItems);
 	return (
 		<>
 			{cartItems.length > 0 ? (

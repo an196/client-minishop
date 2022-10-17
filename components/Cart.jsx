@@ -16,23 +16,23 @@ function Cart() {
 	const router = useRouter();
 
 	const handleCheckout = async () => {
-		router.replace('/success');
-		// const stripe = await getStripe();
-		// const response = await fetch('/api/stripe', {
-		// 	method: 'POST',
-		// 	headers: {
-		// 		'Content-Type': 'application/json',
-		// 	},
-		// 	body: JSON.stringify(cartItems),
-		// });
-		// if (response.status === 500) {
-		// 	console.log('An error has occurred! Can not make payment');
-		// 		return;
-		// };
-		// const data = await response?.json();
-		// console.log(response);
-		// toast.loading('Redirecting~.');
-		// stripe.redirectToCheckout({ sessionId: data.id });
+		//router.replace('/success');
+		const stripe = await getStripe();
+		const response = await fetch('/api/stripe', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(cartItems),
+		});
+		if (response.status === 500) {
+			console.log('An error has occurred! Can not make payment');
+				return;
+		};
+		const data = await response?.json();
+		
+		toast.loading('Redirecting~.');
+		stripe.redirectToCheckout({ sessionId: data.id });
 	};
 
 	return (

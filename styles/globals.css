@@ -65,4 +65,8 @@ body,
 		text-[#f02d34] cursor-pointer w-[200px] scale-100 duration-500  ease-in hover:scale-110 md:w-[150px]
 		sm:w-[140px] sm:text-[18px] sm:py-1 sm:px-1 ssm:text-[14px] hsm:w-[50%];
 	}
+
+	.product-container{
+		@apply mt-[20px] w-full flex flex-wrap sm:px-1 gap-8 sm:gap-2 justify-center items-stretch;
+	}
 }

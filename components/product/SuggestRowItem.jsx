@@ -21,7 +21,7 @@ function SuggestRowItem({ title, items }) {
 	return (
 		<>
 			{items.length > 0 && (
-				<div className='space-y-2 md:space-y-0.5 w-[100%] xl:w-[100vw] px-7 mt-2 md:mt-0'>
+				<div className='space-y-2 md:space-y-0.5 w-[100%] xl:w-[100vw] px-7 sm:px-2 mt-2 md:mt-0'>
 					<h2 className='w-56 cursor-pointer text-[24px]  md:text-[16px] font-semibold text-[#324d67]/90 trainsition duration-200 '>
 						{title || 'Headphone'}
 					</h2>

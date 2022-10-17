@@ -52,7 +52,6 @@ const Navbar = React.forwardRef((props, ref) => {
 
 	
 
-
 	useEffect(() => {
 		const handleResize = () => setScreenSize(window.innerWidth);
 

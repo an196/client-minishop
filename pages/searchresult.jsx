@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Product, HeadTitile, NoRecord } from '~/components';
+import { Product, HeadTitile, NoRecord, SuggestRowItem } from '~/components';
 import { Layout } from '~/layouts';
 import { useRouter } from 'next/router';
 import request from '~/helper/request';
+import { useStateContext } from '~/context/StateContext';
 
 const activeFilterStyle = 'bg-black text-white py-2 px-4 capitalize sm:text-[10px]';
 const normalFilterStyle = 'py-2 px-3 capitalize sm:text-[12px]';
 
-function searchResult({ data }) {
+function searchResult({ suggestItem1, suggestItem2, suggestItem3, suggestItem4 }) {
 	const router = useRouter();
 	const [result, setResult] = useState([]);
+	const {categories} = useStateContext();
 
 	const getSearch = async () => {
 		const data = await fetch(request.fetchSearchResult(router.query.p)).then((res) => res.json());
@@ -71,6 +73,15 @@ function searchResult({ data }) {
 		}
 	};
 
+	//get title of suggest items
+	const getTitleSuggestItem = (suggestItem) => {
+		if (suggestItem && suggestItem.length > 0) {
+			return categories.find((category) => category.code === suggestItem[0]?.category)?.name;
+		}
+
+		return '';
+	};
+
 	useEffect(() => {
 		getSearch();
 	}, [router.query.p]);
@@ -80,7 +91,7 @@ function searchResult({ data }) {
 			<HeadTitile title={''} subtitle={'Speakers of many variations'} />
 			{result.length > 0 ? (
 				<>
-					<div className='px-20 flex justify-center '>
+					<div className=' flex justify-center '>
 						<div className='rounded-full  ring overflow-hidden flex font-normal cursor-pointer'>
 							{filters.map((filter, _index) => (
 								<div
@@ -95,10 +106,10 @@ function searchResult({ data }) {
 						</div>
 					</div>
 
-					<div className='gap-[15px] mt-[20px] w-full px-20 md:px-2 sm:gap-2 flex flex-wrap justify-center items-stretch'>
+					<div className='product-container'>
 						{result?.map((product) => (
 							<Product key={product._id} product={product} />
-					))}
+						))}
 					</div>
 				</>
 			) : (
@@ -106,9 +117,31 @@ function searchResult({ data }) {
 					<NoRecord width={200} height={200} />
 				</div>
 			)}
+			<div className='w-full'>
+				<h2 className='text-center m-12 text-[#324d67] text-[24px] font-semibold'>You may also like</h2>
+				<SuggestRowItem items={suggestItem1} title={getTitleSuggestItem(suggestItem1)} />
+				<SuggestRowItem items={suggestItem2} title={getTitleSuggestItem(suggestItem2)} />
+				<SuggestRowItem items={suggestItem3} title={getTitleSuggestItem(suggestItem3)} />
+				<SuggestRowItem items={suggestItem4} title={getTitleSuggestItem(suggestItem4)} />
+			</div>
 		</>
 	);
 }
+
+export const getServerSideProps = async () => {
+	const categories = await fetch(request.fetchCategories).then((res) => res?.json());
+
+	const [suggestItem1, suggestItem2, suggestItem3, suggestItem4] = await Promise.all([
+		fetch(request.fetchProductByCategory(categories[0]?.code)).then((res) => res?.json()),
+		fetch(request.fetchProductByCategory(categories[1]?.code)).then((res) => res?.json()),
+		fetch(request.fetchProductByCategory(categories[2]?.code)).then((res) => res?.json()),
+		fetch(request.fetchProductByCategory(categories[3]?.code)).then((res) => res?.json()),
+	]);
+
+	return {
+		props: { suggestItem1, suggestItem2, suggestItem3, suggestItem4 },
+	};
+};
 
 searchResult.getLayout = function getLayout(page) {
 	return <Layout>{page}</Layout>;
