@@ -21,11 +21,6 @@ function Success() {
 
 	useEffect(() => {
 		getOrderSave();
-		// localStorage.clear();
-		// setCartItems([]);
-		// setTotalPrice(0);
-		// setTotalQuantities(0);
-		// runFireworks();
 	}, []);
 
 	const getOrderSave = () => {
@@ -37,10 +32,17 @@ function Success() {
 				totalAmount: totalQuantities,
 				details: [...cartItems],
 				totalPayment: totalPrice,
+				date: new Date(),
 			};
-			console.log(order.prop)
+			
 			postOrder(order).unwrap()
-				.then((res) => console.log(res))
+				.then((res) => {
+					localStorage.clear();
+					setCartItems([]);
+					setTotalPrice(0);
+					setTotalQuantities(0);
+					runFireworks();
+				})
 				.catch((err) => console.log(err));
 		}
 	
