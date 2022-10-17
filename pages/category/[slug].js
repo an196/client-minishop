@@ -25,11 +25,11 @@ function Category({ products }) {
 	};
 
 	const sortNewest = () => {
-		const newdata = products.sort((a, b) => a.goodsReceipts - b.goodsReceipts);
+		const newdata = products.sort((a, b) => new  Date(a?.goodsReceipts).getTime()  -  new Date(b?.goodsReceipts).getTime());
 	};
 
 	const sortOldest = () => {
-		const newdata = products.sort((a, b) => b.goodsReceipts - a.goodsReceipts);
+		const newdata = products.sort((a, b) =>  new  Date(b?.goodsReceipts).getTime()  - new  Date(a?.goodsReceipts).getTime());
 	};
 
 	const handleFilter = (e) => {
