@@ -6,19 +6,46 @@ import { useStateContext } from '~/context/StateContext';
 import { runFireworks } from '~/lib/utils';
 import successImage from '~/assets/high_five.jpg';
 import Image from 'next/image';
+import { selectCurrentUser } from '~/features/auth/authSlice';
+import { usePostOrderMutation } from '~/features/order/orderApiSlice';
+import {useSelector} from 'react-redux';
 
 function Success() {
-	const { setCartItems, setTotalPrice, setTotalQuantities } = useStateContext();
+	const { setCartItems, setTotalPrice, setTotalQuantities, totalPrice, totalQuantities, cartItems  } = useStateContext();
+	
 	const [order, setOrder] = useState(null);
 
-	useEffect(() => {
-    localStorage.clear();
-    setCartItems([]);
-    setTotalPrice(0);
-    setTotalQuantities(0);
-    runFireworks();
-  },[]);
+	const userInfo = useSelector(selectCurrentUser);
 
+	const [postOrder] = usePostOrderMutation();
+
+	useEffect(() => {
+		getOrderSave();
+		// localStorage.clear();
+		// setCartItems([]);
+		// setTotalPrice(0);
+		// setTotalQuantities(0);
+		// runFireworks();
+	}, []);
+
+	const getOrderSave = () => {
+		if(userInfo && totalQuantities > 0){
+			const order = {
+				orderID: 1,
+				customerID: userInfo?._id,
+				customerName: userInfo?.username,
+				totalAmount: totalQuantities,
+				details: [...cartItems],
+				totalPayment: totalPrice,
+			};
+			console.log(order.prop)
+			postOrder(order).unwrap()
+				.then((res) => console.log(res))
+				.catch((err) => console.log(err));
+		}
+	
+	};
+	
 	return (
 		<div className='flex min-h-[100vh]  text-center justify-center items-center  flex-col'>
 			<div className='text-center text-[16px] '>
@@ -38,10 +65,9 @@ function Success() {
 						Continue Shopping
 					</button>
 				</Link>
-				
 			</div>
 			<div className=' w-[800px] h-[300px]  md:w-[100vw]'>
-					<Image src={successImage} layout='responsive' />
+				<Image src={successImage} layout='responsive' />
 			</div>
 		</div>
 	);

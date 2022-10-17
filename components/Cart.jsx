@@ -3,41 +3,37 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { AiOutlineMinus, AiOutlinePlus, AiOutlineLeft, AiOutlineShopping } from 'react-icons/ai';
 import { TiDelete } from 'react-icons/ti';
-import {toast} from 'react-toastify';
+import { toast } from 'react-toastify';
 import { useStateContext } from '~/context/StateContext';
 import fallbackImage from '~/assets/default-image.png';
 import getStripe from '~/lib/getStripe';
 import { formatName } from '~/helper/formatProduct';
+import { useRouter } from 'next/router';
 
 function Cart() {
 	const cartRef = useRef();
 	const { totalPrice, totalQuantities, cartItems, setShowCart, toggleCartItemQuantity, onRemove } = useStateContext();
-
+	const router = useRouter();
 
 	const handleCheckout = async () => {
-		const stripe = await getStripe();
-
-		const response = await fetch('/api/stripe', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(cartItems),
-		});
-
-		if (response.status === 500) {
-			console.log('An error has occurred! Can not make payment');
-				return;
-		};
-
-		const data = await response?.json();
-		console.log(response);
-
-		toast.loading('Redirecting~.');
-		stripe.redirectToCheckout({ sessionId: data.id });
+		router.replace('/success');
+		// const stripe = await getStripe();
+		// const response = await fetch('/api/stripe', {
+		// 	method: 'POST',
+		// 	headers: {
+		// 		'Content-Type': 'application/json',
+		// 	},
+		// 	body: JSON.stringify(cartItems),
+		// });
+		// if (response.status === 500) {
+		// 	console.log('An error has occurred! Can not make payment');
+		// 		return;
+		// };
+		// const data = await response?.json();
+		// console.log(response);
+		// toast.loading('Redirecting~.');
+		// stripe.redirectToCheckout({ sessionId: data.id });
 	};
-
-	
 
 	return (
 		<div
@@ -58,8 +54,10 @@ function Cart() {
 						<span className='text-[#f02d34]'>({totalQuantities} items)</span>
 					</div>
 					<Link href={'/cart'}>
-						<span className=' text-black  cursor-pointer  px-[12px] py-[4px] bg-slate-300 rounded-full sm:py-[4px]
-						hover:font-medium text-[12px] '>
+						<span
+							className=' text-black  cursor-pointer  px-[12px] py-[4px] bg-slate-300 rounded-full sm:py-[4px]
+						hover:font-medium text-[12px] '
+						>
 							View full
 						</span>
 					</Link>
