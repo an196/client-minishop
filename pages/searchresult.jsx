@@ -47,7 +47,7 @@ function searchResult({ suggestItem1, suggestItem2, suggestItem3, suggestItem4 }
 
 	return (
 		<>
-			<HeadTitile title={''} subtitle={'Speakers of many variations'} />
+			<HeadTitile title={''} subtitle={'Variety of shapes'} />
 			{result?.length > 0 ? (
 				<>
 					<div className=' flex justify-center '>
