@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Product, HeadTitile, NoRecord, RowCartItems } from '~/components';
-import { Layout } from '~/layouts';
+import {  NoRecord, RowCartItems } from '~/components';
+import { Layout2 } from '~/layouts';
 import { useStateContext } from '~/context/StateContext';
 import getStripe from '~/lib/getStripe';
 import {toast} from 'react-toastify'
@@ -65,7 +65,7 @@ function cart() {
 }
 
 cart.getLayout = function getLayout(page) {
-	return <Layout>{page}</Layout>;
+	return <Layout2>{page}</Layout2>;
 };
 
 export default RequiredAuth(cart);

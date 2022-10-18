@@ -4,73 +4,32 @@ import { Layout } from '~/layouts';
 import { useRouter } from 'next/router';
 import request from '~/helper/request';
 import { useStateContext } from '~/context/StateContext';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+	selectCurrentFilters,
+	setFilters,
+	setProducts,
+	sortProduct,
+	selectCurrentProducts,
+} from '~/features/product/productSlice';
 
-const activeFilterStyle = 'bg-black text-white py-2 px-4 capitalize sm:text-[10px]';
-const normalFilterStyle = 'py-2 px-3 capitalize sm:text-[12px]';
 
 function searchResult({ suggestItem1, suggestItem2, suggestItem3, suggestItem4 }) {
+	const { categories } = useStateContext();
+
 	const router = useRouter();
-	const [result, setResult] = useState([]);
-	const {categories} = useStateContext();
+	const dispatch = useDispatch();
+	const filters = useSelector(selectCurrentFilters);
+	const result = useSelector(selectCurrentProducts);
 
 	const getSearch = async () => {
 		const data = await fetch(request.fetchSearchResult(router.query.p)).then((res) => res.json());
-		setResult(data);
-	};
-
-	const [filters, setFilters] = useState([
-		{ name: 'increase', stats: true },
-		{ name: 'decrease', stats: false },
-		{ name: 'newest', stats: false },
-		{ name: 'oldest', stats: false },
-	]);
-
-	const [currentFilter, setCurrentFilter] = useState(filters[0].name);
-
-	const sortIncrease = () => {
-		const newdata = result.sort((a, b) => a.price - b.price);
-	};
-
-	const sortDecrease = () => {
-		const newdata = result.sort((a, b) => b.price - a.price);
-	};
-
-	const sortNewest = () => {
-		const newdata = result.sort((a, b) => a.goodsReceipts - b.goodsReceipts);
-	};
-
-	const sortOldest = () => {
-		const newdata = result.sort((a, b) => b.goodsReceipts - a.goodsReceipts);
+		dispatch(setProducts(data));
 	};
 
 	const handleFilter = (e) => {
-		let newFilters = [...filters];
-		newFilters.forEach((filter) => {
-			if (e.target.id === filter.name) {
-				filter.stats = true;
-			} else {
-				filter.stats = false;
-			}
-		});
-
-		setFilters(newFilters);
-
-		switch (e.target.id) {
-			case 'increase':
-				sortIncrease();
-				break;
-			case 'decrease':
-				sortDecrease();
-				break;
-			case 'newest':
-				sortNewest();
-				break;
-			case 'oldest':
-				sortOldest();
-				break;
-			default:
-				break;
-		}
+		dispatch(setFilters({ name: e.target.id }));
+		dispatch(sortProduct({ name: e.target.id }));
 	};
 
 	//get title of suggest items
@@ -89,7 +48,7 @@ function searchResult({ suggestItem1, suggestItem2, suggestItem3, suggestItem4 }
 	return (
 		<>
 			<HeadTitile title={''} subtitle={'Speakers of many variations'} />
-			{result.length > 0 ? (
+			{result?.length > 0 ? (
 				<>
 					<div className=' flex justify-center '>
 						<div className='rounded-full  ring overflow-hidden flex font-normal cursor-pointer'>
@@ -97,7 +56,7 @@ function searchResult({ suggestItem1, suggestItem2, suggestItem3, suggestItem4 }
 								<div
 									onClick={handleFilter}
 									id={filter.name}
-									className={`${filter.stats ? activeFilterStyle : normalFilterStyle}`}
+									className={`${filter.stats ? 'active-filter-style' : 'normal-filter-style'}`}
 									key={_index}
 								>
 									{filter.name}

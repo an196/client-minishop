@@ -67,6 +67,14 @@ body,
 	}
 
 	.product-container{
-		@apply mt-[20px] w-full flex flex-wrap sm:px-1 gap-8 sm:gap-2 justify-center items-stretch;
+		@apply mt-[20px] w-full flex flex-wrap sm:px-1 gap-8 sm:gap-2 justify-center items-stretch sm:mt-2;
+	}
+	
+	.active-filter-style{
+		@apply bg-black text-white py-2 px-4 capitalize sm:text-[10px];
+	}
+
+	.normal-filter-style{
+		@apply py-2 px-3 capitalize sm:text-[12px];
 	}
 }

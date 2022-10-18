@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { RiLockPasswordFill } from 'react-icons/ri';
-import { Layout } from '~/layouts';
+import { Layout2 } from '~/layouts';
 import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPasswordRechange, setAction } from '~/features/otp/otpSlice';
@@ -60,7 +60,7 @@ function changePassword() {
 }
 
 changePassword.getLayout = function getLayout(page) {
-	return <Layout>{page}</Layout>;
+	return <Layout2>{page}</Layout2>;
 };
 
 export default changePassword;

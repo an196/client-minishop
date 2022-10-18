@@ -1,73 +1,29 @@
-import { useState } from 'react';
+import { useEffect } from 'react';
 import { Product, HeadTitile, NoRecord, SuggestRowItem } from '~/components';
 import { Layout } from '~/layouts';
 import request from '~/helper/request';
 import { useStateContext } from '~/context/StateContext';
-
-const activeFilterStyle = 'bg-black text-white py-2 px-4 capitalize sm:text-[10px] sm:px-2';
-const normalFilterStyle = 'py-2 px-3 capitalize sm:text-[12px] sm:px-2';
+import { useDispatch,useSelector } from 'react-redux';
+import {
+	selectCurrentFilters,
+	setFilters,
+	setProducts,
+	sortProduct,
+	selectCurrentProducts,
+} from '~/features/product/productSlice';
 
 function Category({ products, suggestItem1, suggestItem2, suggestItem3, suggestItem4 }) {
-	const [filters, setFilters] = useState([
-		{ name: 'increase', stats: true },
-		{ name: 'decrease', stats: false },
-		{ name: 'newest', stats: false },
-		{ name: 'oldest', stats: false },
-	]);
-
-	const [currentFilter, setCurrentFilter] = useState(filters[0].name);
 	const { categories } = useStateContext();
 
-	const sortIncrease = () => {
-		const newdata = products.sort((a, b) => a.price - b.price);
-	};
-
-	const sortDecrease = () => {
-		const newdata = products.sort((a, b) => b.price - a.price);
-	};
-
-	const sortNewest = () => {
-		const newdata = products.sort(
-			(a, b) => new Date(a?.goodsReceipts).getTime() - new Date(b?.goodsReceipts).getTime(),
-		);
-	};
-
-	const sortOldest = () => {
-		const newdata = products.sort(
-			(a, b) => new Date(b?.goodsReceipts).getTime() - new Date(a?.goodsReceipts).getTime(),
-		);
-	};
+	const dispatch = useDispatch();
+	const filters = useSelector(selectCurrentFilters);
+	const filteredProducts = useSelector(selectCurrentProducts);
 
 	const handleFilter = (e) => {
-		let newFilters = [...filters];
-		newFilters.forEach((filter) => {
-			if (e.target.id === filter.name) {
-				filter.stats = true;
-			} else {
-				filter.stats = false;
-			}
-		});
-
-		setFilters(newFilters);
-
-		switch (e.target.id) {
-			case 'increase':
-				sortIncrease();
-				break;
-			case 'decrease':
-				sortDecrease();
-				break;
-			case 'newest':
-				sortNewest();
-				break;
-			case 'oldest':
-				sortOldest();
-				break;
-			default:
-				break;
-		}
+		dispatch(setFilters({ name: e.target.id }));
+		dispatch(sortProduct({ name: e.target.id }));
 	};
-
+	
 	//get title of suggest items
 	const getTitleSuggestItem = (suggestItem) => {
 		if (suggestItem && suggestItem.length > 0) {
@@ -76,6 +32,10 @@ function Category({ products, suggestItem1, suggestItem2, suggestItem3, suggestI
 
 		return '';
 	};
+
+	useEffect(()=>{
+		dispatch(setProducts(products));
+	},[])
 
 	return (
 		<>
@@ -86,7 +46,7 @@ function Category({ products, suggestItem1, suggestItem2, suggestItem3, suggestI
 						<div
 							onClick={handleFilter}
 							id={filter.name}
-							className={`${filter.stats ? activeFilterStyle : normalFilterStyle}`}
+							className={`${filter.stats ? 'active-filter-style' : 'normal-filter-style'}`}
 							key={_index}
 						>
 							{filter.name}
@@ -94,9 +54,9 @@ function Category({ products, suggestItem1, suggestItem2, suggestItem3, suggestI
 					))}
 				</div>
 			</div>
-			{products.length !== 0 ? (
+			{filteredProducts && filteredProducts?.length !== 0 ? (
 				<div className='product-container'>
-					{products?.map((product) => (
+					{filteredProducts?.map((product) => (
 						<Product key={product._id} product={product} />
 					))}
 				</div>

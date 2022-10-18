@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Layout } from '~/layouts';
+import { Layout2 } from '~/layouts';
 import { MdEmail } from 'react-icons/md';
 import { selectCurrentUser } from '~/features/auth/authSlice';
 import { setEmail, setAction } from '~/features/otp/otpSlice';
@@ -58,7 +58,7 @@ function changeEmail() {
 }
 
 changeEmail.getLayout = function getLayout(page) {
-	return <Layout>{page}</Layout>;
+	return <Layout2>{page}</Layout2>;
 };
 
 export default changeEmail;

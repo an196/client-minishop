@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Layout } from '~/layouts';
+import { Layout2 } from '~/layouts';
 import { BsFillTelephoneFill } from 'react-icons/bs';
 import { selectCurrentUser } from '~/features/auth/authSlice';
 import { useSelector } from 'react-redux';
@@ -31,7 +31,7 @@ function changePhone() {
 }
 
 changePhone.getLayout = function getLayout(page) {
-	return <Layout>{page}</Layout>;
+	return <Layout2>{page}</Layout2>;
 };
 
 export default changePhone;

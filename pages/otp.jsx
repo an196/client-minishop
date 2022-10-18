@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Layout } from '~/layouts';
+import { Layout2 } from '~/layouts';
 import OtpInput from 'react-otp-input';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
@@ -173,7 +173,7 @@ function otp() {
 }
 
 otp.getLayout = function getLayout(page) {
-	return <Layout>{page}</Layout>;
+	return <Layout2>{page}</Layout2>;
 };
 
 export default otp;
