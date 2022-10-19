@@ -5,32 +5,27 @@ import { AiFillInstagram, AiOutlineTwitter } from 'react-icons/ai';
 function Footer({ isBottom }) {
 	const fixedBottom = 'absolute left-0 bottom-0 right-0 ';	
 	const ref = useRef();
-	var body = document.body,
-	html = document.documentElement;
-
+	
 	useEffect(() => {
+		let html = document.documentElement;
+
 		const handleResizeHeight = () => {
 			const clientHeight =  html.clientHeight;
 			let screenHeight = screen?.height;
-			console.log(clientHeight , screenHeight)
-			console.log(ref.current?.classList)
-			if(screenHeight === 'undefined' && isBottom){
-				ref.current.classList.add('absolute');
-				return
-			}
+			
 
-			if (clientHeight < screenHeight) {
+			if (clientHeight < screenHeight ) {
 				ref.current.classList.add('absolute');
 			} else {
 				ref.current.classList.remove('absolute');
 			}
 		};
-
+	
 		window.addEventListener('resize-height', handleResizeHeight);
 		handleResizeHeight();
 
 		return () => window.removeEventListener('resize-height', handleResizeHeight);
-	},[body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight]);
+	},[]);
 
 	return (
 		<div

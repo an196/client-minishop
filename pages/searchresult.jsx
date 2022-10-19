@@ -12,15 +12,22 @@ import {
 	sortProduct,
 	selectCurrentProducts,
 } from '~/features/product/productSlice';
+import { useSearchProductQuery } from '~/features/product/productApiSlice';
 
 
 function searchResult({ suggestItem1, suggestItem2, suggestItem3, suggestItem4 }) {
-	const { categories } = useStateContext();
-
 	const router = useRouter();
 	const dispatch = useDispatch();
+
+	const { data, isSuccess  } = useSearchProductQuery(router.query.p);
+	const { categories } = useStateContext();
+
 	const filters = useSelector(selectCurrentFilters);
 	const result = useSelector(selectCurrentProducts);
+
+	if(isSuccess){
+		dispatch(setProducts(data));
+	}
 
 	const getSearch = async () => {
 		const data = await fetch(request.fetchSearchResult(router.query.p)).then((res) => res.json());
@@ -42,7 +49,7 @@ function searchResult({ suggestItem1, suggestItem2, suggestItem3, suggestItem4 }
 	};
 
 	useEffect(() => {
-		getSearch();
+		// getSearch();
 	}, [router.query.p]);
 
 	return (
