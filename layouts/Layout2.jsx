@@ -11,8 +11,8 @@ function Layout({ children }) {
 			<Head>
 				<title>MiniShop</title>
 			</Head>
-			<div className='navbar-container' >
-				<Navbar ref={navbarRef} />
+			<div className='navbar-container sticky'  ref={navbarRef}>
+				<Navbar/>
 				<ToastContainer />
 			</div>
 			<SubNavbar />

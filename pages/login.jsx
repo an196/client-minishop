@@ -53,10 +53,10 @@ function Login() {
 
 	return (
 		<div className='flex relative justify-start item-center flex-row w-screen h-screen'>
-			<ToastContainer/>
+			{/* <ToastContainer/> */}
 			<form
 				className='w-[600px] relative space-y-8 rounded bg-white py-10 px-6 md:mt-0 md:px-14 flex flex-col items-center
-				md:w-screen duration-100 ease-out ssm:px-4 ssm:py-8'
+				md:w-screen duration-100 ease-out ssm:px-4 ssm:py-8 bg-opacity-90' 
 				onSubmit={handleSubmit(onSubmit)}
 			>
 				<div className='flex items-center space-x-3'>

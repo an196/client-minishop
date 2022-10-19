@@ -171,9 +171,9 @@ function profile() {
 
 	useEffect(() => {
 		if (showModal && navbarRef) {
-			navbarRef.current?.classList.remove('sticky');
+			navbarRef.current.classList.remove('sticky')
 		} else {
-			navbarRef.current?.classList.add('sticky');
+			navbarRef.current.classList.add('sticky')
 		}
 	}, [showModal]);
 
@@ -202,14 +202,14 @@ function profile() {
 				</div>
 				<div className='flex flex-row justify-center items-center space-x-2'>
 					<h4 className='font-medium text-[18px] text-[#0b74e5]  mt-1'>{userInfo?.username || 'User name'}</h4>
-					<div
-						className='w-5 h-5 rounded-full bg-[#0b74e5] z-10 overflow-hidden text-[10px] flex justify-center items-center p-1
-						cursor-pointer'
-					>
-						<Link href={'/changeUserName'}>
+					<Link href={'/changeUserName'}>
+						<div
+							className='w-5 h-5 rounded-full bg-[#0b74e5] z-10 overflow-hidden text-[10px] flex justify-center 
+							items-center p-1 cursor-pointer'
+						>
 							<FaPen />
-						</Link>
-					</div>
+						</div>
+					</Link>
 				</div>
 				<div className='bg-slate-100 w-[700px] mt-4 md:w-[100vw]'>
 					<form onSubmit={handleSubmit(onSubmitInfo)}>

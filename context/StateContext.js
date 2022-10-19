@@ -22,7 +22,7 @@ export const StateContext = ({ children }) => {
 	const [isClicked, setIsClicked] = useState(initialState);
 	const [screenSize, setScreenSize] = useState(undefined);
 	const [categories, setCategories] = useState([]);
-	const navbarRef = useRef();
+	let navbarRef = useRef(0);
 
 	let foundProduct;
 	let index;

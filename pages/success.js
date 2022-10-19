@@ -27,7 +27,7 @@ function Success() {
 		if(userInfo && totalQuantities > 0){
 			const order = {
 				orderID: 1,
-				customerID: userInfo?._id,
+				customerID: userInfo?.customerID,
 				customerName: userInfo?.username,
 				totalAmount: totalQuantities,
 				details: [...cartItems],

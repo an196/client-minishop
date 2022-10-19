@@ -32,10 +32,10 @@ const productSlice = createSlice({
                     state.products.sort((a, b) => b.price - a.price);
                     break;
                 case 'newest':
-                    state.products.sort((a, b) => a.goodsReceipts - b.goodsReceipts);
+                    state.products.sort((a, b) => new Date(a.goodsReceipts).getTime()  - new Date(b.goodsReceipts).getTime());
                     break;
                 case 'oldest':
-                    state.products.sort((a, b) => b.goodsReceipts - a.goodsReceipts);
+                    state.products.sort((a, b) => new Date(b.goodsReceipts).getTime()  - new Date(a.goodsReceipts).getTime());
                     break;
                 default:
                     break;

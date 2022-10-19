@@ -10,9 +10,9 @@ function Layout({ children }) {
 			<Head>
 				<title>MiniShop</title>
 			</Head>
-			<div className='navbar-container' >
-				<Navbar ref={navbarRef} />
-				<ToastContainer />
+			<div className='navbar-container sticky' ref={navbarRef} >
+				<Navbar  />
+				{/* <ToastContainer /> */}
 			</div>
 			<SubNavbar />
 

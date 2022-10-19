@@ -4,7 +4,7 @@ a {
 }
 /* sticky top-0 z-50 bg-white */
 .navbar-container{
-	position: sticky;
+	/* position: sticky; */
 	top: 0;
 	z-index: 10000 !important;
 	background: #fff;
