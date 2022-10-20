@@ -9,14 +9,21 @@ import fallbackImage from '~/assets/default-image.png';
 import getStripe from '~/lib/getStripe';
 import { formatName } from '~/helper/formatProduct';
 import { useRouter } from 'next/router';
+import { selectCurrentToken } from '~/features/auth/authSlice';
+import { useSelector} from 'react-redux';
+
 
 function Cart() {
 	const cartRef = useRef();
-	const { totalPrice, totalQuantities, cartItems, setShowCart, toggleCartItemQuantity, onRemove } = useStateContext();
+	const { totalPrice, totalQuantities, cartItems, setShowCart, toggleCartItemQuantity, onRemove, onPayment } = useStateContext();
+	const token = useSelector(selectCurrentToken);
 	const router = useRouter();
 
 	const handleCheckout = async () => {
 		//router.replace('/success');
+		if(token){
+		onPayment();
+
 		const stripe = await getStripe();
 		const response = await fetch('/api/stripe', {
 			method: 'POST',
@@ -33,6 +40,10 @@ function Cart() {
 		
 		toast.loading('Redirecting~.');
 		stripe.redirectToCheckout({ sessionId: data.id });
+		}else{
+			router.replace('/login');
+			toast.warn('Please login to payment!');
+		 }
 	};
 
 	return (
@@ -89,7 +100,7 @@ function Cart() {
 								</div>
 								<div className='w-full flex flex-col justify-between'>
 									<div className='flex flex-row justify-between w-full text-[#324d67] font-medium'>
-										<h5 className='text-[16px] text-[#324d67]'>{formatName(item.name, 50)}</h5>
+										<h5 className='text-[16px] text-[#324d67]'>{formatName(item?.name, 50)}</h5>
 									</div>
 									<div className='flex justify-between  items-center'>
 										<div className='flex flex-row'>

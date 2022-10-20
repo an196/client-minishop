@@ -4,6 +4,7 @@ import Image from 'next/image';
 import fallbackImage from '~/assets/default-image.png';
 
 function HeroBanner({ heroBanner }) {
+	console.log(heroBanner)
 	return (
 		<div className='py-[100px] px-[40px] bg-[#dcdcdc] rounded-[15px] z-0 relative h-[500px] leading-[0.9] w-full
 			md:h-[400px] md:rounded-none sm:py-[40px] sm:px-[20px] sm:h-[320px] '
@@ -15,7 +16,7 @@ function HeroBanner({ heroBanner }) {
 				<div className='absolute top-[0%] right-[20%] w-[500px] h-[450px] md:w-[45vw] md:h-[40vw]  lg:right-[0%]
 					'
 				>
-					<Image src={heroBanner?.image || fallbackImage} alt='headphones' layout='fill' />
+					<Image src={heroBanner?.item?.image[0] || fallbackImage} width={500} height={450} alt='headphones' layout='responsive' />
 				</div>
 
 				<div>

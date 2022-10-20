@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
-import { toast } from 'react-hot-toast';
+import { toast } from 'react-toastify';
 
 const Context = createContext();
 
@@ -84,6 +84,17 @@ export const StateContext = ({ children }) => {
 		setCartItems(newCartItems);
 	};
 
+	const onPayment = () => {
+		//use in case local storage store old value
+		if (localStorage.getItem('cartItems')) localStorage.removeItem('cartItems');
+		if (localStorage.getItem('totalQuantities')) localStorage.removeItem('totalQuantities');
+		if (localStorage.getItem('totalPrice')) localStorage.removeItem('totalPrice');
+		
+		localStorage.setItem('cartItems', JSON.stringify([...cartItems]));
+		localStorage.setItem('totalQuantities', totalQuantities);
+		localStorage.setItem('totalPrice', totalPrice);
+	};
+
 	const incQty = () => {
 		setQty((prev) => prev + 1);
 	};
@@ -127,11 +138,12 @@ export const StateContext = ({ children }) => {
 				setShowHamburgerButton,
 				showSliderNavbar,
 				setShowSliderNavbar,
-				showSubSearchbar, 
+				showSubSearchbar,
 				setShowSubSearchbar,
-				categories, 
+				categories,
 				setCategories,
 				navbarRef,
+				onPayment,
 			}}
 		>
 			{children}

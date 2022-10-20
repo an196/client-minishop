@@ -13,11 +13,12 @@ import Select from 'react-select';
 import { countries } from '~/data/countries';
 import { day, month, year } from '~/data/date';
 import { selectCurrentUser } from '~/features/auth/authSlice';
-import { useUpdateCustomerMutation } from '~/features/customer/customerApiSlice';
+import { useUpdateCustomerMutation, useGetCustomerQuery } from '~/features/customer/customerApiSlice';
 import { toast } from 'react-toastify';
 import { useStateContext } from '~/context/StateContext';
 import Link from 'next/link';
-import RequiredAuth from '~/features/auth/RequiredAuth';
+import requiredAuth from '~/features/auth/requiredAuth';
+
 
 const evenMonth = [4, 6, 9, 11];
 const oddMonth = [1, 3, 5, 7, 8, 10, 12];
@@ -39,7 +40,8 @@ function profile() {
 	const [dayRange, setDayRange] = useState(null);
 	const [selectGender, setSelectGender] = useState(null);
 	const [showModal, setShowModal] = useState(false);
-
+ 
+	const {data, isSuccess} = useGetCustomerQuery(userInfo?._id);
 	const { navbarRef } = useStateContext();
 	//get hook from api slice
 	const [updateCustomer] = useUpdateCustomerMutation();
@@ -51,6 +53,13 @@ function profile() {
 		setValue,
 		formState: { errors },
 	} = useForm();
+
+	//handle get data
+	let profile;
+
+	if(isSuccess){
+		profile ={ ...data}
+	}
 
 	const handleMonthChange = (selectedOption) => {
 		if (selectedMonth(selectedOption.value)) {
@@ -185,7 +194,7 @@ function profile() {
 				<div className='relative'>
 					<div className=' text-gray-700 rounded-full border-2 overflow-hidden w-[100px] h-[100px] border-gray-400'>
 						<Image
-							src={!userInfo ? avatar : userInfo.imgProfile}
+							src={!profile ? avatar : profile.imgProfile}
 							layout='responsive'
 							width={100}
 							height={100}
@@ -201,7 +210,7 @@ function profile() {
 					</div>
 				</div>
 				<div className='flex flex-row justify-center items-center space-x-2'>
-					<h4 className='font-medium text-[18px] text-[#0b74e5]  mt-1'>{userInfo?.username || 'User name'}</h4>
+					<h4 className='font-medium text-[18px] text-[#0b74e5]  mt-1'>{profile?.username || 'User name'}</h4>
 					<Link href={'/changeUserName'}>
 						<div
 							className='w-5 h-5 rounded-full bg-[#0b74e5] z-10 overflow-hidden text-[10px] flex justify-center 
@@ -277,7 +286,7 @@ function profile() {
 								</div>
 								<div className='flex flex-row space-x-1 text-[14px]'>
 									<h4 className='float-left'>Total bill:</h4>
-									<span className='font-bold'>{userInfo?.totalBill || '0'}$</span>
+									<span className='font-bold'>{profile?.totalBill || '0'}$</span>
 								</div>
 								<div className='flex items-center justify-center'>
 									<button className='bg-[#0b74e5] text-white font-[14px] rounded-[4px] py-1 px-2'>Update</button>
@@ -289,13 +298,13 @@ function profile() {
 								<RowLinkAndSecurity
 									icon={<BsFillTelephoneFill />}
 									title={'Phone'}
-									desc={userInfo?.phone || '0901234567'}
+									desc={profile?.phone || '0901234567'}
 									link={'/changePhone'}
 								/>
 								<RowLinkAndSecurity
 									icon={<MdEmail />}
 									title={'Email'}
-									desc={userInfo?.email || 'abc@gmail.com'}
+									desc={profile?.email || 'abc@gmail.com'}
 									link={'/changeEmail'}
 								/>
 								<RowLinkAndSecurity icon={<RiLockPasswordFill />} title={'Password'} link={'/changePassword'} />
@@ -312,4 +321,4 @@ profile.getLayout = function getLayout(page) {
 	return <Layout2>{page}</Layout2>;
 };
 
-export default RequiredAuth(profile);
+export default requiredAuth(profile);

@@ -1,30 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { BsBagCheckFill } from 'react-icons/bs';
-import { useRouter } from 'next/router';
-import { useStateContext } from '~/context/StateContext';
 import { runFireworks } from '~/lib/utils';
 import successImage from '~/assets/high_five.jpg';
 import Image from 'next/image';
-import { selectCurrentUser } from '~/features/auth/authSlice';
+import { selectCurrentUser, setCredentials } from '~/features/auth/authSlice';
 import { usePostOrderMutation } from '~/features/order/orderApiSlice';
-import {useSelector} from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 function Success() {
-	const { setCartItems, setTotalPrice, setTotalQuantities, totalPrice, totalQuantities, cartItems  } = useStateContext();
-	
-	const [order, setOrder] = useState(null);
-
 	const userInfo = useSelector(selectCurrentUser);
 
 	const [postOrder] = usePostOrderMutation();
 
-	useEffect(() => {
-		getOrderSave();
-	}, []);
+	const dispatch = useDispatch();
 
 	const getOrderSave = () => {
-		if(userInfo && totalQuantities > 0){
+		const cartItems = JSON.parse(localStorage.getItem('cartItems'));
+		const totalPrice = localStorage.getItem('totalPrice');
+		const totalQuantities = localStorage.getItem('totalQuantities');
+
+		if (userInfo && totalQuantities > 0) {
 			const order = {
 				orderID: 1,
 				customerID: userInfo?.customerID,
@@ -34,20 +30,20 @@ function Success() {
 				totalPayment: totalPrice,
 				date: new Date(),
 			};
-			
-			postOrder(order).unwrap()
+			postOrder(order)
+				.unwrap()
 				.then((res) => {
-					localStorage.clear();
-					setCartItems([]);
-					setTotalPrice(0);
-					setTotalQuantities(0);
 					runFireworks();
+					localStorage.clear();
 				})
 				.catch((err) => console.log(err));
 		}
-	
 	};
-	
+
+	useEffect(() => {
+		getOrderSave();
+	}, []);
+
 	return (
 		<div className='flex min-h-[100vh]  text-center justify-center items-center  flex-col'>
 			<div className='text-center text-[16px] '>

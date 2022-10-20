@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from 'react';
+
 import {  NoRecord, RowCartItems } from '~/components';
 import { Layout2 } from '~/layouts';
 import { useStateContext } from '~/context/StateContext';
 import getStripe from '~/lib/getStripe';
 import {toast} from 'react-toastify'
-import RequiredAuth from '~/features/auth/RequiredAuth';
+import requiredAuth from '~/features/auth/requiredAuth';
 
 function cart() {
-	const { totalPrice, totalQuantities, cartItems, setShowCart, toggleCartItemQuantity, onRemove } = useStateContext();
+	const { totalPrice, totalQuantities, cartItems, toggleCartItemQuantity, onRemove, onPayment } = useStateContext();
 
 	const handleCheckout = async () => {
+		onPayment();
 		const stripe = await getStripe();
 
 		const response = await fetch('/api/stripe', {
@@ -33,7 +34,9 @@ function cart() {
 		<>
 			{cartItems.length > 0 ? (
 				<div className='flex flex-col max-w-[800px] justify-center m-auto md:pb-0 bg-slate-200 rounded-md md:w-[100vw]'>
-					<h4 className='text-[#324d67] text-[15px] font-extrabold mt-4 pl-8'>{`Your cart (${totalQuantities} items)`}</h4>
+					<h4 className='text-[#324d67] text-[15px]  font-bold mt-4 pl-8'>Your cart: 
+						<span className='text-[#f02d34]'>({totalQuantities} items) </span>
+					</h4>
 					<div className='bg-slate-100 w-[700px] p-8  mt-4 md:w-[100vw] space-y-4'>
 						{cartItems.map((item) => (
 							<RowCartItems
@@ -68,4 +71,4 @@ cart.getLayout = function getLayout(page) {
 	return <Layout2>{page}</Layout2>;
 };
 
-export default RequiredAuth(cart);
+export default requiredAuth(cart);

@@ -13,7 +13,6 @@ function Layout({ children }) {
 			</Head>
 			<div className='navbar-container sticky'  ref={navbarRef}>
 				<Navbar/>
-				<ToastContainer />
 			</div>
 			<SubNavbar />
 

@@ -1,9 +1,10 @@
 import '~/styles/globals.css';
 import { StateContext } from '~/context/StateContext';
 import { Provider } from 'react-redux';
-import { store } from '~/app/store';
-import RequiredAuth  from '~/features/auth/RequiredAuth';
+import { store, persistor } from '~/app/store';
 import { toast, ToastContainer } from 'react-toastify';
+import { PersistGate } from 'redux-persist/integration/react';
+
 // Import css files
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -12,13 +13,15 @@ function MyApp({ Component, pageProps }) {
 	return (
 		<StateContext>
 			<Provider store={store}>
-				<ToastContainer/>
-				{/* {Component.auth ? (
-					<RequiredAuth>{getLayout(<Component {...pageProps} />)}</RequiredAuth>
+				<PersistGate loading={null} persistor={persistor}>
+					<ToastContainer />
+					{/* {Component.auth ? (
+					<requiredAuth>{getLayout(<Component {...pageProps} />)}</requiredAuth>
 				) : (
 					getLayout(<Component {...pageProps} />)
 				)} */}
-				{getLayout(<Component {...pageProps} />)}
+					{getLayout(<Component {...pageProps} />)}
+				</PersistGate>
 			</Provider>
 		</StateContext>
 	);

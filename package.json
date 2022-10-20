@@ -34,6 +34,7 @@
     "react-select": "^5.4.0",
     "react-slick": "^0.29.0",
     "react-toastify": "^9.0.8",
+    "redux-persist": "^6.0.0",
     "stripe": "^9.2.0"
   },
   "devDependencies": {
