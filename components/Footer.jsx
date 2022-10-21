@@ -1,8 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect} from 'react';
 import { useRef } from 'react';
 import { AiFillInstagram, AiOutlineTwitter,AiFillFacebook } from 'react-icons/ai';
-import { SiFacebook} from 'react-icons/si';
-
 function Footer({ isBottom }) {
 	const fixedBottom = 'absolute left-0 bottom-0 right-0 ';	
 	const ref = useRef();

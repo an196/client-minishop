@@ -1,17 +1,17 @@
 import React from 'react';
-import backgroundImg from '~/assets/headphone.jpg';
+import backgroundImg from '../assets/headphone.jpg';
 import { useForm } from 'react-hook-form';
 import { SiShopware } from 'react-icons/si';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
-import { setCredentials } from '~/features/auth/authSlice';
-import { useLoginMutation } from '~/features/auth/authApiSlice';
+import { setCredentials } from '../features/auth/authSlice';
+import { useLoginMutation } from '../features/auth/authApiSlice';
 import Image from 'next/image';
 import { toast, ToastContainer } from 'react-toastify';
-import { WarningText } from '~/components';
+import { WarningText } from '../components';
 import  Head from 'next/head'
-import TitleLayout from '~/layouts/TitleLayout';
+import TitleLayout from '../layouts/TitleLayout';
  
 function Login() {
 	const router = useRouter();

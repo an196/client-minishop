@@ -1,5 +1,5 @@
 import React from 'react';
-import image from '~/assets/oop.png';
+import image from '../assets/oop.png';
 import Image from 'next/image';
 
 function NoRecord({ width, height, des }) {

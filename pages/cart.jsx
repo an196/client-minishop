@@ -1,10 +1,10 @@
 
-import {  NoRecord, RowCartItems } from '~/components';
-import { Layout2 } from '~/layouts';
-import { useStateContext } from '~/context/StateContext';
-import getStripe from '~/lib/getStripe';
+import {  NoRecord, RowCartItems } from '../components';
+import { Layout2 } from '../layouts';
+import { useStateContext } from '../context/StateContext';
+import getStripe from '../lib/getStripe';
 import {toast} from 'react-toastify'
-import requiredAuth from '~/features/auth/requiredAuth';
+import requiredAuth from '../features/auth/requiredAuth';
 import { useEffect } from 'react';
 
 function cart() {
@@ -26,7 +26,7 @@ function cart() {
 
 		const data = await response.json();
 
-		toast.loading('Redirecting~.');
+		toast.loading('Redirecting...');
 
 		stripe.redirectToCheckout({ sessionId: data.id });
 	};

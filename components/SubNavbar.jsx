@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useStateContext } from '~/context/StateContext';
+import { useStateContext } from '../context/StateContext';
 
 function SubNavbar() {
 	const [screenSize, setScreenSize] = useState();

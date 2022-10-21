@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Layout2 } from '~/layouts';
+import { Layout2 } from '../layouts';
 import OtpInput from 'react-otp-input';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
@@ -9,9 +9,9 @@ import {
 	useCompareOTPbyEmailMutation,
 	useSendOTPtoChangePasswordMutation,
 	useSendAcceptToChangePasswordMutation,
-} from '~/features/otp/otpApiSlice';
-import { selectCurrentEmail, selectCurrentAction, selectPasswordRechange } from '~/features/otp/otpSlice';
-import { setCredentials,selectCurrentUser , logOut } from '~/features/auth/authSlice';
+} from '../features/otp/otpApiSlice';
+import { selectCurrentEmail, selectCurrentAction, selectPasswordRechange } from '../features/otp/otpSlice';
+import { setCredentials,selectCurrentUser , logOut } from '../features/auth/authSlice';
 
 
 

@@ -1,9 +1,9 @@
 import React from 'react';
-import { FooterBanner, HeroBanner, OrtherCategory, RowItem } from '~/components';
-import { useGetBannerQuery } from '~/features/banner/bannerApiSlice';
-import { useGetProductsQuery } from '~/features/product/productApiSlice';
-import { Layout } from '~/layouts';
-import request from '~/helper/request';
+import { FooterBanner, HeroBanner, OrtherCategory, RowItem } from '../components';
+import { useGetBannerQuery } from '../features/banner/bannerApiSlice';
+import { useGetProductsQuery } from '../features/product/productApiSlice';
+import { Layout } from '../layouts';
+import request from '../helper/request';
 
 function Home({ categories, besetItems1, besetItems2, besetItems3, besetItems4 }) {
 	const { data, isLoading, isSuccess, isError, error } = useGetBannerQuery();

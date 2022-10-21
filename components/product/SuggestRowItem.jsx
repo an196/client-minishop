@@ -1,4 +1,4 @@
-import { Product } from '~/components';
+import { Product } from '../../components';
 import { IoIosArrowDropleftCircle, IoIosArrowDroprightCircle } from 'react-icons/io';
 import { useRef, useState } from 'react';
 

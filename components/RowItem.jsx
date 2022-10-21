@@ -1,5 +1,5 @@
 import React from 'react';
-import { HeadTitile, Product } from '~/components';
+import { HeadTitile, Product } from '../components';
 
 function RowItem({ title, subtitle, products }) {
 	return (

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { firebaseUploadImage } from '~/features/firebase/firebaseUpload';
+import { firebaseUploadImage } from '../../features/firebase/firebaseUpload';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectCurrentUser, selectCurrentToken, setCredentials } from '~/features/auth/authSlice';
+import { selectCurrentUser, selectCurrentToken, setCredentials } from '../../features/auth/authSlice';
 import CropImage from './CropImage';
-import { useUpdateCustomerMutation } from '~/features/customer/customerApiSlice';
+import { useUpdateCustomerMutation } from '../../features/customer/customerApiSlice';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 

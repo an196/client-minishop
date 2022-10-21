@@ -1,7 +1,7 @@
 import React from 'react';
 import { FiLogIn } from 'react-icons/fi';
 import { useRouter } from 'next/router';
-import { useStateContext } from '~/context/StateContext';
+import { useStateContext } from '../context/StateContext';
 
 function UserBar() {
     const router = useRouter();

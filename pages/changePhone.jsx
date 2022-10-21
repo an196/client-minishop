@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import { Layout2 } from '~/layouts';
+import { Layout2 } from '../layouts';
 import { BsFillTelephoneFill } from 'react-icons/bs';
-import { selectCurrentUser } from '~/features/auth/authSlice';
+import { selectCurrentUser } from '../features/auth/authSlice';
 import { useSelector } from 'react-redux';
 
 function changePhone() {

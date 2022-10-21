@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Product, HeadTitile, NoRecord, SuggestRowItem } from '~/components';
-import { Layout } from '~/layouts';
+import { Product, HeadTitile, NoRecord, SuggestRowItem } from '../components';
+import { Layout } from '../layouts';
 import { useRouter } from 'next/router';
-import request from '~/helper/request';
-import { useStateContext } from '~/context/StateContext';
+import request from '../helper/request';
+import { useStateContext } from '../context/StateContext';
 import { useDispatch, useSelector } from 'react-redux';
 import {
 	selectCurrentFilters,
@@ -11,8 +11,8 @@ import {
 	setProducts,
 	sortProduct,
 	selectCurrentProducts,
-} from '~/features/product/productSlice';
-import { useSearchProductQuery } from '~/features/product/productApiSlice';
+} from '../features/product/productSlice';
+import { useSearchProductQuery } from '../features/product/productApiSlice';
 
 
 function searchResult({ suggestItem1, suggestItem2, suggestItem3, suggestItem4 }) {

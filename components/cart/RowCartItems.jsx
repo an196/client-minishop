@@ -1,10 +1,6 @@
 import React from 'react';
-import { useStateContext } from '~/context/StateContext';
-import { useRouter } from 'next/router';
-import request from '~/helper/request';
 import Image from 'next/image';
-import defaultImage from '~/assets/default-image.png';
-import { Product, HeadTitile, NoRecord } from '~/components';
+import defaultImage from '../../assets/default-image.png';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 import { MdDelete } from 'react-icons/md';
 
