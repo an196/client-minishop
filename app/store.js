@@ -4,9 +4,9 @@ import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, 
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 
 import { apiSlice } from './api/apiSlice';
-import authReducer from '~/features/auth/authSlice';
-import otpReducer from '~/features/otp/otpSlice';
-import productReducer from '~/features/product/productSlice';
+import authReducer from '../features/auth/authSlice';
+import otpReducer from '../features/otp/otpSlice';
+import productReducer from '../features/product/productSlice';
 
 const rootPersistConfig = {
 	key: 'root',

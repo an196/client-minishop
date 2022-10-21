@@ -2,15 +2,15 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { AiOutlineShopping } from 'react-icons/ai';
 import { FiLogIn, FiLogOut } from 'react-icons/fi';
-import { useStateContext } from '~/context/StateContext';
+import { useStateContext } from '../context/StateContext';
 import { SiShopware } from 'react-icons/si';
-import avatar from '~/assets/default-user.png';
+import avatar from '../assets/default-user.png';
 import Image from 'next/image';
 import { Cart, UserBar, SearchBox, HamburgerButton, SliderNavBar } from '../components';
 import { useRouter } from 'next/router';
 import request from '../helper/request';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectCurrentToken, selectCurrentUser, logOut } from '~/features/auth/authSlice';
+import { selectCurrentToken, selectCurrentUser, logOut } from '../features/auth/authSlice';
 
 const Navbar = React.forwardRef((props, ref) => {
 	const { categories, setCategories } = useStateContext();

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import fallbackImage from '~/assets/default-image.png';
+import fallbackImage from '../assets/default-image.png';
 import { localeTime } from '../helper/formatTime';
 
 function FooterBanner({ footerBanner }) {

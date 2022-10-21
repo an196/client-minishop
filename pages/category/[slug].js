@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
-import { Product, HeadTitile, NoRecord, SuggestRowItem } from '~/components';
-import { Layout } from '~/layouts';
-import request from '~/helper/request';
-import { useStateContext } from '~/context/StateContext';
+import { Product, HeadTitile, NoRecord, SuggestRowItem } from '../../components';
+import { Layout } from '../../layouts';
+import request from '../../helper/request';
+import { useStateContext } from '../../context/StateContext';
 import { useDispatch,useSelector } from 'react-redux';
 import {
 	selectCurrentFilters,
@@ -10,7 +10,7 @@ import {
 	setProducts,
 	sortProduct,
 	selectCurrentProducts,
-} from '~/features/product/productSlice';
+} from '../../features/product/productSlice';
 
 function Category({ products, suggestItem1, suggestItem2, suggestItem3, suggestItem4 }) {
 	const { categories } = useStateContext();

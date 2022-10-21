@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
 import Image from 'next/image';
-import successImage from '~/assets/high_five.jpg';
+import successImage from '../assets/high_five.jpg';
 import Link from 'next/link'; 
-import { runFireworks } from '~/lib/utils';
+import { runFireworks } from '../lib/utils';
 
 function registerSuccessful() {
     useEffect(() => {

@@ -1,6 +1,6 @@
 import { SiShopware } from 'react-icons/si';
 import { MdCancel } from 'react-icons/md';
-import { useStateContext } from '~/context/StateContext';
+import { useStateContext } from '../context/StateContext';
 import { useRouter } from 'next/router';
 
 function SliderNavBar({ setShowSliderNavbar }) {

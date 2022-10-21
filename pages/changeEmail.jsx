@@ -1,8 +1,8 @@
 import React, { useState, useMemo } from 'react';
-import { Layout2 } from '~/layouts';
+import { Layout2 } from '../layouts';
 import { MdEmail } from 'react-icons/md';
-import { selectCurrentUser } from '~/features/auth/authSlice';
-import { setEmail, setAction } from '~/features/otp/otpSlice';
+import { selectCurrentUser } from '../features/auth/authSlice';
+import { setEmail, setAction } from '../features/otp/otpSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';

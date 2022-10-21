@@ -2,8 +2,8 @@ import 'react-image-crop/dist/ReactCrop.css';
 import React, { useState, useRef, useEffect } from 'react';
 import ReactCrop, { centerCrop, makeAspectCrop, Crop, PixelCrop } from 'react-image-crop';
 import { FileUploader } from 'react-drag-drop-files';
-import { DropImageArea } from '~/components';
-import { dataURLtoFile} from '~/helper/convertImage';
+import { DropImageArea } from '../../components';
+import { dataURLtoFile} from '../../helper/convertImage';
 
 const TYPE_FILE = ['JPG', 'PNG', 'GIF', 'WEBP'];
 

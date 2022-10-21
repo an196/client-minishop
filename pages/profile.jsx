@@ -1,23 +1,23 @@
 import React, { useState, useRef, useMemo, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
-import { RowLinkAndSecurity, UpdateImageModal } from '~/components';
-import { Layout2 } from '~/layouts';
+import { RowLinkAndSecurity, UpdateImageModal } from '../components';
+import { Layout2 } from '../layouts';
 import Image from 'next/image';
 import { BsFillTelephoneFill } from 'react-icons/bs';
 import { MdEmail } from 'react-icons/md';
 import { RiLockPasswordFill } from 'react-icons/ri';
 import { FaPen } from 'react-icons/fa';
-import avatar from '~/assets/default-user.png';
+import avatar from '../assets/default-user.png';
 import Select from 'react-select';
-import { countries } from '~/data/countries';
-import { day, month, year } from '~/data/date';
-import { selectCurrentUser } from '~/features/auth/authSlice';
-import { useUpdateCustomerMutation, useGetCustomerQuery } from '~/features/customer/customerApiSlice';
+import { countries } from '../data/countries';
+import { day, month, year } from '../data/date';
+import { selectCurrentUser } from '../features/auth/authSlice';
+import { useUpdateCustomerMutation, useGetCustomerQuery } from '../features/customer/customerApiSlice';
 import { toast } from 'react-toastify';
-import { useStateContext } from '~/context/StateContext';
+import { useStateContext } from '../context/StateContext';
 import Link from 'next/link';
-import requiredAuth from '~/features/auth/requiredAuth';
+import requiredAuth from '../features/auth/requiredAuth';
 
 
 const evenMonth = [4, 6, 9, 11];

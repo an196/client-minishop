@@ -4,12 +4,12 @@ import Image from 'next/image';
 import { AiOutlineMinus, AiOutlinePlus, AiOutlineLeft, AiOutlineShopping } from 'react-icons/ai';
 import { TiDelete } from 'react-icons/ti';
 import { toast } from 'react-toastify';
-import { useStateContext } from '~/context/StateContext';
-import fallbackImage from '~/assets/default-image.png';
-import getStripe from '~/lib/getStripe';
-import { formatName } from '~/helper/formatProduct';
+import { useStateContext } from '../context/StateContext';
+import fallbackImage from '../assets/default-image.png';
+import getStripe from '../lib/getStripe';
+import { formatName } from '../helper/formatProduct';
 import { useRouter } from 'next/router';
-import { selectCurrentToken } from '~/features/auth/authSlice';
+import { selectCurrentToken } from '../features/auth/authSlice';
 import { useSelector} from 'react-redux';
 
 

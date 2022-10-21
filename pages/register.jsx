@@ -4,13 +4,13 @@ import { useForm } from 'react-hook-form';
 import { SiShopware } from 'react-icons/si';
 import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai';
 import { IoMdArrowRoundBack } from 'react-icons/io';
-import backgroundImg from '~/assets/headphone.jpg';
+import backgroundImg from '../assets/headphone.jpg';
 import Image from 'next/image';
-import { WarningText } from '~/components';
+import { WarningText } from '../components';
 import { useDispatch } from 'react-redux';
-import { useRegisterAccountMutation } from '~/features/register/registerSlice';
+import { useRegisterAccountMutation } from '../features/register/registerSlice';
 import toast from 'react-hot-toast';
-import TitleLayout from '~/layouts/TitleLayout';
+import TitleLayout from '../layouts/TitleLayout';
 
 function register() {
 	const router = useRouter();

@@ -1,7 +1,6 @@
 import Head from 'next/head';
-import { Navbar, Footer, SubNavbar } from '~/components';
-import { ToastContainer } from 'react-toastify';
-import { useStateContext } from '~/context/StateContext';
+import { Navbar, Footer, SubNavbar } from '../components';
+import { useStateContext } from '../context/StateContext';
 
 function Layout({ children }) {
 	const { navbarRef } = useStateContext();

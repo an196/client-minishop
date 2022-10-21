@@ -1,8 +1,8 @@
 import React from 'react';
 import Link from 'next/Link';
 import Image from 'next/image';
-import fallbackImage from '~/assets/default-image.png';
-import { formatName } from '~/helper/formatProduct';
+import fallbackImage from '../assets/default-image.png';
+import { formatName } from '../helper/formatProduct';
 
 function Product({ product, minWidth }) {
 	return (

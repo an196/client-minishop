@@ -1,11 +1,11 @@
 import React, { useState, useMemo } from 'react';
-import { Layout2 } from '~/layouts';
+import { Layout2 } from '../layouts';
 import { GrContactInfo } from 'react-icons/gr';
-import { selectCurrentUser, setCredentials, selectCurrentToken } from '~/features/auth/authSlice';
+import { selectCurrentUser, setCredentials, selectCurrentToken } from '../features/auth/authSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
-import { useUpdateCustomerMutation } from '~/features/customer/customerApiSlice';
+import { useUpdateCustomerMutation } from '../features/customer/customerApiSlice';
 
 function changeUserName() {
     //get data from redux store
