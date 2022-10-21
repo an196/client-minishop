@@ -13,22 +13,24 @@ export default async function handler(req, res) {
 					{ shipping_rate: 'shr_1L2dUxFBW7m53pLE7ObiAaQZ' },
 				],
 				line_items: req.body.map((item)=> {
-                    const img = item.image[0].asset._ref;
-                    const newImage = img.replace('image-','https://cdn.sanity.io/images/98lhbmcd/production/').replace('-webp', '.webp');
+                    // const img = item.image[0].asset._ref;
+                    // const newImage = img.replace('image-','gs://minishop-b3604.appspot.com/product').replace('-webp', '.webp');
 
+					const img = item.image[0];
+                    
                     return{
                         price_data: {
                             currency: 'usd',
                             product_data: {
                                 name: item.name,
-                                images: [newImage]
+                                images: [img]
                             },
                             unit_amount: item.price * 100
                         },
-                        adjustable_quantity: {
-                            enabled: true,
-                            minimum: 1,
-                        },
+                        // adjustable_quantity: {
+                        //     enabled: true,
+                        //     minimum: 1,
+                        // },
                         quantity: item.quantity
                     }
                 }),

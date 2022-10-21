@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { AiOutlineShopping } from 'react-icons/ai';
-import { FiLogIn } from 'react-icons/fi';
+import { FiLogIn, FiLogOut } from 'react-icons/fi';
 import { useStateContext } from '~/context/StateContext';
 import { SiShopware } from 'react-icons/si';
-import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
 import avatar from '~/assets/default-user.png';
 import Image from 'next/image';
-import { NavButton, Cart, UserBar, SearchBox, HamburgerButton } from '../components';
-import { icons } from 'react-icons/lib';
+import { Cart, UserBar, SearchBox, HamburgerButton, SliderNavBar } from '../components';
 import { useRouter } from 'next/router';
+import request from '../helper/request';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectCurrentToken, selectCurrentUser, logOut } from '~/features/auth/authSlice';
 
-function Navbar() {
-	const [userBarActive, setUserBarActive] = useState(true);
+const Navbar = React.forwardRef((props, ref) => {
+	const { categories, setCategories } = useStateContext();
+	const token = useSelector(selectCurrentToken);
+	const userInfo = useSelector(selectCurrentUser);
+	const dispatch = useDispatch();
 
 	const {
 		showCart,
@@ -26,9 +30,27 @@ function Navbar() {
 		setShowHamburgerButton,
 		showSubSearchbar,
 		setShowSubSearchbar,
+		showSliderNavbar,
+		setShowSliderNavbar,
 	} = useStateContext();
 
 	const router = useRouter();
+
+	const handleHamburgerButtonClick = () => {
+		setShowSliderNavbar(true);
+	};
+
+	const handleLogOut = () => {
+		dispatch(logOut());
+		router.replace('/');
+	};
+
+	const getCategories = async () => {
+		const data = await fetch(request.fetchCategories).then((res) => res.json());
+		setCategories(data);
+	};
+
+	
 
 	useEffect(() => {
 		const handleResize = () => setScreenSize(window.innerWidth);
@@ -37,8 +59,12 @@ function Navbar() {
 
 		handleResize();
 
+		getCategories();
+
 		return () => window.removeEventListener('resize', handleResize);
 	}, []);
+
+
 
 	useEffect(() => {
 		if (screenSize <= 767) {
@@ -51,14 +77,19 @@ function Navbar() {
 		}
 	}, [screenSize]);
 
+
 	return (
 		<>
 			{isClicked.userBar && !showCart && <UserBar />}
 			{showCart && <Cart />}
-			<div className='navbar-container border-b-1 drop-shadow-lg mb-5 px-10 p-3 hlg:px-3 hlg:mx-1 md:mb-0'>
+			{showSliderNavbar && <SliderNavBar setShowSliderNavbar={setShowSliderNavbar} />}
+			<div className='flex  relative justify-between border-b-1 drop-shadow-lg mb-5 px-10 p-3 hlg:px-3 hlg:mx-1 md:mb-0 z-10' ref={ref}>
 				<div className='logo cursor-pointer flex justify-center space-x-3'>
 					{showHamburgerButton && (
-						<div className='cursor-pointer flex justify-center items-center text-[1.55rem] text-gray-500'>
+						<div
+							className='cursor-pointer flex justify-center items-center text-[1.55rem] text-gray-500'
+							onClick={handleHamburgerButtonClick}
+						>
 							<HamburgerButton />
 						</div>
 					)}
@@ -70,39 +101,6 @@ function Navbar() {
 					</Link>
 				</div>
 				<div className='flex space-x-6 items-center font-extrabold'>
-					<Link href={`/`}>
-						<span
-							className={
-								router.pathname === '/'
-									? `text-2xl nav-bar-item-active xl:hidden`
-									: 'cursor-pointer nav-bar-item text-gray-700 text-2xl xl:hidden'
-							}
-						>
-							Home
-						</span>
-					</Link>
-					<Link href={`/category/1`}>
-						<span
-							className={
-								router.query?.slug === '1'
-									? `text-2xl nav-bar-item-active xl:hidden`
-									: 'nav-bar-item text-gray-700 text-2xl xl:hidden'
-							}
-						>
-							Earphone
-						</span>
-					</Link>
-					<Link href={`/category/2`}>
-						<span
-							className={
-								router.query?.slug === '2'
-									? `text-2xl nav-bar-item-active xl:hidden`
-									: 'nav-bar-item text-gray-700 text-2xl xl:hidden'
-							}
-						>
-							Home
-						</span>
-					</Link>
 					<div className='md:hidden'>
 						<SearchBox />
 					</div>
@@ -119,10 +117,28 @@ function Navbar() {
 						</button>
 					</div>
 					<div className='flex flex-row space-x-2 items-center max-w-[135px]'>
-						<div className='text-gray-700 rounded-full border-1 overflow-hidden w-[25px] h-[25px] cursor-pointer'>
-							<Image src={avatar} layout='intrinsic' alt='user-profile' />
-						</div>
-						<FiLogIn />
+						<Link href={'/profile'}>
+							<div className='text-gray-700 rounded-full border-1 overflow-hidden w-[25px] h-[25px] cursor-pointer'>
+								<Image
+									src={!userInfo ? avatar : userInfo.imgProfile}
+									layout='responsive'
+									width={25}
+									height={25}
+									alt='user-profile'
+								/>
+							</div>
+						</Link>
+						{!token ? (
+							<Link href={`/login`}>
+								<div className='cursor-pointer'>
+									<FiLogIn />
+								</div>
+							</Link>
+						) : (
+							<div className='cursor-pointer' onClick={handleLogOut}>
+								<FiLogOut />
+							</div>
+						)}
 					</div>
 				</div>
 			</div>
@@ -133,6 +149,6 @@ function Navbar() {
 			)}
 		</>
 	);
-}
+})
 
 export default Navbar;

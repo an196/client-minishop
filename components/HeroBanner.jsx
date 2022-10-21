@@ -15,11 +15,11 @@ function HeroBanner({ heroBanner }) {
 				<div className='absolute top-[0%] right-[20%] w-[500px] h-[450px] md:w-[45vw] md:h-[40vw]  lg:right-[0%]
 					'
 				>
-					<Image src={heroBanner?.image || fallbackImage} alt='headphones' layout='fill' />
+					<Image src={heroBanner?.item?.image[0] || fallbackImage} width={500} height={450} alt='headphones' layout='responsive' />
 				</div>
 
 				<div>
-					<Link href={`/product/${heroBanner?.product}`}>
+					<Link href={`/product/${heroBanner?.item._id}`}>
 						<button type='button'
                             className='rounded-[5px] py-[10px] px-[16px] bg-[#f02d34] text-white border-none mt-[40px] 
                             text-[18px] font-medium cursor-pointer  sm:text-[14px]'

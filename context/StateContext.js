@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { toast } from 'react-hot-toast';
+import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
+import { toast } from 'react-toastify';
 
 const Context = createContext();
 
@@ -14,13 +14,15 @@ export const StateContext = ({ children }) => {
 	const [showCart, setShowCart] = useState(false);
 	const [showHamburgerButton, setShowHamburgerButton] = useState(false);
 	const [showSubSearchbar, setShowSubSearchbar] = useState(false);
-	const [showSliderNavbar, setShowSliderNavbar] = useState(true);
+	const [showSliderNavbar, setShowSliderNavbar] = useState(false);
 	const [cartItems, setCartItems] = useState([]);
 	const [totalPrice, setTotalPrice] = useState(0);
 	const [totalQuantities, setTotalQuantities] = useState(0);
 	const [qty, setQty] = useState(1);
 	const [isClicked, setIsClicked] = useState(initialState);
 	const [screenSize, setScreenSize] = useState(undefined);
+	const [categories, setCategories] = useState([]);
+	let navbarRef = useRef(0);
 
 	let foundProduct;
 	let index;
@@ -82,6 +84,17 @@ export const StateContext = ({ children }) => {
 		setCartItems(newCartItems);
 	};
 
+	const onPayment = () => {
+		//use in case local storage store old value
+		if (localStorage.getItem('cartItems')) localStorage.removeItem('cartItems');
+		if (localStorage.getItem('totalQuantities')) localStorage.removeItem('totalQuantities');
+		if (localStorage.getItem('totalPrice')) localStorage.removeItem('totalPrice');
+		
+		localStorage.setItem('cartItems', JSON.stringify([...cartItems]));
+		localStorage.setItem('totalQuantities', totalQuantities);
+		localStorage.setItem('totalPrice', totalPrice);
+	};
+
 	const incQty = () => {
 		setQty((prev) => prev + 1);
 	};
@@ -125,8 +138,12 @@ export const StateContext = ({ children }) => {
 				setShowHamburgerButton,
 				showSliderNavbar,
 				setShowSliderNavbar,
-				showSubSearchbar, 
-				setShowSubSearchbar
+				showSubSearchbar,
+				setShowSubSearchbar,
+				categories,
+				setCategories,
+				navbarRef,
+				onPayment,
 			}}
 		>
 			{children}

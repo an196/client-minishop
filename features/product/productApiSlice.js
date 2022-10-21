@@ -18,10 +18,19 @@ export const productApiSlice = apiSlice.injectEndpoints({
                 
             ]
         }),
+        searchProduct: builder.query({
+            query: (searchTerm) => `/products/search?p=${searchTerm}`,
+            // keepUnusedDataFor: 1,
+            providesTags: (result, error, arg) => [
+                { type: 'Product', id: "LIST" },
+                
+            ]
+        }),
     })
 })
 
 export const {
     useGetProductsQuery,
-    useGetProductQuery
+    useGetProductQuery,
+    useSearchProductQuery,
 } = productApiSlice
