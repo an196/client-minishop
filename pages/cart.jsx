@@ -5,9 +5,10 @@ import { useStateContext } from '~/context/StateContext';
 import getStripe from '~/lib/getStripe';
 import {toast} from 'react-toastify'
 import requiredAuth from '~/features/auth/requiredAuth';
+import { useEffect } from 'react';
 
 function cart() {
-	const { totalPrice, totalQuantities, cartItems, toggleCartItemQuantity, onRemove, onPayment } = useStateContext();
+	const { totalPrice, totalQuantities, cartItems, toggleCartItemQuantity, onRemove, onPayment, setShowCart } = useStateContext();
 
 	const handleCheckout = async () => {
 		onPayment();
@@ -30,6 +31,9 @@ function cart() {
 		stripe.redirectToCheckout({ sessionId: data.id });
 	};
 
+	useEffect(()=> {
+		setShowCart(false);
+	},[])
 	return (
 		<>
 			{cartItems.length > 0 ? (

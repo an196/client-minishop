@@ -67,7 +67,7 @@ function Cart() {
 					<Link href={'/cart'}>
 						<span
 							className=' text-black  cursor-pointer  px-[12px] py-[4px] bg-slate-300 rounded-full sm:py-[4px]
-						hover:font-medium text-[12px] '
+						hover:font-medium text-[12px]'
 						>
 							View full
 						</span>

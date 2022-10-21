@@ -1,6 +1,6 @@
 {
   "name": "mern_shop",
-  "version": "0.1.0",
+  "version": "1.1.0",
   "private": true,
   "scripts": {
     "dev": "NODE_OPTIONS='--inspect' next dev",
@@ -38,9 +38,10 @@
     "stripe": "^9.2.0"
   },
   "devDependencies": {
+    "@babel/eslint-parser": "^7.19.1",
     "autoprefixer": "^10.4.7",
-    "eslint": "8.16.0",
-    "eslint-config-next": "12.1.6",
+    "babel-preset-env": "^1.7.0",
+    "eslint-config-next": "^12.3.1",
     "postcss": "^8.4.14",
     "tailwindcss": "^3.1.4"
   }

@@ -4,16 +4,16 @@ import { BsBagCheckFill } from 'react-icons/bs';
 import { runFireworks } from '~/lib/utils';
 import successImage from '~/assets/high_five.jpg';
 import Image from 'next/image';
-import { selectCurrentUser, setCredentials } from '~/features/auth/authSlice';
+import { selectCurrentUser } from '~/features/auth/authSlice';
 import { usePostOrderMutation } from '~/features/order/orderApiSlice';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector  } from 'react-redux';
 
 function Success() {
 	const userInfo = useSelector(selectCurrentUser);
 
 	const [postOrder] = usePostOrderMutation();
 
-	const dispatch = useDispatch();
+	
 
 	const getOrderSave = () => {
 		const cartItems = JSON.parse(localStorage.getItem('cartItems'));

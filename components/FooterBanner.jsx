@@ -31,7 +31,7 @@ function FooterBanner({ footerBanner }) {
 						<h3 className='font-extrabold text-[60px] md:text-[40px] sm:text-[24px]'>{footerBanner?.midText}</h3>
 						<p className='text-[18px] sm:text-[12px]'>{footerBanner?.desc}</p>
 					</div>
-					<Link href={`/product/${footerBanner?.product}`}>
+					<Link href={`/product/${footerBanner?.item._id}`}>
 						<button
 							type='button'
 							className='xl:m-[18px] sm:m-0 rounded-[5px] py-[10px] px-[16px] bg-white text-[#f02d34] border-none mt-[40px] text-[18px] font-medium cursor-pointer 

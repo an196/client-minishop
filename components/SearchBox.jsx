@@ -8,7 +8,9 @@ function SearchBox() {
 	const router = useRouter();
 
 	const handleSearch = async () => {
-		router.replace(`/searchresult?p=${searchTerm}`);
+		if(searchTerm){
+			router.replace(`/searchresult?p=${searchTerm}`);
+		}		
 	};
 
 	const hanldeChange = (e) => {

@@ -4,7 +4,6 @@ import Image from 'next/image';
 import fallbackImage from '~/assets/default-image.png';
 
 function HeroBanner({ heroBanner }) {
-	console.log(heroBanner)
 	return (
 		<div className='py-[100px] px-[40px] bg-[#dcdcdc] rounded-[15px] z-0 relative h-[500px] leading-[0.9] w-full
 			md:h-[400px] md:rounded-none sm:py-[40px] sm:px-[20px] sm:h-[320px] '
@@ -20,7 +19,7 @@ function HeroBanner({ heroBanner }) {
 				</div>
 
 				<div>
-					<Link href={`/product/${heroBanner?.product}`}>
+					<Link href={`/product/${heroBanner?.item._id}`}>
 						<button type='button'
                             className='rounded-[5px] py-[10px] px-[16px] bg-[#f02d34] text-white border-none mt-[40px] 
                             text-[18px] font-medium cursor-pointer  sm:text-[14px]'
