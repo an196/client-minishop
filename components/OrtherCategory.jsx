@@ -5,7 +5,6 @@ import headphone from '../assets/headphone.jpg';
 import accessory from '../assets/accessory.jpg';
 import smartwatch from '../assets/smartwatch.jpg';
 import HeadTitile from './HeadTitile';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
