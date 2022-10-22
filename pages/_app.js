@@ -2,7 +2,7 @@ import '../styles/globals.css';
 import { StateContext } from '../context/StateContext';
 import { Provider } from 'react-redux';
 import { store, persistor } from '../app/store';
-import { toast, ToastContainer } from 'react-toastify';
+
 import { PersistGate } from 'redux-persist/integration/react';
 
 // Import css files
@@ -14,7 +14,7 @@ function MyApp({ Component, pageProps }) {
 		<StateContext>
 			<Provider store={store}>
 				<PersistGate loading={null} persistor={persistor}>
-					<ToastContainer />
+					
 					{/* {Component.auth ? (
 					<requiredAuth>{getLayout(<Component {...pageProps} />)}</requiredAuth>
 				) : (
