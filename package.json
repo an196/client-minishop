@@ -10,8 +10,6 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.2",
-    "@sanity/client": "^3.3.0",
-    "@sanity/image-url": "^1.0.1",
     "@stripe/stripe-js": "^1.29.0",
     "canvas-confetti": "^1.5.1",
     "date-fns": "^2.28.0",
@@ -38,10 +36,14 @@
     "stripe": "^9.2.0"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.19.1",
-    "autoprefixer": "^10.4.7",
+    "@babel/preset-env": "^7.19.4",
+    "@next/eslint-plugin-next": "^12.3.1",
+    "autoprefixer": "^10.4.12",
+    "babel-eslint": "^10.1.0",
     "babel-preset-env": "^1.7.0",
+    "eslint": "^8.25.0",
     "eslint-config-next": "^12.3.1",
+    "eslint-plugin-react": "^7.31.10",
     "postcss": "^8.4.14",
     "tailwindcss": "^3.1.4"
   }

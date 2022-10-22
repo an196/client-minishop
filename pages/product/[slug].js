@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { AiOutlineMinus, AiOutlinePlus, AiFillStar, AiOutlineStar } from 'react-icons/ai';
-import { Product, SuggestRowItem } from '~/components';
-import { Layout } from '~/layouts';
-import { useStateContext } from '~/context/StateContext';
+import { Product, SuggestRowItem } from '../../components';
+import { Layout } from '../../layouts';
+import { useStateContext } from '../../context/StateContext';
 import parse from 'html-react-parser';
 import Image from 'next/image';
-import fallbackImage from '~/assets/default-image.png';
-import request from '~/helper/request';
+import fallbackImage from '../../assets/default-image.png';
+import request from '../../helper/request';
 
 function ProductDetails({ product, suggestItem1, suggestItem2, suggestItem3, suggestItem4 }) {
 	const [index, setIndex] = useState(0);
