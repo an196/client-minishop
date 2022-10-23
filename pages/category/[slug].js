@@ -3,7 +3,7 @@ import { Product, HeadTitile, NoRecord, SuggestRowItem } from '../../components'
 import { Layout } from '../../layouts';
 import request from '../../helper/request';
 import { useStateContext } from '../../context/StateContext';
-import { useDispatch,useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
 	selectCurrentFilters,
 	setFilters,
@@ -11,11 +11,15 @@ import {
 	sortProduct,
 	selectCurrentProducts,
 } from '../../features/product/productSlice';
+import { useRouter } from 'next/router';
 
 function Category({ products, suggestItem1, suggestItem2, suggestItem3, suggestItem4 }) {
 	const { categories } = useStateContext();
 
 	const dispatch = useDispatch();
+	const router = useRouter();
+	const { slug } = router.query;
+
 	const filters = useSelector(selectCurrentFilters);
 	const filteredProducts = useSelector(selectCurrentProducts);
 
@@ -23,7 +27,7 @@ function Category({ products, suggestItem1, suggestItem2, suggestItem3, suggestI
 		dispatch(setFilters({ name: e.target.id }));
 		dispatch(sortProduct({ name: e.target.id }));
 	};
-	
+
 	//get title of suggest items
 	const getTitleSuggestItem = (suggestItem) => {
 		if (suggestItem && suggestItem.length > 0) {
@@ -33,10 +37,10 @@ function Category({ products, suggestItem1, suggestItem2, suggestItem3, suggestI
 		return '';
 	};
 
-	useEffect(()=>{
+	useEffect(() => {
 		dispatch(setProducts(products));
-	},[])
-
+	}, [slug])
+	console.log(slug)
 	return (
 		<>
 			<HeadTitile title={''} subtitle={'Variety of shapes'} />
@@ -55,7 +59,7 @@ function Category({ products, suggestItem1, suggestItem2, suggestItem3, suggestI
 				</div>
 			</div>
 			{filteredProducts && filteredProducts?.length !== 0 ? (
-				<div className='product-container'>
+				<div className='product-container h-auto'>
 					{filteredProducts?.map((product) => (
 						<Product key={product._id} product={product} />
 					))}
