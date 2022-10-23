@@ -19,7 +19,7 @@ function Success() {
 		const cartItems = JSON.parse(localStorage.getItem('cartItems'));
 		const totalPrice = localStorage.getItem('totalPrice');
 		const totalQuantities = localStorage.getItem('totalQuantities');
-
+		console.log(userInfo,totalQuantities )
 		if (userInfo && totalQuantities > 0) {
 			const order = {
 				orderID: 1,
@@ -34,7 +34,6 @@ function Success() {
 				.unwrap()
 				.then((res) => {
 					runFireworks();
-					localStorage.clear();
 				})
 				.catch((err) => console.log(err));
 		}
