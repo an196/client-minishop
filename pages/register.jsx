@@ -8,8 +8,8 @@ import backgroundImg from '../assets/headphone.jpg';
 import Image from 'next/image';
 import { WarningText } from '../components';
 import { useDispatch } from 'react-redux';
-import { useRegisterAccountMutation } from '../features/register/registerSlice';
-import toast from 'react-hot-toast';
+import { useRegisterAccountMutation } from '../features/register/registerApiSlice';
+import { toast } from 'react-toastify';
 import TitleLayout from '../layouts/TitleLayout';
 
 function register() {
@@ -73,19 +73,22 @@ function register() {
 				password,
 				email,
 			};
-			
+
 			registerAccount(registerInfo)
 				.then((res) => {
-                    if(res?.error?.originalStatus === 409 )
-                        toast.error('Username or email has been existed!')
-					else{
-						if(res?.data?.success){
+					console.log(res);
+					if (res?.error?.originalStatus === 409){
+						 toast.error('Username or email has been existed!')
+						 console.log(res?.error)
+					}
+					else {
+						if (res?.data?.success) {
 							router.replace('/registerSuccessful');
 						}
 					}
-                })
-				.catch((errors) => {
-					toast.error('Error! Cant register account')
+				})
+				.catch((err) => {
+					toast.error('Error! Cant register account');
 				});
 		}
 	};
