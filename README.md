@@ -1,34 +1,71 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Package
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)
+![React Hook Form](https://img.shields.io/badge/React%20Hook%20Form-%23EC5990.svg?style=for-the-badge&logo=reacthookform&logoColor=white)
+![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
+![NPM](https://img.shields.io/badge/NPM-%23000000.svg?style=for-the-badge&logo=npm&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
-## Getting Started
+## Structure
+![image](https://user-images.githubusercontent.com/46616063/197479076-7060c412-64f9-4b85-9815-c063d9845f2c.png)
 
-First, run the development server:
+## Framework and library
+  - Reactjs
+  - Nextjs
+  - Redux (Redux-toolkit, rtk query)
+  - Tailwindcss
+  
+## Description
+  - This is client application for minishop project.
+  - A small shop sells not a lagre number of products.
+  - The products is selled like: speaker, headphone, earphone, accessories... and something like that
+  - ### About app:
+    - Show the products is beset.
+    - Show banner with a product most sale.
+    - Show infomation of each product.
+    - List category.
+    - Show suggest products along category.
+    - Allow user register account.
+    - Allow user manage their profile: avatar, usename, gender, birthday, country, email, password.
+    - Authenticate when user checking out cart.
+    - Checkout
+    - Search products along keyword.
+    - User can visit app with various of device
+    - View cart in independence page.
+  
+## Installation
 
-```bash
-npm run dev
-# or
-yarn dev
+to install peer package
+```sh
+npm install --legacy--peer-deps
+```
+ 
+ to build
+```sh
+npm run build 
+```
+ to start on product enviroment
+```sh
+npm start 
+```
+ to start on development enviroment
+```sh
+npm run dev 
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features
+- Authentication for user.
+- Validation resgister form and login form.
+- Register account.
+- Add multi-products into cart with number of each product
+- Remove product from cart
+- Checkout with stripe
+- Toast notification
+- Use opt for changes: password, email
+- Change avatar with image can crop
+- Change profile user 's personal infomation.
+- Persist login when refresh browser
+- Private router.
+- Sort products along newdest, oldest, price.
+- Responsive on multi-devices. 
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
