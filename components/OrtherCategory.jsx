@@ -7,6 +7,8 @@ import smartwatch from '../assets/smartwatch.jpg';
 import HeadTitile from './HeadTitile';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import { useMemo } from 'react';
+import { useState } from 'react';
 
 const images = [
 	{ src: smartwatch, lable: 'Watch' },
@@ -17,6 +19,7 @@ const images = [
 
 function OrtherCategory({ categories }) {
 	const router = useRouter();
+	const [imagesPath , setImagesPath] = useState();
 
 	const slugCategories = () => {
 		return images.map((image) => {
@@ -24,8 +27,6 @@ function OrtherCategory({ categories }) {
 			return { ...image, code };
 		});
 	};
-
-	let imagesPath;
 
 	const handleClick = (image) => {
 		if (imagesPath) {
@@ -35,9 +36,9 @@ function OrtherCategory({ categories }) {
 		}
 	};
 
-	useEffect(() => {
-		imagesPath = slugCategories();
-	}, []);
+	useEffect(()=> {
+		setImagesPath(slugCategories());
+	},[])
 
 	return (
 		<div className='w-full'>
@@ -55,9 +56,10 @@ function OrtherCategory({ categories }) {
 							className='absolute font-medium flex text-center justify-center items-center w-[100%] h-[100%] bg-white/10 !z-20 opacity-0 hover:opacity-100 
 							duration-400 ease-linear'
 						>
+							
 							<button
-								className='py-2 px-4 bg-white rounded-full flex  items-center space-x-1 hover:scale-105 
-									!z-30'
+								className='py-2 px-4 sm:px-[6px] sm:py-[2px] bg-white rounded-full flex  items-center space-x-1 hover:scale-105 
+									!z-30 sm:text-[10px] space-x-0.25'
 								onClick={() => handleClick(image)}
 							>
 								<div className='rounded-full text-black '> View</div>
