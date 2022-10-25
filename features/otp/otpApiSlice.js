@@ -25,7 +25,7 @@ export const otpApiSlice = apiSlice.injectEndpoints({
                 body: { ...data }
             })
         }),
-        sendAcceptToChangePassword: builder.mutation({
+        compareOtpByPassword: builder.mutation({
             query: data => ({
                 url: '/otpCustomer/comparePassword',
                 method: 'POST',
@@ -39,5 +39,6 @@ export const {
     useSendOTPtoEmailMutation,
     useCompareOTPbyEmailMutation,
     useSendOTPtoChangePasswordMutation,
+    useCompareOtpByPasswordMutation,
     useSendAcceptToChangePasswordMutation,
 } = otpApiSlice;

@@ -1,7 +1,7 @@
 import React, { useState, useRef, useMemo, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
-import { RowLinkAndSecurity, UpdateImageModal } from '../components';
+import { NoRecord, RowLinkAndSecurity, UpdateImageModal } from '../components';
 import { Layout2 } from '../layouts';
 import Image from 'next/image';
 import { BsFillTelephoneFill } from 'react-icons/bs';
@@ -18,7 +18,6 @@ import { toast } from 'react-toastify';
 import { useStateContext } from '../context/StateContext';
 import Link from 'next/link';
 import requiredAuth from '../features/auth/requiredAuth';
-
 
 const evenMonth = [4, 6, 9, 11];
 const oddMonth = [1, 3, 5, 7, 8, 10, 12];
@@ -40,8 +39,8 @@ function profile() {
 	const [dayRange, setDayRange] = useState(null);
 	const [selectGender, setSelectGender] = useState(null);
 	const [showModal, setShowModal] = useState(false);
- 
-	const {data, isSuccess} = useGetCustomerQuery(userInfo?._id);
+
+	const { data: profile, isSuccess } = useGetCustomerQuery(userInfo?._id);
 	const { navbarRef } = useStateContext();
 	//get hook from api slice
 	const [updateCustomer] = useUpdateCustomerMutation();
@@ -55,11 +54,6 @@ function profile() {
 	} = useForm();
 
 	//handle get data
-	let profile;
-
-	if(isSuccess){
-		profile ={ ...data}
-	}
 
 	const handleMonthChange = (selectedOption) => {
 		if (selectedMonth(selectedOption.value)) {
@@ -180,139 +174,145 @@ function profile() {
 
 	useEffect(() => {
 		if (showModal && navbarRef) {
-			navbarRef.current.classList.remove('sticky')
+			navbarRef.current.classList.remove('sticky');
 		} else {
-			navbarRef.current.classList.add('sticky')
+			navbarRef.current.classList.add('sticky');
 		}
 	}, [showModal]);
 
 	return (
 		<div className='flex w-[800px] justify-center m-auto pb-20 md:pb-0 bg-slate-200 rounded-md md:w-[100vw]'>
-			{showModal ? <UpdateImageModal setShowModal={setShowModal} title={'Update image profile'} /> : null}
-			<div className='flex flex-col items-center'>
-				<h1 className='text-[#324d67] text-[28px] font-extrabold mt-4'>User Profile</h1>
-				<div className='relative'>
-					<div className=' text-gray-700 rounded-full border-2 overflow-hidden w-[100px] h-[100px] border-gray-400'>
-						<Image
-							src={!profile ? avatar : profile.imgProfile}
-							layout='responsive'
-							width={100}
-							height={100}
-							alt='user-profile'
-						/>
-					</div>
-					<div
-						className='absolute bottom-2 right-1 w-5 h-5 rounded-full bg-[#0b74e5] z-10 overflow-hidden text-[10px] flex justify-center items-center p-1
+			{isSuccess ? (
+				<>
+					{showModal ? <UpdateImageModal setShowModal={setShowModal} title={'Update image profile'} /> : null}
+					<div className='flex flex-col items-center'>
+						<h1 className='text-[#324d67] text-[28px] font-extrabold mt-4'>User Profile</h1>
+						<div className='relative'>
+							<div className=' text-gray-700 rounded-full border-2 overflow-hidden w-[100px] h-[100px] border-gray-400'>
+								<Image
+									src={!profile ? avatar : profile.imgProfile}
+									layout='responsive'
+									width={100}
+									height={100}
+									alt='user-profile'
+								/>
+							</div>
+							<div
+								className='absolute bottom-2 right-1 w-5 h-5 rounded-full bg-[#0b74e5] z-10 overflow-hidden text-[10px] flex justify-center items-center p-1
 						cursor-pointer'
-						onClick={() => setShowModal(true)}
-					>
-						<FaPen />
-					</div>
-				</div>
-				<div className='flex flex-row justify-center items-center space-x-2'>
-					<h4 className='font-medium text-[18px] text-[#0b74e5]  mt-1'>{profile?.username || 'User name'}</h4>
-					<Link href={'/changeUserName'}>
-						<div
-							className='w-5 h-5 rounded-full bg-[#0b74e5] z-10 overflow-hidden text-[10px] flex justify-center 
+								onClick={() => setShowModal(true)}
+							>
+								<FaPen />
+							</div>
+						</div>
+						<div className='flex flex-row justify-center items-center space-x-2'>
+							<h4 className='font-medium text-[18px] text-[#0b74e5]  mt-1'>{profile?.username || 'User name'}</h4>
+							<Link href={'/changeUserName'}>
+								<div
+									className='w-5 h-5 rounded-full bg-[#0b74e5] z-10 overflow-hidden text-[10px] flex justify-center 
 							items-center p-1 cursor-pointer'
-						>
-							<FaPen />
+								>
+									<FaPen />
+								</div>
+							</Link>
 						</div>
-					</Link>
-				</div>
-				<div className='bg-slate-100 w-[700px] mt-4 md:w-[100vw]'>
-					<form onSubmit={handleSubmit(onSubmitInfo)}>
-						<div className='grid grid-cols-2 place-content-center gap-4 divide-x divide-blue-200 md:grid-cols-1'>
-							<div className='p-4 space-y-3'>
-								<h4 className='font-medium text-[18px] mt-1 '>Infomation</h4>
-								<div className='flex flex-col space-y-1'>
-									<h4>Country</h4>
-									<Select
-										instanceId='selectCountry'
-										defaultValue={selectCountry}
-										onChange={setSelectCountry}
-										options={countries}
-										placeholder='country'
-									/>
-								</div>
-								<div className='flex flex-col space-y-1 text-[14px] '>
-									<h4 className='float-left '>Birthday</h4>
-									<div className='flex flex-row space-x-2'>
-										<Select
-											key={'selectDay'}
-											instanceId='selectDay'
-											defaultValue={selectDay}
-											onChange={setSelectDay}
-											options={dayRange || day}
-											placeholder='day'
-										/>
-										<Select
-											key={'selectMonth'}
-											instanceId='selectMonth'
-											defaultValue={selectMonth}
-											onChange={handleMonthChange}
-											options={month}
-											placeholder='month'
-										/>
-										<Select
-											key={'selectYear'}
-											instanceId='selectYear'
-											defaultValue={selectYear}
-											onChange={handleYearChange}
-											options={year}
-											placeholder='year'
-										/>
-									</div>
-								</div>
-								<div className='flex flex-col space-y-1  text-[14px]'>
-									<h4 className='float-left'>Gender</h4>
-									<div className='flex flex-row md:justify-start space-x-2'>
-										{genderRadio.map((gender, index) => (
-											<div className='space-x-1 flex justify-center items-center' key={index}>
-												<input
-													type='radio'
-													name='gender'
-													id={gender?.id}
-													value={gender?.label}
-													checked={selectGender === gender?.id}
-													onChange={handleSelectGender}
+						<div className='bg-slate-100 w-[700px] mt-4 md:w-[100vw]'>
+							<form onSubmit={handleSubmit(onSubmitInfo)}>
+								<div className='grid grid-cols-2 place-content-center gap-4 divide-x divide-blue-200 md:grid-cols-1'>
+									<div className='p-4 space-y-3'>
+										<h4 className='font-medium text-[18px] mt-1 '>Infomation</h4>
+										<div className='flex flex-col space-y-1'>
+											<h4>Country</h4>
+											<Select
+												instanceId='selectCountry'
+												defaultValue={selectCountry}
+												onChange={setSelectCountry}
+												options={countries}
+												placeholder='country'
+											/>
+										</div>
+										<div className='flex flex-col space-y-1 text-[14px] '>
+											<h4 className='float-left '>Birthday</h4>
+											<div className='flex flex-row space-x-2'>
+												<Select
+													key={'selectDay'}
+													instanceId='selectDay'
+													defaultValue={selectDay}
+													onChange={setSelectDay}
+													options={dayRange || day}
+													placeholder='day'
 												/>
-												<label htmlFor={gender?.label} className='capitalize'>
-													{gender?.label}
-												</label>
+												<Select
+													key={'selectMonth'}
+													instanceId='selectMonth'
+													defaultValue={selectMonth}
+													onChange={handleMonthChange}
+													options={month}
+													placeholder='month'
+												/>
+												<Select
+													key={'selectYear'}
+													instanceId='selectYear'
+													defaultValue={selectYear}
+													onChange={handleYearChange}
+													options={year}
+													placeholder='year'
+												/>
 											</div>
-										))}
+										</div>
+										<div className='flex flex-col space-y-1  text-[14px]'>
+											<h4 className='float-left'>Gender</h4>
+											<div className='flex flex-row md:justify-start space-x-2'>
+												{genderRadio.map((gender, index) => (
+													<div className='space-x-1 flex justify-center items-center' key={index}>
+														<input
+															type='radio'
+															name='gender'
+															id={gender?.id}
+															value={gender?.label}
+															checked={selectGender === gender?.id}
+															onChange={handleSelectGender}
+														/>
+														<label htmlFor={gender?.label} className='capitalize'>
+															{gender?.label}
+														</label>
+													</div>
+												))}
+											</div>
+										</div>
+										<div className='flex flex-row space-x-1 text-[14px]'>
+											<h4 className='float-left'>Total bill:</h4>
+											<span className='font-bold'>{profile?.totalBill || '0'}$</span>
+										</div>
+										<div className='flex items-center justify-center'>
+											<button className='bg-[#0b74e5] text-white font-[14px] rounded-[4px] py-1 px-2'>Update</button>
+										</div>
+									</div>
+
+									<div className='p-4 space-y-3'>
+										<h4 className='font-medium text-[18px] mt-1  '>Link and Security</h4>
+										<RowLinkAndSecurity
+											icon={<BsFillTelephoneFill />}
+											title={'Phone'}
+											desc={profile?.phone || '0901234567'}
+											link={'/changePhone'}
+										/>
+										<RowLinkAndSecurity
+											icon={<MdEmail />}
+											title={'Email'}
+											desc={profile?.email || 'abc@gmail.com'}
+											link={'/changeEmail'}
+										/>
+										<RowLinkAndSecurity icon={<RiLockPasswordFill />} title={'Password'} link={'/changePassword'} />
 									</div>
 								</div>
-								<div className='flex flex-row space-x-1 text-[14px]'>
-									<h4 className='float-left'>Total bill:</h4>
-									<span className='font-bold'>{profile?.totalBill || '0'}$</span>
-								</div>
-								<div className='flex items-center justify-center'>
-									<button className='bg-[#0b74e5] text-white font-[14px] rounded-[4px] py-1 px-2'>Update</button>
-								</div>
-							</div>
-
-							<div className='p-4 space-y-3'>
-								<h4 className='font-medium text-[18px] mt-1  '>Link and Security</h4>
-								<RowLinkAndSecurity
-									icon={<BsFillTelephoneFill />}
-									title={'Phone'}
-									desc={profile?.phone || '0901234567'}
-									link={'/changePhone'}
-								/>
-								<RowLinkAndSecurity
-									icon={<MdEmail />}
-									title={'Email'}
-									desc={profile?.email || 'abc@gmail.com'}
-									link={'/changeEmail'}
-								/>
-								<RowLinkAndSecurity icon={<RiLockPasswordFill />} title={'Password'} link={'/changePassword'} />
-							</div>
+							</form>
 						</div>
-					</form>
-				</div>
-			</div>
+					</div>
+				</>
+			) : (
+				<NoRecord />
+			)}
 		</div>
 	);
 }

@@ -8,7 +8,7 @@ import {
 	useSendOTPtoEmailMutation,
 	useCompareOTPbyEmailMutation,
 	useSendOTPtoChangePasswordMutation,
-	useSendAcceptToChangePasswordMutation,
+	useCompareOtpByPasswordMutation,
 } from '../features/otp/otpApiSlice';
 import { selectCurrentEmail, selectCurrentAction, selectPasswordRechange } from '../features/otp/otpSlice';
 import { setCredentials,selectCurrentUser , logOut } from '../features/auth/authSlice';
@@ -27,7 +27,7 @@ function otp() {
 	const [sendOTPtoEmail] = useSendOTPtoEmailMutation();
 	const [compareOTPbyEmail] = useCompareOTPbyEmailMutation();
 	const [sendOTPtoChangePassword] = useSendOTPtoChangePasswordMutation();
-	const [sendAcceptToChangePassword] = useSendAcceptToChangePasswordMutation();
+	const [compareOtpByPassword] = useCompareOtpByPasswordMutation();
 
 	const currentEmail = useSelector(selectCurrentEmail);
 	const currentAction = useSelector(selectCurrentAction);
@@ -45,6 +45,7 @@ function otp() {
 			setState({ otp });
 		}
 		if (countdown > 0 && otp.length === MAX_DIGITS_OTP) {
+			console.log('start compare')
 			doCompareOTP(otp);
 			// const data = {
 			// 	_id: userInfo?._id,
@@ -115,16 +116,22 @@ function otp() {
 	};
 
 	const doCompareToChangePassword = (otp) => {
-		if (otpOrigin === otp) {
-			
-			sendAcceptToChangePassword({_id: userInfo?._id, status: 'OTP_TRUE'}).unwrap()
-				.then(res => {
-					toast.success('New password is changed!');
-					dispatch(logOut());
+		console.log(otpOrigin, otp)
+		const data = {
+			_id: userInfo?._id,
+			email: userInfo?.email,
+			otp,
+		};
+		console.log('send compare to change password');
+		compareOtpByPassword(data)
+			.unwrap()
+			.then((res) => {
+				toast.success('New password is changed!');
+				setTimeout(() => {
 					router.replace('/');
-				})
-				.catch(err => console.log(err))
-		}
+				}, 3000)
+			})
+			.catch((error) => toast.error(error));
 	};
 
 	const doSendOTPtoChangeEmail = () => {
