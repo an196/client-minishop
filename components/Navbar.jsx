@@ -50,8 +50,6 @@ const Navbar = React.forwardRef((props, ref) => {
 		setCategories(data);
 	};
 
-	
-
 	useEffect(() => {
 		const handleResize = () => setScreenSize(window.innerWidth);
 
@@ -76,7 +74,6 @@ const Navbar = React.forwardRef((props, ref) => {
 			setShowSubSearchbar(false);
 		}
 	}, [screenSize]);
-
 
 	return (
 		<>

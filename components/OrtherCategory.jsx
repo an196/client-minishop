@@ -7,7 +7,6 @@ import smartwatch from '../assets/smartwatch.jpg';
 import HeadTitile from './HeadTitile';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { useMemo } from 'react';
 import { useState } from 'react';
 
 const images = [
@@ -31,7 +30,6 @@ function OrtherCategory({ categories }) {
 	const handleClick = (image) => {
 		if (imagesPath) {
 			const code = imagesPath.filter((path) => path.lable === image.lable)[0].code;
-			console.log('click',code)
 			router.replace(`/category/${code}`);
 		}
 	};
