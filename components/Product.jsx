@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from 'next/Link';
+import Link from 'next/link';
 import Image from 'next/image';
 import fallbackImage from '../assets/default-image.png';
 import { formatName } from '../helper/formatProduct';

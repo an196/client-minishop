@@ -57,7 +57,6 @@ function SearchBox() {
 						onChange={hanldeChange}
 						onKeyDown={handleKeydown}
 						onFocus={() =>setShowResultSearchBox(true)}
-						// onBlur={() => setShowResultSearchBox(false)}
 					/>
 					<button className='w-[20px]' type='button' onClick={handleSearch}>
 						<AiOutlineSearch className='text-[16px] hover:scale-125 w-[20px] h-[20px] text-black/95' />
@@ -67,9 +66,7 @@ function SearchBox() {
 					<ResultSearchBox data={data} setShowResultSearchBox={setShowResultSearchBox} />
 				)}
 			</div>
-			{/* <div className='absolute w-screen h-screen bg-black/5 z-0 inset-0'>
-
-			</div> */}
+	
 		</>
 	);
 }

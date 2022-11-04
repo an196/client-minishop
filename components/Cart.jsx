@@ -10,40 +10,40 @@ import getStripe from '../lib/getStripe';
 import { formatName } from '../helper/formatProduct';
 import { useRouter } from 'next/router';
 import { selectCurrentToken } from '../features/auth/authSlice';
-import { useSelector} from 'react-redux';
-
+import { useSelector } from 'react-redux';
 
 function Cart() {
 	const cartRef = useRef();
-	const { totalPrice, totalQuantities, cartItems, setShowCart, toggleCartItemQuantity, onRemove, onPayment } = useStateContext();
+	const { totalPrice, totalQuantities, cartItems, setShowCart, toggleCartItemQuantity, onRemove, onPayment } =
+		useStateContext();
 	const token = useSelector(selectCurrentToken);
 	const router = useRouter();
 
 	const handleCheckout = async () => {
 		//router.replace('/success');
-		if(token){
-		onPayment();
+		if (token) {
+			onPayment();
 
-		const stripe = await getStripe();
-		const response = await fetch('/api/stripe', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(cartItems),
-		});
-		if (response.status === 500) {
-			console.log('An error has occurred! Can not make payment');
+			const stripe = await getStripe();
+			const response = await fetch('/api/stripe', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(cartItems),
+			});
+			if (response.status === 500) {
+				console.log('An error has occurred! Can not make payment');
 				return;
-		};
-		const data = await response?.json();
-		
-		toast.loading('Redirecting~.');
-		stripe.redirectToCheckout({ sessionId: data.id });
-		}else{
+			}
+			const data = await response?.json();
+
+			toast.loading('Redirecting~.');
+			stripe.redirectToCheckout({ sessionId: data.id });
+		} else {
 			router.replace('/login');
 			toast.warn('Please login to payment!');
-		 }
+		}
 	};
 
 	return (
@@ -77,15 +77,13 @@ function Cart() {
 					<div className='flex flex-col m-[40px] text-center justify-center  items-center'>
 						<AiOutlineShopping size={150} />
 						<h3>Your shopping bag is empty</h3>
-						<Link href={'/'}>
-							<button
-								type='button'
-								onClick={() => setShowCart(false)}
-								className='m-auto bg-[#f02d34] mt-4 flex py-2 px-5 rounded text-white'
-							>
-								Continue Shopping
-							</button>
-						</Link>
+						<button
+							type='button'
+							onClick={() => setShowCart(false)}
+							className='m-auto bg-[#f02d34] mt-4 flex py-2 px-5 rounded text-white'
+						>
+							Continue Shopping
+						</button>
 					</div>
 				)}
 

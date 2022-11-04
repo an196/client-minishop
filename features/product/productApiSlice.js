@@ -26,6 +26,13 @@ export const productApiSlice = apiSlice.injectEndpoints({
                 
             ]
         }),
+        getProductsByCategory: builder.query({
+            query: (id) => `products/category/${id}`,
+            providesTags: (result, error, arg) => [
+                { type: 'Product', id: "LIST" },
+                
+            ]
+        }),
     })
 })
 
@@ -33,4 +40,5 @@ export const {
     useGetProductsQuery,
     useGetProductQuery,
     useSearchProductQuery,
+    useGetProductsByCategoryQuery,
 } = productApiSlice

@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 import { useUpdateCustomerMutation } from '../features/customer/customerApiSlice';
-import requiredAuth from '../features/auth/RequiredAuth';
+import requiredAuth from '../features/auth/requiredAuth';
 
 function changeUserName() {
     //get data from redux store

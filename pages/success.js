@@ -7,7 +7,7 @@ import Image from 'next/image';
 import { selectCurrentUser } from '../features/auth/authSlice';
 import { usePostOrderMutation } from '../features/order/orderApiSlice';
 import { useSelector  } from 'react-redux';
-import requiredAuth from '../features/auth/RequiredAuth';
+import requiredAuth from '../features/auth/requiredAuth';
 
 function Success() {
 	const userInfo = useSelector(selectCurrentUser);
@@ -20,7 +20,7 @@ function Success() {
 		const cartItems = JSON.parse(localStorage.getItem('cartItems'));
 		const totalPrice = localStorage.getItem('totalPrice');
 		const totalQuantities = localStorage.getItem('totalQuantities');
-		console.log(userInfo,totalQuantities )
+
 		if (userInfo && totalQuantities > 0) {
 			const order = {
 				orderID: 1,

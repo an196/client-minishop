@@ -42,7 +42,6 @@ const Navbar = React.forwardRef((props, ref) => {
 
 	const handleLogOut = () => {
 		dispatch(logOut());
-		router.replace('/');
 	};
 
 	const getCategories = async () => {

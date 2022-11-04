@@ -2,13 +2,7 @@
 
 const nextConfig = {
 	reactStrictMode: true,
-	extends: ['next/core-web-vitals', 'prettier'],
-	ignorePatterns: ['node_modules', 'dist'],
-	parserOptions: {
-		babelOptions: {
-			presets: [require.resolve('next/babel')],
-		},
-	},
+
 	eslint: {
 		// Warning: This allows production builds to successfully complete even if
 		// your project has ESLint errors.
@@ -30,6 +24,5 @@ const nextConfig = {
 		domains: ['firebasestorage.googleapis.com'],
 	},
 }
-
 
 module.exports = nextConfig;
