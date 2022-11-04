@@ -55,6 +55,7 @@ npm run dev
 
 ## Features
 - Authentication for user.
+- Debouce search
 - Validation resgister form and login form.
 - Register account.
 - Add multi-products into cart with number of each product
