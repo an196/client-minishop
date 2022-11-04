@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Product, HeadTitile, NoRecord, SuggestRowItem } from '../../components';
+import { Product, HeadTitile, NoRecord, SuggestRowItem, SuggestItemsArea } from '../../components';
 import { Layout } from '../../layouts';
 import request from '../../helper/request';
 import { useStateContext } from '../../context/StateContext';
@@ -11,9 +11,10 @@ import {
 	sortProduct,
 	selectCurrentProducts,
 } from '../../features/product/productSlice';
+
 import { useRouter } from 'next/router';
 
-function Category({ products, suggestItem1, suggestItem2, suggestItem3, suggestItem4 }) {
+function Category({ products }) {
 	const { categories } = useStateContext();
 
 	const dispatch = useDispatch();
@@ -28,19 +29,10 @@ function Category({ products, suggestItem1, suggestItem2, suggestItem3, suggestI
 		dispatch(sortProduct({ name: e.target.id }));
 	};
 
-	//get title of suggest items
-	const getTitleSuggestItem = (suggestItem) => {
-		if (suggestItem && suggestItem.length > 0) {
-			return categories.find((category) => category.code === suggestItem[0]?.category)?.name;
-		}
-
-		return '';
-	};
-
 	useEffect(() => {
 		dispatch(setProducts(products));
 	}, [slug])
-	console.log(slug)
+
 	return (
 		<>
 			<HeadTitile title={''} subtitle={'Variety of shapes'} />
@@ -69,13 +61,7 @@ function Category({ products, suggestItem1, suggestItem2, suggestItem3, suggestI
 					<NoRecord width={200} height={200} />
 				</div>
 			)}
-			<div className='w-full'>
-				<h2 className='text-center m-12 text-[#324d67] text-[24px] font-semibold'>You may also like</h2>
-				<SuggestRowItem items={suggestItem1} title={getTitleSuggestItem(suggestItem1)} />
-				<SuggestRowItem items={suggestItem2} title={getTitleSuggestItem(suggestItem2)} />
-				<SuggestRowItem items={suggestItem3} title={getTitleSuggestItem(suggestItem3)} />
-				<SuggestRowItem items={suggestItem4} title={getTitleSuggestItem(suggestItem4)} />
-			</div>
+			<SuggestItemsArea/>
 		</>
 	);
 }
@@ -96,18 +82,13 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params: { slug } }) => {
-	const categories = await fetch(request.fetchCategories).then((res) => res?.json());
 
-	const [products, suggestItem1, suggestItem2, suggestItem3, suggestItem4] = await Promise.all([
-		fetch(request.fetchProductByCategory(slug)).then((res) => res?.json()),
-		fetch(request.fetchProductByCategory(categories[0]?.code)).then((res) => res?.json()),
-		fetch(request.fetchProductByCategory(categories[1]?.code)).then((res) => res?.json()),
-		fetch(request.fetchProductByCategory(categories[2]?.code)).then((res) => res?.json()),
-		fetch(request.fetchProductByCategory(categories[3]?.code)).then((res) => res?.json()),
+	const [products] = await Promise.all([
+		fetch(request.fetchProductByCategory(slug)).then((res) => res?.json())
 	]);
 
 	return {
-		props: { products, suggestItem1, suggestItem2, suggestItem3, suggestItem4 },
+		props: { products },
 	};
 };
 

@@ -14,12 +14,6 @@ function MyApp({ Component, pageProps }) {
 		<StateContext>
 			<Provider store={store}>
 				<PersistGate loading={null} persistor={persistor}>
-					
-					{/* {Component.auth ? (
-					<requiredAuth>{getLayout(<Component {...pageProps} />)}</requiredAuth>
-				) : (
-					getLayout(<Component {...pageProps} />)
-				)} */}
 					{getLayout(<Component {...pageProps} />)}
 				</PersistGate>
 			</Provider>

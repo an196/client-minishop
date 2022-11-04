@@ -12,7 +12,7 @@ import {
 } from '../features/otp/otpApiSlice';
 import { selectCurrentEmail, selectCurrentAction, selectPasswordRechange } from '../features/otp/otpSlice';
 import { setCredentials,selectCurrentUser , logOut } from '../features/auth/authSlice';
-import requiredAuth from '../features/auth/RequiredAuth';
+import requiredAuth from '../features/auth/requiredAuth';
 
 
 

@@ -6,7 +6,7 @@ import { setEmail, setAction } from '../features/otp/otpSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
-import requiredAuth from '../features/auth/RequiredAuth';
+import requiredAuth from '../features/auth/requiredAuth';
 
 function changeEmail() {
 	const userInfo = useSelector(selectCurrentUser);

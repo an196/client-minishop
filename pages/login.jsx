@@ -8,9 +8,8 @@ import { useRouter } from 'next/router';
 import { setCredentials } from '../features/auth/authSlice';
 import { useLoginMutation } from '../features/auth/authApiSlice';
 import Image from 'next/image';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { WarningText } from '../components';
-import  Head from 'next/head'
 import TitleLayout from '../layouts/TitleLayout';
  
 function Login() {

@@ -1,32 +1,22 @@
 import React, { useState } from 'react';
 import { AiOutlineMinus, AiOutlinePlus, AiFillStar, AiOutlineStar } from 'react-icons/ai';
-import { Product, SuggestRowItem } from '../../components';
+import { DescriptionDetail, SuggestItemsArea } from '../../components';
 import { Layout } from '../../layouts';
 import { useStateContext } from '../../context/StateContext';
-import parse from 'html-react-parser';
 import Image from 'next/image';
 import fallbackImage from '../../assets/default-image.png';
 import request from '../../helper/request';
 
-function ProductDetails({ product, suggestItem1, suggestItem2, suggestItem3, suggestItem4 }) {
+function ProductDetails({ product }) {
 	const [index, setIndex] = useState(0);
 
-	const { decQty, incQty, qty, onAdd, setShowCart, categories } = useStateContext();
+	const { decQty, incQty, qty, onAdd, setShowCart } = useStateContext();
 
 	const handleBuyNow = () => {
 		onAdd(product, qty);
 		setShowCart(true);
 	};
 
-	//get title of suggest items
-	const getTitleSuggestItem = (suggestItem) => {
-		if (suggestItem && suggestItem.length > 0){
-			return categories.find((category) => category.code === suggestItem[0]?.category)?.name;
-		}
-			
-		return '';
-	};
-	
 	return (
 		<div className='flex max-w-[1200px] md:w-full flex-col items-center justify-center'>
 			<div className='flex gap-10 m-10 mt-14 text-[#324d67] font-semibold hlg:flex-wrap md:gap-6 sm:m-0 sm:w-full'>
@@ -35,7 +25,7 @@ function ProductDetails({ product, suggestItem1, suggestItem2, suggestItem3, sug
 						className='rounded-2xl bg-[#ebebeb] w-[360px] h-[360px] cursor-pointer duration-300 ease-in-out hover:bg-[#f02d34] md:w-[300px] md:h-[300px] 
 					relative sm:w-[250px] sm:h-[250px] ssm:w-[180px] ssm:h-[180px] '
 					>
-						<Image src={(product?.image && product?.image[index])|| fallbackImage}   width={360} height={360} layout='responsive' />
+						<Image src={(product?.image && product?.image[index]) || fallbackImage} width={360} height={360} layout='responsive' />
 					</div>
 					<div className='flex gap-2 mt-5 sm:flex-wrap w-[360px] md:w-[300px] sm:w-[250px]  ssm:w-[180px]'>
 						{product?.image?.map((item, i) => (
@@ -66,7 +56,7 @@ function ProductDetails({ product, suggestItem1, suggestItem2, suggestItem3, sug
 
 					<h4 className='mt-5 text-[24px] sm:text-[20px] '>Details:</h4>
 					<div className='mt-5 text-[16px] sm:flex md:flex-wrap text-justify sm:w-full'>
-						{product?.details ? parse(product?.details) : 'No Description'}
+						{product?.details ? <DescriptionDetail details={product?.details} /> : 'No Description'}
 					</div>
 					<p className='font-bold text-2xl mt-7 text-[#f02d34] sm:text-xl'>${product?.price}</p>
 					<div className='flex gap-5 mt-5 items-center hsm:gap-2 hsm:flex-wrap'>
@@ -97,19 +87,13 @@ function ProductDetails({ product, suggestItem1, suggestItem2, suggestItem3, sug
 					</div>
 				</div>
 			</div>
-			<div className='w-full'>
-				<h2 className='text-center m-12 text-[#324d67] text-[24px] font-semibold'>You may also like</h2>
-				<SuggestRowItem items={suggestItem1} title={getTitleSuggestItem(suggestItem1)} />
-				<SuggestRowItem items={suggestItem2} title={getTitleSuggestItem(suggestItem2)} />
-				<SuggestRowItem items={suggestItem3} title={getTitleSuggestItem(suggestItem3)} />
-				<SuggestRowItem items={suggestItem4} title={getTitleSuggestItem(suggestItem4)} />
-			</div>
+			<SuggestItemsArea />
 		</div>
 	);
 }
 
 export const getStaticPaths = async () => {
-	const [products, categories] = await Promise.all([fetch(request.fetchProducts).then((res) => res?.json())]);
+	const [products] = await Promise.all([fetch(request.fetchProducts).then((res) => res?.json())]);
 	const paths = products.map((product) => ({
 		params: {
 			slug: product._id,
@@ -123,18 +107,13 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params: { slug } }) => {
-	const categories = await fetch(request.fetchCategories).then((res) => res?.json());
 
-	const [product, suggestItem1, suggestItem2, suggestItem3, suggestItem4] = await Promise.all([
+	const [product] = await Promise.all([
 		fetch(request.fetchProduct(slug)).then((res) => res?.json()),
-		fetch(request.fetchProductByCategory(categories[0]?.code)).then((res) => res?.json()),
-		fetch(request.fetchProductByCategory(categories[1]?.code)).then((res) => res?.json()),
-		fetch(request.fetchProductByCategory(categories[2]?.code)).then((res) => res?.json()),
-		fetch(request.fetchProductByCategory(categories[3]?.code)).then((res) => res?.json()),
 	]);
 
 	return {
-		props: { product, suggestItem1, suggestItem2, suggestItem3, suggestItem4 },
+		props: { product },
 	};
 };
 

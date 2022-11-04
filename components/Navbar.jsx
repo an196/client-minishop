@@ -42,15 +42,12 @@ const Navbar = React.forwardRef((props, ref) => {
 
 	const handleLogOut = () => {
 		dispatch(logOut());
-		router.replace('/');
 	};
 
 	const getCategories = async () => {
 		const data = await fetch(request.fetchCategories).then((res) => res.json());
 		setCategories(data);
 	};
-
-	
 
 	useEffect(() => {
 		const handleResize = () => setScreenSize(window.innerWidth);
@@ -76,7 +73,6 @@ const Navbar = React.forwardRef((props, ref) => {
 			setShowSubSearchbar(false);
 		}
 	}, [screenSize]);
-
 
 	return (
 		<>

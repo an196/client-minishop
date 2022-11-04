@@ -1,9 +1,13 @@
 import { Product } from '../../components';
 import { IoIosArrowDropleftCircle, IoIosArrowDroprightCircle } from 'react-icons/io';
 import { useRef, useState } from 'react';
+import { useGetProductsByCategoryQuery} from '../../features/product/productApiSlice';
+import { useStateContext } from '../../context/StateContext';
 
-function SuggestRowItem({ title, items }) {
+function SuggestRowItem({ idCategory }) {
 	const rowRef = useRef();
+	const {data, isSuccess} = useGetProductsByCategoryQuery(idCategory);
+	const { categories } = useStateContext();
 	const [isMoved, setIsMoved] = useState(false);
 
 	const handleClick = (direction) => {
@@ -17,13 +21,21 @@ function SuggestRowItem({ title, items }) {
 		}
 	};
 
-	
+	//get title of suggest items
+	const getTitleSuggestItem = (data) => {
+		if (data && data.length > 0){
+			return categories.find((category) => category.code === data[0]?.category)?.name;
+		}
+			
+		return '';
+	};
+
 	return (
 		<>
-			{items.length > 0 && (
+			{isSuccess && data.length > 0 && (
 				<div className='space-y-2 md:space-y-0.5 w-[100%] xl:w-[100vw] px-7 sm:px-2 mt-2 md:mt-0'>
 					<h2 className='w-56 cursor-pointer text-[24px]  md:text-[16px] font-semibold text-[#324d67]/90 trainsition duration-200 '>
-						{title || 'Headphone'}
+						{getTitleSuggestItem(data) || 'Headphone'}
 					</h2>
 					<div className=' relative'>
 						<IoIosArrowDropleftCircle
@@ -32,11 +44,11 @@ function SuggestRowItem({ title, items }) {
 							onClick={() => handleClick('left')}
 						/>
 						<div
-							className=' space-x-4 md:space-x-1 items-stretch  scrollbar-hide text-[16px] overflow-x-scroll md:p-2 
+							className=' space-x-4 md:space-x-1 data-stretch  scrollbar-hide text-[16px] overflow-x-scroll md:p-2 
 						sm:text-[12px] mt-[20px] w-full flex md:mt-2'
 							ref={rowRef}
 						>
-							{items?.map((item) => (
+							{data?.map((item) => (
 								<Product key={item._id} product={item} minWidth={'200px'} />
 							))}
 						</div>
@@ -44,7 +56,7 @@ function SuggestRowItem({ title, items }) {
 						<IoIosArrowDroprightCircle
 							className={`absolute -top-12  bottom-0 -right-16 z-40 m-auto h-9 w-9 cursor-pointer text-slate-400
                     		transition hover:scale-125 hover:text-[#324d67] xl:right-2 
-							${items.length < 6 ? 'opacity-0' : 'opacity-1'} `}
+							${data.length < 6 ? 'opacity-0' : 'opacity-1'} `}
 							onClick={() => handleClick('right')}
 						/>
 					</div>
