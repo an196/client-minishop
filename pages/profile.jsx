@@ -17,7 +17,6 @@ import { useUpdateCustomerMutation, useGetCustomerQuery } from '../features/cust
 import { toast } from 'react-toastify';
 import { useStateContext } from '../context/StateContext';
 import Link from 'next/link';
-import requiredAuth from '../features/auth/requiredAuth';
 
 const evenMonth = [4, 6, 9, 11];
 const oddMonth = [1, 3, 5, 7, 8, 10, 12];
@@ -321,4 +320,4 @@ profile.getLayout = function getLayout(page) {
 	return <Layout2>{page}</Layout2>;
 };
 
-export default requiredAuth(profile);
+export default profile;
