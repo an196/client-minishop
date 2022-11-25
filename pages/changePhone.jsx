@@ -3,7 +3,6 @@ import { Layout2 } from '../layouts';
 import { BsFillTelephoneFill } from 'react-icons/bs';
 import { selectCurrentUser } from '../features/auth/authSlice';
 import { useSelector } from 'react-redux';
-import requiredAuth from '../features/auth/requiredAuth';
 
 function changePhone() {
 	const userInfo = useSelector(selectCurrentUser);

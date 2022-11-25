@@ -5,7 +5,6 @@ import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPasswordRechange, setAction } from '../features/otp/otpSlice';
 import { useRouter } from 'next/router';
-import requiredauth from '../features/auth/requiredauth';
 
 function changePassword() {
 	const [showPassword, setShowPassword] = useState(false);
