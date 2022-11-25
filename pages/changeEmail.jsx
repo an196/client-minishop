@@ -62,4 +62,5 @@ changeEmail.getLayout = function getLayout(page) {
 	return <Layout2>{page}</Layout2>;
 };
 
-export default  requiredAuth(changeEmail);
+// export default  requiredAuth(changeEmail);
+export default  changeEmail;
