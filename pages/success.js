@@ -70,4 +70,4 @@ function Success() {
 	);
 }
 
-export default requiredAuth(Success);
+export default Success;
