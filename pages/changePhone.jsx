@@ -3,7 +3,7 @@ import { Layout2 } from '../layouts';
 import { BsFillTelephoneFill } from 'react-icons/bs';
 import { selectCurrentUser } from '../features/auth/authSlice';
 import { useSelector } from 'react-redux';
-import requiredAuth from '../features/auth/requiredAuth';
+import requiredauth from '../features/auth/requiredauth';
 
 function changePhone() {
 	const userInfo = useSelector(selectCurrentUser);
@@ -35,4 +35,4 @@ changePhone.getLayout = function getLayout(page) {
 	return <Layout2>{page}</Layout2>;
 };
 
-export default requiredAuth(changePhone) ;
+export default requiredauth(changePhone) ;

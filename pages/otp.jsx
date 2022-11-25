@@ -12,7 +12,7 @@ import {
 } from '../features/otp/otpApiSlice';
 import { selectCurrentEmail, selectCurrentAction, selectPasswordRechange } from '../features/otp/otpSlice';
 import { setCredentials,selectCurrentUser , logOut } from '../features/auth/authSlice';
-import requiredAuth from '../features/auth/requiredAuth';
+import requiredauth from '../features/auth/requiredauth';
 
 
 
@@ -184,4 +184,4 @@ otp.getLayout = function getLayout(page) {
 	return <Layout2>{page}</Layout2>;
 };
 
-export default requiredAuth(otp);
+export default requiredauth(otp);

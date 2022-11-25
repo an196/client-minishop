@@ -4,7 +4,7 @@ import { selectCurrentToken } from './authSlice';
 import Login from '../../pages/login';
 
 
-const requiredAuth = ( Component,pageProps) => {
+const requiredauth = ( Component,pageProps) => {
     const Auth = (props) => {
       // Login data added to props via redux-store (or use react context for example)
       const token = useSelector(selectCurrentToken);
@@ -29,4 +29,4 @@ const requiredAuth = ( Component,pageProps) => {
   
     return Auth;
   };
-export default requiredAuth;
+export default requiredauth;

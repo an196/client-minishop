@@ -4,7 +4,7 @@ import { Layout2 } from '../layouts';
 import { useStateContext } from '../context/StateContext';
 import getStripe from '../lib/getStripe';
 import {toast} from 'react-toastify'
-import requiredAuth from '../features/auth/requiredAuth';
+import requiredauth from '../features/auth/requiredauth';
 import { useEffect } from 'react';
 
 function cart() {
@@ -75,4 +75,4 @@ cart.getLayout = function getLayout(page) {
 	return <Layout2>{page}</Layout2>;
 };
 
-export default requiredAuth(cart);
+export default requiredauth(cart);

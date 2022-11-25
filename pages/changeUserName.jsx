@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 import { useUpdateCustomerMutation } from '../features/customer/customerApiSlice';
-import requiredAuth from '../features/auth/requiredAuth';
+import requiredauth from '../features/auth/requiredauth';
 
 function changeUserName() {
     //get data from redux store
@@ -78,4 +78,4 @@ changeUserName.getLayout = function getLayout(page) {
 	return <Layout2>{page}</Layout2>;
 };
 
-export default requiredAuth(changeUserName);
+export default requiredauth(changeUserName);
