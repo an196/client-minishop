@@ -78,4 +78,4 @@ changeUserName.getLayout = function getLayout(page) {
 	return <Layout2>{page}</Layout2>;
 };
 
-export default requiredAuth(changeUserName);
+export default changeUserName;
