@@ -86,72 +86,73 @@ function Cart() {
 						</button>
 					</div>
 				)}
-
-				<div className='mt-[15px] overflow-auto py-5 sm:mt-0 space-y-3 '>
-					{cartItems.length >= 1 &&
-						cartItems.map((item, index) => (
-							<div className='flex space-x-3' key={item._id}>
-								<div className='w-[120px] h-[120px] sm:w-[80px] sm:h-[80px]'>
-									<div className='w-[120px] h-[120px] sm:w-[80px] sm:h-[80px] rounded-[5px] bg-[#ebebeb] relative'>
-										<Image src={item?.image[0] || fallbackImage} alt='product image' layout='fill' />
-									</div>
-								</div>
-								<div className='w-full flex flex-col justify-between'>
-									<div className='flex flex-row justify-between w-full text-[#324d67] font-medium'>
-										<h5 className='text-[16px] text-[#324d67]'>{formatName(item?.name, 50)}</h5>
-									</div>
-									<div className='flex justify-between  items-center'>
-										<div className='flex flex-row'>
-											<p className='border-1 rounded-xl border-gray-700 flex flex-row '>
-												<span
-													className='text-base py-1 px-3 sm:py-0.5 border-r-1 border-gray-700 text-[#f02d34] cursor-pointer hover:bg-black/10 hsm:px-2'
-													onClick={() => toggleCartItemQuantity(item._id, 'dec')}
-												>
-													<AiOutlineMinus />
-												</span>
-												<span className='py-1 px-3 border-r-1 sm:py-0.5 border-gray-700 font-medium text-[12px]'>
-													{item.quantity}
-												</span>
-												<span
-													className='text-base py-1 px-3 sm:py-0.5 plus text-[#31a831] border-gray-700 cursor-pointer hover:bg-black/10 hsm:px-2'
-													onClick={() => toggleCartItemQuantity(item._id, 'inc')}
-												>
-													<AiOutlinePlus />
-												</span>
-											</p>
-
-											<button
-												type='button'
-												className='text-[24px] text-[#f02d34] cursor-pointer bg-transparent border-none'
-												onClick={() => onRemove(item)}
-											>
-												<TiDelete />
-											</button>
+				<div className='flex justify-between flex-col h-full'>
+					<div className='mt-[15px] overflow-auto py-5 sm:mt-0 space-y-3 '>
+						{cartItems.length >= 1 &&
+							cartItems.map((item, index) => (
+								<div className='flex space-x-3' key={item._id}>
+									<div className='w-[120px] h-[120px] sm:w-[80px] sm:h-[80px]'>
+										<div className='w-[120px] h-[120px] sm:w-[80px] sm:h-[80px] rounded-[5px] bg-[#ebebeb] relative'>
+											<Image src={item?.image[0] || fallbackImage} alt='product image' layout='fill' />
 										</div>
-										<h4 className='text-[16px] text-black font-bold sm:text-[16px]'>${item.price}</h4>
+									</div>
+									<div className='w-full flex flex-col justify-between'>
+										<div className='flex flex-row justify-between w-full text-[#324d67] font-medium'>
+											<h5 className='text-[16px] text-[#324d67]'>{formatName(item?.name, 50)}</h5>
+										</div>
+										<div className='flex justify-between  items-center'>
+											<div className='flex flex-row'>
+												<p className='border-1 rounded-xl border-gray-700 flex flex-row '>
+													<span
+														className='text-base py-1 px-3 sm:py-0.5 border-r-1 border-gray-700 text-[#f02d34] cursor-pointer hover:bg-black/10 hsm:px-2'
+														onClick={() => toggleCartItemQuantity(item._id, 'dec')}
+													>
+														<AiOutlineMinus />
+													</span>
+													<span className='py-1 px-3 border-r-1 sm:py-0.5 border-gray-700 font-medium text-[12px]'>
+														{item.quantity}
+													</span>
+													<span
+														className='text-base py-1 px-3 sm:py-0.5 plus text-[#31a831] border-gray-700 cursor-pointer hover:bg-black/10 hsm:px-2'
+														onClick={() => toggleCartItemQuantity(item._id, 'inc')}
+													>
+														<AiOutlinePlus />
+													</span>
+												</p>
+
+												<button
+													type='button'
+													className='text-[24px] text-[#f02d34] cursor-pointer bg-transparent border-none'
+													onClick={() => onRemove(item)}
+												>
+													<TiDelete />
+												</button>
+											</div>
+											<h4 className='text-[16px] text-black font-bold sm:text-[16px]'>${item.price}</h4>
+										</div>
 									</div>
 								</div>
-							</div>
-						))}
-				</div>
-				{cartItems.length >= 1 && (
-					<div className='absolute bottom-3 w-[500px] py-[30px] p-7 right-0 sm:w-full sm:px-12 hsm:px-5'>
-						<div className='flex justify-between font-medium mb-2 items-center'>
-							<h3 className='text-[20px] text-[#324d67] font-semibold sm:text-[16px]'>Subtotal:</h3>
-							<h3 className='text-[20px] text-black font-bold sm:text-[16px]'>${totalPrice}</h3>
-						</div>
-						<div className='flex w-full'>
-							<button
-								type='button'
-								className='w-full py-[10px] px-[12px] rounded-[5px] border-none text-[20px] mt-[10px] uppercase bg-[#f02d34] 
-								text-white cursor-pointer duration-300 ease-linear hover:bg-[#f02d34]/80 m-auto sm:text-[16px]'
-								onClick={handleCheckout}
-							>
-								Payment
-							</button>
-						</div>
+							))}
 					</div>
-				)}
+					{cartItems.length >= 1 && (
+						<div className='bottom-3 py-[30px] bg-white right-0 sm:w-full sm:px-12 hsm:px-5 '>
+							<div className='flex justify-between font-medium mb-2 items-center'>
+								<h3 className='text-[20px] text-[#324d67] font-semibold sm:text-[16px]'>Subtotal:</h3>
+								<h3 className='text-[20px] text-black font-bold sm:text-[16px]'>${totalPrice}</h3>
+							</div>
+							<div className='flex w-full'>
+								<button
+									type='button'
+									className='w-full py-[10px] px-[12px] rounded-[5px] border-none text-[20px] mt-[10px] uppercase bg-[#f02d34] 
+								text-white cursor-pointer duration-300 ease-linear hover:bg-[#f02d34]/80 m-auto sm:text-[16px]'
+									onClick={handleCheckout}
+								>
+									Payment
+								</button>
+							</div>
+						</div>
+					)}
+				</div>
 			</div>
 		</div>
 	);
