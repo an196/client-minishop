@@ -1,4 +1,5 @@
-import React from 'react';
+import dynamic from 'next/dynamic';
+
 import backgroundImg from '../assets/headphone.jpg';
 import { useForm } from 'react-hook-form';
 import { SiShopware } from 'react-icons/si';
@@ -42,7 +43,7 @@ function Login() {
 			} else if (err.originalStatus === 400) {
 				toast.error('Missing Username or Password');
 			} else if (err.originalStatus === 401) {
-				toast.error('Unauthorized');
+				toast.error('Username or Password are wrong');
 			} else {
 				toast.error('Login Failed');
 			}
