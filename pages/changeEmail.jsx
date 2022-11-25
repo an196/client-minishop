@@ -6,7 +6,7 @@ import { setEmail, setAction } from '../features/otp/otpSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
-import requiredauth from '../features/auth/requiredauth';
+import requiredAuth from '../features/auth/requiredAuth';
 
 function changeEmail() {
 	const userInfo = useSelector(selectCurrentUser);
@@ -62,4 +62,4 @@ changeEmail.getLayout = function getLayout(page) {
 	return <Layout2>{page}</Layout2>;
 };
 
-export default  requiredauth(changeEmail);
+export default  requiredAuth(changeEmail);

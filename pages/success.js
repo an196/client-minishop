@@ -7,7 +7,7 @@ import Image from 'next/image';
 import { selectCurrentUser } from '../features/auth/authSlice';
 import { usePostOrderMutation } from '../features/order/orderApiSlice';
 import { useSelector  } from 'react-redux';
-import requiredauth from '../features/auth/requiredauth';
+import requiredAuth from '../features/auth/requiredAuth';
 
 function Success() {
 	const userInfo = useSelector(selectCurrentUser);
@@ -71,4 +71,4 @@ function Success() {
 	);
 }
 
-export default requiredauth(Success);
+export default requiredAuth(Success);
