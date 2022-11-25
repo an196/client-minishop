@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import Link from 'next/link';
 import { BsBagCheckFill } from 'react-icons/bs';
 import { runFireworks } from '../lib/utils';
-import successImage from '../assets/high_five.jpg';
+import successImage from '../assets/high-five.jpg';
 import Image from 'next/image';
 import { selectCurrentUser } from '../features/auth/authSlice';
 import { usePostOrderMutation } from '../features/order/orderApiSlice';
